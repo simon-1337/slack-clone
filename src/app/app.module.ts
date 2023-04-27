@@ -9,20 +9,22 @@ import { provideAuth,getAuth } from '@angular/fire/auth';
 import { provideDatabase,getDatabase } from '@angular/fire/database';
 import { provideFirestore,getFirestore } from '@angular/fire/firestore';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {MatIconModule} from '@angular/material/icon';
+import { MatIconModule } from '@angular/material/icon';
 import { HeaderComponent } from './header/header.component';
 import { SidenavComponent } from './sidenav/sidenav.component';
-import {MatCardModule} from '@angular/material/card';
-import {MatMenuModule} from '@angular/material/menu';
-import {MatInputModule} from '@angular/material/input';
+import { MatCardModule } from '@angular/material/card';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { StartScreenComponent } from './start-screen/start-screen.component';
 import { LogInComponent } from './log-in/log-in.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import {MatButtonModule} from '@angular/material/button';
+import { MatButtonModule } from '@angular/material/button';
 import { SingInComponent } from './sing-in/sing-in.component';
 import { MatListModule } from '@angular/material/list';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { ChannelComponent } from './channel/channel.component';
+import { ThreadComponent } from './thread/thread.component';
 
 
 
@@ -35,7 +37,9 @@ import { MatSidenavModule } from '@angular/material/sidenav';
     SidenavComponent,
     StartScreenComponent,
     LogInComponent,
-    SingInComponent
+    SingInComponent,
+    ChannelComponent,
+    ThreadComponent
   ],
   imports: [
     BrowserModule,

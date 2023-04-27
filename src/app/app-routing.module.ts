@@ -2,10 +2,40 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { SingInComponent } from './sing-in/sing-in.component';
 import { LogInComponent } from './log-in/log-in.component';
+import { StartScreenComponent } from './start-screen/start-screen.component';
+import { ChannelComponent } from './channel/channel.component';
+import { ThreadComponent } from './thread/thread.component';
 
 const routes: Routes = [
-  {path: '', component: LogInComponent},
-  {path: 'sing-in', component: SingInComponent},
+  {
+    path: '',
+    redirectTo: 'login',
+    pathMatch: 'full'
+  },
+  {
+    path: 'sing-in', 
+    component: SingInComponent
+  },
+  {
+    path: 'login',
+    component: LogInComponent,
+  },
+  {
+    path: 'app',
+    component: StartScreenComponent,
+    children: [
+      {
+        path: '',
+        component: ThreadComponent,
+        outlet: 'chats'
+      },
+      {
+        path: 'channel',
+        component: ChannelComponent,
+        outlet: 'chats'
+      }
+    ]
+  }
 ];
 
 @NgModule({
