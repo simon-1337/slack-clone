@@ -19,6 +19,8 @@ import { MatFormFieldModule } from "@angular/material/form-field";
 import { StartScreenComponent } from './start-screen/start-screen.component';
 import { LogInComponent } from './log-in/log-in.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import {MatButtonModule} from '@angular/material/button';
+import { SingInComponent } from './sing-in/sing-in.component';
 
 
 
@@ -28,7 +30,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     HeaderComponent,
     SidenavComponent,
     StartScreenComponent,
-    LogInComponent
+    LogInComponent,
+    SingInComponent
   ],
   imports: [
     BrowserModule,
@@ -43,7 +46,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatMenuModule,
     MatInputModule,
     MatFormFieldModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatButtonModule
   ],
   providers: [],
   bootstrap: [AppComponent]
