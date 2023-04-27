@@ -19,6 +19,10 @@ import { MatFormFieldModule } from "@angular/material/form-field";
 import { StartScreenComponent } from './start-screen/start-screen.component';
 import { LogInComponent } from './log-in/log-in.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { MatListModule } from '@angular/material/list';
+import { MatSidenavModule } from '@angular/material/sidenav';
+
+
 
 
 
@@ -43,7 +47,9 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatMenuModule,
     MatInputModule,
     MatFormFieldModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatListModule,
+    MatSidenavModule
   ],
   providers: [],
   bootstrap: [AppComponent]

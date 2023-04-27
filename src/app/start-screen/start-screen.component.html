@@ -1,3 +1,12 @@
 <app-header></app-header>
-<app-sidenav></app-sidenav>
-<router-outlet></router-outlet>
+
+<mat-drawer-container autosize>
+    <mat-drawer #drawer class="sidenav" [opened]="true" mode="side">
+        <app-sidenav></app-sidenav>
+    </mat-drawer>
+    
+    <div class="router-ctn">
+        <router-outlet></router-outlet>
+    </div>
+
+</mat-drawer-container>
