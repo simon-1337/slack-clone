@@ -19,15 +19,12 @@ import { MatFormFieldModule } from "@angular/material/form-field";
 import { StartScreenComponent } from './start-screen/start-screen.component';
 import { LogInComponent } from './log-in/log-in.component';
 import { ReactiveFormsModule } from '@angular/forms';
-<<<<<<< HEAD
 import {MatButtonModule} from '@angular/material/button';
 import { SingInComponent } from './sing-in/sing-in.component';
-=======
 import { MatListModule } from '@angular/material/list';
 import { MatSidenavModule } from '@angular/material/sidenav';
 
 
->>>>>>> f6bb75fa73a51ba48c2e3f9479b45cbe91c476ed
 
 
 
@@ -54,12 +51,9 @@ import { MatSidenavModule } from '@angular/material/sidenav';
     MatInputModule,
     MatFormFieldModule,
     ReactiveFormsModule,
-<<<<<<< HEAD
-    MatButtonModule
-=======
+    MatButtonModule,
     MatListModule,
     MatSidenavModule
->>>>>>> f6bb75fa73a51ba48c2e3f9479b45cbe91c476ed
   ],
   providers: [],
   bootstrap: [AppComponent]
