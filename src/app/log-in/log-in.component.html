@@ -1,0 +1,38 @@
+<div class="log-in-div">
+    <div class="logo-div">
+        <img src="../assets/img/slack-logo.png">
+        <h1>Slack-Clone</h1>
+    </div>
+
+
+
+    <div class="input-div">
+        <h2>Sign In - Enter your E-Mail & Password</h2>
+
+        <form class="example-form form">
+            <mat-form-field class="example-full-width input-email">
+                <mat-label>Email</mat-label>
+                <input type="email" matInput [formControl]="emailFormControl" placeholder="Ex. pat@example.com">
+                <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+                    Please enter a valid email address
+                </mat-error>
+                <mat-error *ngIf="emailFormControl.hasError('required')">
+                    Email is <strong>required</strong>
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="example-full-width input-email">
+                <mat-label>Password</mat-label>
+                <input matInput [type]="hide ? 'password' : 'text'" placeholder="Enter your password" [formControl]="passwordFormControl">
+                <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="hide ? 'Hide password' : 'Show password'">
+                    <mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
+                </button>
+                <mat-error *ngIf="passwordFormControl.hasError('required')">
+                    Password is <strong>required</strong>
+                </mat-error>
+            </mat-form-field>
+
+        </form>
+    </div>
+
+</div>
