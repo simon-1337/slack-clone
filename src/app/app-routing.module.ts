@@ -9,11 +9,7 @@ import { ChannelComponent } from './channel/channel.component';
 import { ThreadComponent } from './thread/thread.component';
 
 const routes: Routes = [
-  {path: '', component: LogInComponent},
-  {path: 'sing-in', component: SingInComponent},
-  {path: 'start-screen', component: StartScreenComponent},
-  {path: 'forgot-password', component: ForgotPasswordComponent},
-  {path: 'varify-email', component: VarifyEmailComponent},
+  // {path: 'start-screen', component: StartScreenComponent},
 
   {
     path: '',
@@ -27,6 +23,14 @@ const routes: Routes = [
   {
     path: 'login',
     component: LogInComponent,
+  },
+  {
+    path: 'forgot-password', 
+    component: ForgotPasswordComponent
+  },
+  {
+    path: 'varify-email', 
+    component: VarifyEmailComponent
   },
   {
     path: 'app',
