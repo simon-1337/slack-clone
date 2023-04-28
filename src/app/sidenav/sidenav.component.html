@@ -2,7 +2,13 @@
     WALDEMAR & SIMON
 </div>
 
+
 <ul class="menu-items">
-    <li routerLink="/user"><mat-icon>tag</mat-icon>general</li>
-    <li routerLink="/" routerLinkActive="router-link-active"><mat-icon>tag</mat-icon>angular</li>
+    <li routerLink="/app" routerLinkActive="active"><mat-icon>send</mat-icon>Threads</li>
+</ul>
+
+
+<ul class="menu-items">
+    <span>Channels</span>
+    <li [routerLink]="['/app', { outlets: { chats: ['channel'] } }]" routerLinkActive="active"><mat-icon>tag</mat-icon>general</li>
 </ul>
