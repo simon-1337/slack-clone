@@ -12,7 +12,7 @@
         <form class="example-form form">
             <mat-form-field class="example-full-width input-email">
                 <mat-label>Email</mat-label>
-                <input type="email" matInput [formControl]="emailFormControl" placeholder="Ex. pat@example.com">
+                <input type="email" matInput [formControl]="emailFormControl" [(ngModel)]="mail" placeholder="Ex. pat@example.com">
                 <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
                     Please enter a valid email address
                 </mat-error>
@@ -21,11 +21,11 @@
                 </mat-error>
             </mat-form-field>
 
-            <mat-form-field class="example-full-width input-email">
+            <mat-form-field class="example-full-width input-email" ngNoForm>
                 <mat-label>Password</mat-label>
-                <input matInput [type]="hide ? 'password' : 'text'" placeholder="Enter your password" [formControl]="passwordFormControl">
-                <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="hide ? 'Hide password' : 'Show password'">
-                    <mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
+                <input matInput [type]="hidden ? 'password' : 'text'" [(ngModel)]="password" placeholder="Enter your password" [formControl]="passwordFormControl">
+                <button mat-icon-button matSuffix (click)="hidden = !hidden" [attr.aria-label]="hidden ? 'Hide password' : 'Show password'">
+                    <mat-icon>{{ hidden ? 'visibility_off' : 'visibility' }}</mat-icon>
                 </button>
                 <mat-error *ngIf="passwordFormControl.hasError('required')">
                     Password is <strong>required</strong>
@@ -34,7 +34,7 @@
 
             <div class="button-log-in-div">
 
-                <button routerLink="/" routerLinkActive="router-link-active" class="log-in-button" mat-flat-button color="primary">Log In</button>
+                <button routerLink="/" routerLinkActive="router-link-active" (click)="login()" class="log-in-button" mat-flat-button color="primary">Log In</button>
 
                 <button class="log-in-button" mat-flat-button color="primary">Guest Log In</button>
 
@@ -43,6 +43,8 @@
                 <button routerLink="/sing-in" routerLinkActive="router-link-active" class="log-in-button" mat-flat-button color="primary">Sing Up</button>
 
             </div>
+
+            <a routerLink="/forgot-password">Forgot my possword</a>
 
         </form>
     </div>

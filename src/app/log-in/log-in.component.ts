@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
+import { AuthService } from '../shared/auth.service';
+
 
 @Component({
   selector: 'app-log-in',
@@ -7,6 +9,11 @@ import { FormControl, Validators } from '@angular/forms';
   styleUrls: ['./log-in.component.scss']
 })
 export class LogInComponent implements OnInit {
+
+  hidden = true;
+  mail : string = '';
+  password : string = '';
+
   emailFormControl = new FormControl('', [
     Validators.required,
     Validators.email,
@@ -15,13 +22,34 @@ export class LogInComponent implements OnInit {
   passwordFormControl = new FormControl('', [
     Validators.required
   ]);
-  hide = true;
+ 
+
+  togglePasswordVisibility() {
+    this.hidden = !this.hidden;
+  }
+
+  constructor(private auth : AuthService) {}
 
   ngOnInit(): void {
 
   }
 
-  togglePasswordVisibility() {
-    this.hide = !this.hide;
+  login() {
+    if (this.mail == '') {
+      alert('Please enter your email');
+    
+      return;
+    }
+
+    if (this.password == '') {
+      alert('Please enter your password');
+      return;
+    }
+
+    this.auth.login(this.mail, this.password);
+    this.mail = '';
+    this.password = '';
   }
+
+ 
 }

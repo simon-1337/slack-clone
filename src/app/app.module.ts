@@ -18,16 +18,16 @@ import {MatInputModule} from '@angular/material/input';
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { StartScreenComponent } from './start-screen/start-screen.component';
 import { LogInComponent } from './log-in/log-in.component';
-import { ReactiveFormsModule } from '@angular/forms';
-<<<<<<< HEAD
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {MatButtonModule} from '@angular/material/button';
 import { SingInComponent } from './sing-in/sing-in.component';
-=======
 import { MatListModule } from '@angular/material/list';
 import { MatSidenavModule } from '@angular/material/sidenav';
-
-
->>>>>>> f6bb75fa73a51ba48c2e3f9479b45cbe91c476ed
+import { AngularFireModule } from '@angular/fire/compat';
+import { FIREBASE_OPTIONS } from '@angular/fire/compat';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { VarifyEmailComponent } from './varify-email/varify-email.component';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 
 
@@ -38,7 +38,9 @@ import { MatSidenavModule } from '@angular/material/sidenav';
     SidenavComponent,
     StartScreenComponent,
     LogInComponent,
-    SingInComponent
+    SingInComponent,
+    ForgotPasswordComponent,
+    VarifyEmailComponent
   ],
   imports: [
     BrowserModule,
@@ -54,14 +56,18 @@ import { MatSidenavModule } from '@angular/material/sidenav';
     MatInputModule,
     MatFormFieldModule,
     ReactiveFormsModule,
-<<<<<<< HEAD
-    MatButtonModule
-=======
+    MatButtonModule,
     MatListModule,
-    MatSidenavModule
->>>>>>> f6bb75fa73a51ba48c2e3f9479b45cbe91c476ed
+    MatSidenavModule,
+    FormsModule,
+    AngularFireModule,
+    MatSnackBarModule
+
   ],
-  providers: [],
+  providers: [
+    { provide: FIREBASE_OPTIONS, useValue: environment.firebase }
+  ],
+  
   bootstrap: [AppComponent]
 })
 export class AppModule { }

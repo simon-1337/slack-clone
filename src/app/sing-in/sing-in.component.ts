@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
+import { AuthService } from '../shared/auth.service';
 
 @Component({
   selector: 'app-sing-in',
@@ -7,6 +8,12 @@ import { FormControl, Validators } from '@angular/forms';
   styleUrls: ['./sing-in.component.scss']
 })
 export class SingInComponent implements OnInit {
+
+  hide = true;
+  mail : string = '';
+  password : string = '';
+  name : string = '';
+
   emailFormControl = new FormControl('', [
     Validators.required,
     Validators.email,
@@ -15,13 +22,39 @@ export class SingInComponent implements OnInit {
   passwordFormControl = new FormControl('', [
     Validators.required
   ]);
-  hide = true;
+
+  togglePasswordVisibility() {
+    this.hide = !this.hide;
+  }
+
 
   ngOnInit(): void {
 
   }
 
-  togglePasswordVisibility() {
-    this.hide = !this.hide;
+  constructor(private auth : AuthService) {}
+
+  
+  register() {
+    if (this.mail == '') {
+      alert('Please enter your email');
+      return;
+    }
+
+    if (this.password == '') {
+      alert('Please enter your password');
+      return;
+    }
+
+    // if (this.name == '') {
+    //   alert('Please enter your name');
+    //   return;
+    // }
+
+
+    this.auth.register(this.mail, this.password);
+    this.mail = '';
+    this.password = '';
+   
   }
 }

@@ -7,5 +7,5 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'slack-clone';
-  logIn = true;
+  logIn = false;
 }

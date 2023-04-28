@@ -12,7 +12,7 @@
         <form class="example-form form">
             <mat-form-field class="example-full-width input-email">
                 <mat-label>Name</mat-label>
-                <input type="email" matInput [formControl]="emailFormControl" placeholder="Max Musstermann">
+                <input type="email" matInput [formControl]="emailFormControl" [(ngModel)]="name" placeholder="Max Musstermann">
                 <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
                     Please enter a valid Name
                 </mat-error>
@@ -23,7 +23,7 @@
 
             <mat-form-field class="example-full-width input-email">
                 <mat-label>Email</mat-label>
-                <input type="email" matInput [formControl]="emailFormControl" placeholder="Ex. pat@example.com">
+                <input type="email" matInput [formControl]="emailFormControl" [(ngModel)]="mail" placeholder="Ex. pat@example.com">
                 <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
                     Please enter a valid email address
                 </mat-error>
@@ -34,7 +34,7 @@
 
             <mat-form-field class="example-full-width input-email">
                 <mat-label>Password</mat-label>
-                <input matInput [type]="hide ? 'password' : 'text'" placeholder="Enter your password" [formControl]="passwordFormControl">
+                <input matInput [type]="hide ? 'password' : 'text'" [(ngModel)]="password" placeholder="Enter your password" [formControl]="passwordFormControl">
                 <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="hide ? 'Hide password' : 'Show password'">
                     <mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
                 </button>
@@ -45,8 +45,9 @@
 
             <div class="button-log-in-div">
 
-                <button routerLink="/sing-in" routerLinkActive="router-link-active" class="log-in-button" mat-flat-button color="primary">Sing Up</button>
+                <button routerLink="/sing-in" (click)="register()" routerLinkActive="router-link-active" class="log-in-button" mat-flat-button color="primary">Sing Up</button>
 
+                <button routerLink="/" routerLinkActive="router-link-active" class="log-in-button" mat-flat-button color="primary">Log In</button>
             </div>
 
         </form>

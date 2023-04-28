@@ -1,17 +1,5 @@
 <div class="header-div">
-    <img [matMenuTriggerFor]="menu" src="../assets/img/menu-4-32 (2).png">
-
-    <mat-menu #menu="matMenu">
-        <button mat-menu-item>Item 1</button>
-        <button mat-menu-item>Item 2</button>
-    </mat-menu>
-
-    <!-- <div class="arrow-div">
-        <img src="../assets/img/arrow-121-32.png">
-        <img src="../assets/img/arrow-20-32.png">
-    </div> -->
-
-    <!-- <img src="../assets/img/time-8-32.png"> -->
+    <img src="../assets/img/menu-4-32 (2).png">
 
     <div class="search-div">
         <input>
@@ -21,7 +9,12 @@
 
     <div class="header-info-div">
 
-        <img class="header-profile" src="../assets/img/profile.webp">
+        <img [matMenuTriggerFor]="menu" class="header-profile" src="../assets/img/profile.webp">
     </div>
+
+    <mat-menu #menu="matMenu">
+        <button (click)="logOut()" mat-menu-item>Log out</button>
+
+    </mat-menu>
 
 </div>
