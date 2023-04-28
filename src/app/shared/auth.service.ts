@@ -21,12 +21,16 @@ export class AuthService {
       // } else {
       //   this.router.navigate(['/varify-email']);
       // }
-    }, err => {
+    }/* , err => {
       this.snackBar.open('Anmeldung fehlgeschlagen. Bitte überprüfen Sie Ihre E-Mail und Ihr Passwort.', 'OK', {
         duration: 5000 // 5 seconds
       });
       this.router.navigate(['/']);
-    })
+    } */)
+    .catch((error) => {
+      console.log(error)
+    }
+    )
   }
 
     //register Method
@@ -36,6 +40,9 @@ export class AuthService {
           this.sendEmailForVaryfycation(res.user)
       }, err => {
           this.router.navigate(['/']);
+      })
+      .catch((error) => {
+        console.log(error)
       })
   }
   
@@ -48,6 +55,9 @@ export class AuthService {
       }, err => {
    
       })
+      .catch((error) => {
+        console.log(error)
+      })
     }
 
     // forgot password
@@ -57,6 +67,9 @@ export class AuthService {
       }, err => {
         // alert('Somethink is wrong')
       })
+      .catch((error) => {
+        console.log(error)
+      })
     }
 
     // mail varifycation
@@ -65,6 +78,9 @@ export class AuthService {
         this.router.navigate(['/varify-email'])
       }, (err: any) => {
         alert('Something is wrong. Not abel to send mail to your email')
+      })
+      .catch((error) => {
+        console.log(error)
       })
     }
 }
