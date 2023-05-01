@@ -30,6 +30,9 @@ import { VarifyEmailComponent } from './varify-email/varify-email.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { ChannelComponent } from './channel/channel.component';
 import { ThreadComponent } from './thread/thread.component';
+import {MatDialogModule} from '@angular/material/dialog';
+import { DialogCreateChannelComponent } from './dialog-create-channel/dialog-create-channel.component';
+
 
 
 
@@ -47,6 +50,7 @@ import { ThreadComponent } from './thread/thread.component';
     VarifyEmailComponent,
     ChannelComponent,
     ThreadComponent,
+    DialogCreateChannelComponent,
   ],
   imports: [
     BrowserModule,
@@ -67,8 +71,8 @@ import { ThreadComponent } from './thread/thread.component';
     MatSidenavModule,
     FormsModule,
     AngularFireModule,
-    MatSnackBarModule
-
+    MatSnackBarModule,
+    MatDialogModule
   ],
   providers: [
     { provide: FIREBASE_OPTIONS, useValue: environment.firebase }

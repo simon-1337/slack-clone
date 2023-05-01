@@ -9,6 +9,7 @@
 </div>
 
 <div class="lower-sidenav">
+
     <div class="small-headline">
         <mat-icon class="first-icon">arrow_drop_down</mat-icon>
         <div class="small-headline-right-ctn">
@@ -16,13 +17,19 @@
             <mat-icon>expand_more</mat-icon>
         </div>
     </div>
+
     <ul class="menu-items">
         <li [routerLink]="['/app', { outlets: { chats: ['channel'] } }]" routerLinkActive="active">
             <div class="menu-items-icon-ctn">
                 <mat-icon>tag</mat-icon>
             </div>
             <span>general</span> 
-        </li>
-            
+        </li>  
     </ul>
+
+    <div (click)="openDialog()" class="add-channel">
+        <mat-icon>add</mat-icon>
+        <span>Create new channel</span>
+    </div>
+
 </div>

@@ -36,6 +36,7 @@
             align-items: center;
             justify-content: center;
             margin-right: 6px;
+            font-size: 18px;
         }
 
         &:hover {
@@ -98,4 +99,26 @@
 .upper-sidenav {
     padding-top: 8px;
     padding-bottom: 8px;
+}
+
+.add-channel {
+    color: white;
+    display: flex;
+    align-items: center;
+    padding-left: 16px;
+    padding-right: 16px;
+    height: 32px;
+    cursor: pointer;
+
+    mat-icon {
+        height: 28px;
+        width: 28px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 6px;
+        font-size: 18px;
+        border-radius: 8px;
+        background-color: #27242C;
+    }
 }
