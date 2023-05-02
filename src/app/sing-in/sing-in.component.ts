@@ -15,9 +15,10 @@ export class SingInComponent implements OnInit {
   user = new User();
 
   hide = true;
-  mail : string = '';
-  password : string = '';
-  name : string = '';
+  mail = '';
+  password = '';
+  name = '';
+  id = '';
 
   emailFormControl = new FormControl('', [
     Validators.required,
@@ -45,12 +46,16 @@ export class SingInComponent implements OnInit {
     this.user.mail = this.mail;
     this.user.password = this.password;
 
-    this.firestore
+    
+    debugger
+   this.firestore
     .collection('users')
     .add(this.user.toJSON())
     .then((result: any) => {
       console.log('Adding user finished', result);
-     
+      this.user.id = result.id
+      console.log('User ID:', this.user.id);
+      debugger
     })
 
     if (this.emailFormControl.invalid) {
