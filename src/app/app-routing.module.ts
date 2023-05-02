@@ -42,7 +42,7 @@ const routes: Routes = [
         outlet: 'chats'
       },
       {
-        path: 'channel',
+        path: 'channel/:id',
         component: ChannelComponent,
         outlet: 'chats'
       }

@@ -19,11 +19,11 @@
     </div>
 
     <ul class="menu-items">
-        <li [routerLink]="['/app', { outlets: { chats: ['channel'] } }]" routerLinkActive="active">
+        <li *ngFor="let channel of allChannels" [routerLink]="['/app', { outlets: { chats: ['channel', channel.id]} }]" routerLinkActive="active">
             <div class="menu-items-icon-ctn">
                 <mat-icon>tag</mat-icon>
             </div>
-            <span>general</span> 
+            <span>{{ channel.channelName }}</span> 
         </li>  
     </ul>
 
