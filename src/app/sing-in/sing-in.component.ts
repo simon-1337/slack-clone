@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { AuthService } from '../shared/auth.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { User } from 'src/models/user.class';
+import { AngularFirestore } from '@angular/fire/compat/firestore/';
 
 @Component({
   selector: 'app-sing-in',
@@ -9,6 +12,8 @@ import { AuthService } from '../shared/auth.service';
 })
 export class SingInComponent implements OnInit {
 
+  user = new User();
+
   hide = true;
   mail : string = '';
   password : string = '';
@@ -16,11 +21,12 @@ export class SingInComponent implements OnInit {
 
   emailFormControl = new FormControl('', [
     Validators.required,
-    Validators.email,
+    Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$'),
   ]);
 
   passwordFormControl = new FormControl('', [
-    Validators.required
+    Validators.required,
+    Validators.minLength(6)
   ]);
 
   togglePasswordVisibility() {
@@ -32,29 +38,52 @@ export class SingInComponent implements OnInit {
 
   }
 
-  constructor(private auth : AuthService) {}
+  constructor(private auth : AuthService, private snackBar: MatSnackBar, private firestore: AngularFirestore) {}
 
-  
   register() {
-    if (this.mail == '') {
-      alert('Please enter your email');
+    this.user.name = this.name;
+    this.user.mail = this.mail;
+    this.user.password = this.password;
+
+    this.firestore
+    .collection('users')
+    .add(this.user.toJSON())
+    .then((result: any) => {
+      console.log('Adding user finished', result);
+     
+    })
+
+    if (this.emailFormControl.invalid) {
+      this.snackBar.open('Please enter a valid email address', 'OK', {
+        duration: 5000 // 5 seconds
+      });
       return;
     }
-
-    if (this.password == '') {
-      alert('Please enter your password');
+    
+    if (this.passwordFormControl.invalid) {
+      this.snackBar.open('Please enter a password that is at least 6 characters long.', 'OK', {
+        duration: 5000 // 5 seconds
+      });
       return;
     }
-
-    // if (this.name == '') {
-    //   alert('Please enter your name');
-    //   return;
-    // }
-
+   
+    if (this.emailFormControl.invalid) {
+      this.snackBar.open('Please enter your name.', 'OK', {
+        duration: 5000 // 5 seconds
+      });
+      return;
+    }
 
     this.auth.register(this.mail, this.password);
     this.mail = '';
     this.password = '';
-   
+    this.name = '';
   }
+
+
+  // onSubmit(event) {
+  //   event.preventDefault();
+  //   this. register();
+
+  // }
 }

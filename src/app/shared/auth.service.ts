@@ -10,41 +10,42 @@ export class AuthService {
 
   constructor(private fireauth : AngularFireAuth, private router : Router, private snackBar: MatSnackBar) { }
 
-  //log in Method
-  login(mail: string, password: string) {
-    this.fireauth.signInWithEmailAndPassword(mail,password).then( res => {
-      localStorage.setItem('token', 'true');
-      this.router.navigate(['/app']);
-
-      // if (res.user?.emailVerified == true ) {
-      //   this.router.navigate(['/start-screen']);
-      // } else {
-      //   this.router.navigate(['/varify-email']);
-      // }
-    }/* , err => {
-      this.snackBar.open('Anmeldung fehlgeschlagen. Bitte überprüfen Sie Ihre E-Mail und Ihr Passwort.', 'OK', {
-        duration: 5000 // 5 seconds
-      });
-      this.router.navigate(['/']);
-    } */)
-    .catch((error) => {
-      console.log(error)
+    //log in Method
+    login(mail: string, password: string) {
+      try {
+        this.fireauth.signInWithEmailAndPassword(mail,password).then( res => {
+          localStorage.setItem('token', 'true');
+          this.router.navigate(['/app']);
+    
+          // if (res.user?.emailVerified == true ) {
+          //   this.router.navigate(['/start-screen']);
+          // } else {
+          //   this.router.navigate(['/varify-email']);
+          // }
+        }, err => {
+          this.snackBar.open('Anmeldung fehlgeschlagen. Bitte überprüfen Sie Ihre E-Mail und Ihr Passwort.', 'OK', {
+            duration: 5000 // 5 seconds
+          });
+          this.router.navigate(['/']);
+        })
+        } catch (err) {
+        // Handle the error here
+          console.error(err);
+      }
     }
-    )
-  }
 
     //register Method
     register(mail: string, password: string) {
       this.fireauth.createUserWithEmailAndPassword(mail, password).then( res => {
           this.router.navigate(['/']);
-          this.sendEmailForVaryfycation(res.user)
+          // this.sendEmailForVaryfycation(res.user)
       }, err => {
           this.router.navigate(['/']);
       })
-      .catch((error) => {
-        console.log(error)
-      })
-  }
+    } catch (err) {
+      // Handle the error here
+      console.error(err);
+    }
   
 
     // sign out
@@ -82,5 +83,10 @@ export class AuthService {
       .catch((error) => {
         console.log(error)
       })
+    }
+
+    async getUserId(): Promise<string | null> {
+      const user = await this.fireauth.currentUser;
+      return user?.uid ?? null;
     }
 }

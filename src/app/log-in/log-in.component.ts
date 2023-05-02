@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { AuthService } from '../shared/auth.service';
-
+import { AngularFirestore } from '@angular/fire/compat/firestore/';
 
 @Component({
   selector: 'app-log-in',
@@ -16,11 +16,11 @@ export class LogInComponent implements OnInit {
 
   emailFormControl = new FormControl('', [
     Validators.required,
-    Validators.email,
+    Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$'),
   ]);
 
   passwordFormControl = new FormControl('', [
-    Validators.required
+    Validators.minLength(6)
   ]);
  
 
@@ -28,27 +28,28 @@ export class LogInComponent implements OnInit {
     this.hidden = !this.hidden;
   }
 
-  constructor(private auth : AuthService) {}
+  constructor(private auth : AuthService, private firestore: AngularFirestore) {}
 
   ngOnInit(): void {
 
   }
 
   login() {
-    if (this.mail == '') {
-      alert('Please enter your email');
-    
+    if (this.emailFormControl.invalid) {
+      alert('Please enter a valid email address');
       return;
     }
 
-    if (this.password == '') {
-      alert('Please enter your password');
+    if (this.passwordFormControl.invalid) {
+      alert('Please enter a password that is at least 6 characters long');
       return;
     }
 
-    this.auth.login(this.mail, this.password);
+    this.auth.login(this.mail, this.password)
     this.mail = '';
     this.password = '';
+
+   
   }
 
  
