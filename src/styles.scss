@@ -14,3 +14,16 @@ body {
 .mat-mdc-text-field-wrapper .mat-mdc-form-field-flex .mat-mdc-floating-label {
     top: 24px !important;
 }
+
+
+.headline-ctn {
+    border-bottom: 1px solid #2B2A2F;
+    padding-left: 16px;
+    padding-right: 16px;
+    min-height: 56px;
+    display: flex;
+    align-items: center;
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
+}

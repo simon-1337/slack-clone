@@ -1,36 +1,51 @@
 import { Component, OnInit } from '@angular/core';
-import { CollectionReference, DocumentData, Firestore, collection, doc, docData } from '@angular/fire/firestore';
+import { CollectionReference, DocumentData, Firestore, collection, collectionData, doc, docData } from '@angular/fire/firestore';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
+import { Channel } from 'src/models/channel.class';
+import { Message } from 'src/models/message.class';
 
 @Component({
-  selector: 'app-channel',
-  templateUrl: './channel.component.html',
-  styleUrls: ['./channel.component.scss']
+   selector: 'app-channel',
+   templateUrl: './channel.component.html',
+   styleUrls: ['./channel.component.scss']
 })
-export class ChannelComponent implements OnInit{
-//   channelId = '';
-//   private coll: CollectionReference<DocumentData>;
-//   docRef: any;
-//   channels$: Observable<any>;
+export class ChannelComponent implements OnInit {
+   channel: Channel = new Channel;
+   messages: Message[] = [];
+   channelId = '';
+   private coll: CollectionReference<DocumentData>;
+   docRef: any;
+   channels$: Observable<any>;
+   messages$: Observable<any>;
 
-//   constructor(private route: ActivatedRoute, private firestore: Firestore) {
-//     this.coll = collection(this.firestore, 'users');
-//   }
-
-   ngOnInit(): void {
-//     this.route.paramMap.subscribe(paramMap => {
-//       this.channelId = paramMap.get('id').trim();
-//       this.getChannel();
-//     });
+   constructor(private route: ActivatedRoute, private firestore: Firestore) {
+      this.coll = collection(this.firestore, 'channels');
    }
 
-//   getChannel() {
-//     this.docRef = doc(this.coll, this.userId);
-//     this.channel$ = docData(this.docRef);
-//     this.channel$.subscribe(user => {
-//       // Update the local user object with the retrieved data
-//       this.user = new User(user);
-//     });
-//   }
+   ngOnInit(): void {
+      this.route.paramMap.subscribe(paramMap => {
+         this.channelId = paramMap.get('id').trim();
+         console.log(this.channelId)
+         this.getChannel();
+         this.getMessages();
+         console.log(this.channel);
+      });
+   }
+
+   getChannel() {
+      this.docRef = doc(this.coll, this.channelId);
+      this.channels$ = docData(this.docRef);
+      this.channels$.subscribe( change => {
+         this.channel = new Channel(change);         
+      });
+   }
+
+   getMessages() {
+      const messagesRef = collection(doc(this.coll, this.channelId), 'messages');
+      this.messages$ = collectionData(messagesRef);
+      this.messages$.subscribe(messages => {
+        this.channel.messages = messages.map(message => new Message(message));
+      });
+    }
 }
