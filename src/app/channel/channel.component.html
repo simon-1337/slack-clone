@@ -2,3 +2,7 @@
     <mat-icon>tag</mat-icon>
     {{ channel.channelName }}
 </div>
+
+<div *ngFor="let message of messages; index as i">
+    {{messages[i]['message']}}
+</div>
