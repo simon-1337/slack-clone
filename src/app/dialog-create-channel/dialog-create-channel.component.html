@@ -3,10 +3,10 @@
     <p>What should be the name of the channel?</p>
     <mat-form-field appearance="outline">
         <mat-label>Channel name</mat-label>
-        <input matInput>
+        <input [(ngModel)]="channel.channelName" matInput>
     </mat-form-field>
 </div>
 <div mat-dialog-actions>
     <button mat-button (click)="onNoClick()">No Thanks</button>
-    <button mat-button>Ok</button>
+    <button mat-button (click)="saveChannel()">Ok</button>
 </div>

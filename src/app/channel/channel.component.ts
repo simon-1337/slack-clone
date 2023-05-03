@@ -29,7 +29,6 @@ export class ChannelComponent implements OnInit {
          console.log(this.channelId)
          this.getChannel();
          this.getMessages();
-         console.log(this.channel);
       });
    }
 
@@ -37,7 +36,8 @@ export class ChannelComponent implements OnInit {
       this.docRef = doc(this.coll, this.channelId);
       this.channels$ = docData(this.docRef);
       this.channels$.subscribe( change => {
-         this.channel = new Channel(change);         
+         this.channel = new Channel(change); 
+         console.log(this.channel);        
       });
    }
 
@@ -45,7 +45,8 @@ export class ChannelComponent implements OnInit {
       const messagesRef = collection(doc(this.coll, this.channelId), 'messages');
       this.messages$ = collectionData(messagesRef);
       this.messages$.subscribe(messages => {
-        this.channel.messages = messages.map(message => new Message(message));
+        this.messages = messages.map(message => new Message(message));
+        console.log(this.messages);
       });
     }
 }
