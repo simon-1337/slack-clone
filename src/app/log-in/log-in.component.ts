@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { AuthService } from '../shared/auth.service';
 import { AngularFirestore } from '@angular/fire/compat/firestore/';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-log-in',
@@ -28,7 +29,7 @@ export class LogInComponent implements OnInit {
     this.hidden = !this.hidden;
   }
 
-  constructor(private auth : AuthService, private firestore: AngularFirestore) {}
+  constructor(private auth : AuthService, private firestore: AngularFirestore, private snackBar: MatSnackBar) {}
 
   ngOnInit(): void {
 
@@ -36,12 +37,16 @@ export class LogInComponent implements OnInit {
 
   login() {
     if (this.emailFormControl.invalid) {
-      alert('Please enter a valid email address');
+      this.snackBar.open('Please enter a valid email address', 'OK', {
+        duration: 5000 // 5 seconds
+      });
       return;
     }
 
     if (this.passwordFormControl.invalid) {
-      alert('Please enter a password that is at least 6 characters long');
+      this.snackBar.open('Please enter a password that is at least 6 characters long.', 'OK', {
+        duration: 5000 // 5 seconds
+      });
       return;
     }
 

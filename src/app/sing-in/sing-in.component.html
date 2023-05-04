@@ -12,7 +12,7 @@
         <form class="example-form form">
             <mat-form-field class="example-full-width input-email">
                 <mat-label>Name</mat-label>
-                <input type="email" matInput [formControl]="emailFormControl" [(ngModel)]="name" placeholder="Max Musstermann" required>
+                <input type="email" matInput [formControl]="emailFormControl" [(ngModel)]="user.name" placeholder="Max Musstermann" required>
                 <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
                     Please enter a valid Name
                 </mat-error>
@@ -23,7 +23,7 @@
 
             <mat-form-field class="example-full-width input-email">
                 <mat-label>Email</mat-label>
-                <input type="email" matInput [formControl]="emailFormControl" [(ngModel)]="mail" placeholder="Ex. pat@example.com" required>
+                <input type="email" matInput [formControl]="emailFormControl" [(ngModel)]="user.mail" placeholder="Ex. pat@example.com" required>
                 <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
                     Please enter a valid email address
                 </mat-error>
@@ -35,7 +35,7 @@
 
             <mat-form-field class="example-full-width input-email">
                 <mat-label>Password</mat-label>
-                <input matInput [type]="hide ? 'password' : 'text'" [(ngModel)]="password" placeholder="Enter your password" [formControl]="passwordFormControl" required>
+                <input matInput [type]="hide ? 'password' : 'text'" [(ngModel)]="user.password" placeholder="Enter your password" [formControl]="passwordFormControl" required>
                 <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="hide ? 'Hide password' : 'Show password'">
                     <mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
                 </button>
