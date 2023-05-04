@@ -42,20 +42,18 @@ export class SingInComponent implements OnInit {
   constructor(private auth : AuthService, private snackBar: MatSnackBar, private firestore: AngularFirestore) {}
 
   register() {
-    this.user.name = this.name;
-    this.user.mail = this.mail;
-    this.user.password = this.password;
+    this.name = this.user.name;
+    this.mail = this.user.mail;
+    this.password = this.user.password;
 
-    
-    debugger
    this.firestore
     .collection('users')
     .add(this.user.toJSON())
     .then((result: any) => {
       console.log('Adding user finished', result);
-      this.user.id = result.id
+      this.user.id = result.id;
       console.log('User ID:', this.user.id);
-      debugger
+    
     })
 
     if (this.emailFormControl.invalid) {
