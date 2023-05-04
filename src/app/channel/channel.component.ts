@@ -18,6 +18,7 @@ export class ChannelComponent implements OnInit {
    docRef: any;
    channels$: Observable<any>;
    messages$: Observable<any>;
+   time: number;
 
    constructor(private route: ActivatedRoute, private firestore: Firestore) {
       this.coll = collection(this.firestore, 'channels');

@@ -1,0 +1,39 @@
+.example-avatar {
+    background-image: url('/assets/img/avatar.png');
+    background-size: cover;
+    border-radius: 8px;
+}
+
+.mat-card-ctn {
+    
+    mat-card {
+        flex-direction: row;
+        padding: 16px;
+        border-radius: 0px;
+        background-color: #1A1D21;
+        border: none;
+        box-shadow: none;
+
+        .mat-mdc-card-header {
+            padding: 0;
+            padding-left: 16px;
+        
+            h3 {
+                font-size: 18px;
+                font-weight: bold;
+                margin-bottom: 0;
+                line-height: 20px;
+            }
+
+            span {
+                margin-left: 8px;
+                font-size: 14px;
+                color: grey;
+            }
+        }
+
+        &:hover {
+            background-color: #222529;
+        }
+    }
+}
