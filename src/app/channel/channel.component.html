@@ -9,7 +9,8 @@
         <div class="mat-card-right">
             <mat-card-header>
                 <h3>{{ message['user'] }}</h3>
-                <span>{{ message['timestamp'] }}</span>
+                <span>{{ message['timestamp'] | date : "EEE, dd. MMMM yy" }}</span>
+                <span>{{ message['timestamp'] | date : "HH:mm" }}</span>
             </mat-card-header>
             <mat-card-content>
                 {{ message['message'] }}

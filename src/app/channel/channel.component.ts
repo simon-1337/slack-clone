@@ -33,9 +33,6 @@ export class ChannelComponent implements OnInit {
       });
    }
 
-
-
-
    getChannel() {
       this.docRef = doc(this.coll, this.channelId);
       this.channels$ = docData(this.docRef);
