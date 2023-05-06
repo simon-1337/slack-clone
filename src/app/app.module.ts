@@ -32,7 +32,8 @@ import { ChannelComponent } from './channel/channel.component';
 import { ThreadComponent } from './thread/thread.component';
 import {MatDialogModule} from '@angular/material/dialog';
 import { DialogCreateChannelComponent } from './dialog-create-channel/dialog-create-channel.component';
-
+import { QuillModule } from 'ngx-quill';
+import { EditorComponent } from './editor/editor.component'
 
 
 
@@ -51,6 +52,7 @@ import { DialogCreateChannelComponent } from './dialog-create-channel/dialog-cre
     ChannelComponent,
     ThreadComponent,
     DialogCreateChannelComponent,
+    EditorComponent,
   ],
   imports: [
     BrowserModule,
@@ -72,7 +74,8 @@ import { DialogCreateChannelComponent } from './dialog-create-channel/dialog-cre
     FormsModule,
     AngularFireModule,
     MatSnackBarModule,
-    MatDialogModule
+    MatDialogModule,
+    QuillModule.forRoot(),
   ],
   providers: [
     { provide: FIREBASE_OPTIONS, useValue: environment.firebase }

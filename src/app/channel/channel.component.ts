@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { Channel } from 'src/models/channel.class';
 import { Message } from 'src/models/message.class';
 
+
 @Component({
    selector: 'app-channel',
    templateUrl: './channel.component.html',
@@ -18,7 +19,6 @@ export class ChannelComponent implements OnInit {
    docRef: any;
    channels$: Observable<any>;
    messages$: Observable<any>;
-   time: number;
 
    constructor(private route: ActivatedRoute, private firestore: Firestore) {
       this.coll = collection(this.firestore, 'channels');
@@ -33,12 +33,15 @@ export class ChannelComponent implements OnInit {
       });
    }
 
+
+
+
    getChannel() {
       this.docRef = doc(this.coll, this.channelId);
       this.channels$ = docData(this.docRef);
-      this.channels$.subscribe( change => {
-         this.channel = new Channel(change); 
-         console.log(this.channel);        
+      this.channels$.subscribe(change => {
+         this.channel = new Channel(change);
+         console.log(this.channel);
       });
    }
 
@@ -46,8 +49,13 @@ export class ChannelComponent implements OnInit {
       const messagesRef = collection(doc(this.coll, this.channelId), 'messages');
       this.messages$ = collectionData(messagesRef);
       this.messages$.subscribe(messages => {
-        this.messages = messages.map(message => new Message(message));
-        console.log(this.messages);
+         this.messages = messages.map(message => new Message(message));
+         console.log(this.messages);
       });
-    }
+   }
+
+
+
+   //TEXT EDITOR
+
 }

@@ -1,5 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
-
+@import '~quill/dist/quill.snow.css';
 @import 'material-icons/iconfont/material-icons.css';
 html,
 body {
@@ -26,4 +26,66 @@ body {
     color: white;
     font-size: 24px;
     font-weight: bold;
+}
+
+
+
+
+/* Style of Editor */
+
+.editor-form {
+    position: absolute;
+    bottom: 24px;
+    left: 24px;
+    right: 24px;
+}
+
+.ql-toolbar {
+    border: none !important;
+    box-sizing: border-box;
+    font-family: Roboto, sans-serif !important;
+    padding: 8px;
+
+    button {
+        border-radius: 8px;
+
+        &:hover {
+            background-color: #b9babb10;
+        }
+    }
+}
+
+.ql-toolbar .ql-active {
+    background-color: #b9babb48 !important;
+}
+
+.ql-container {
+    border: none !important;
+}
+
+.ql-editor {
+    color: #B9BABB !important;
+    font-size: 18px;
+}
+
+.ql-editor.ql-blank::before {
+    color: #b9babb36;
+}
+
+.ql-toolbar .ql-stroke {
+    fill: none !important;
+    stroke: #B9BABB !important;
+}
+
+.ql-toolbar .ql-fill {
+    fill: #B9BABB !important;
+    stroke: none !important;
+}
+
+.ql-toolbar .ql-picker {
+    color: #B9BABB !important;
+}
+
+.ql-snow.ql-toolbar button svg {
+    float: none;
 }

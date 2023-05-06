@@ -8,7 +8,9 @@
     
     mat-card {
         flex-direction: row;
-        padding: 16px;
+        padding-left: 24px;
+        padding-right: 24px;
+        padding-top: 16px;
         border-radius: 0px;
         background-color: #1A1D21;
         border: none;
@@ -36,4 +38,9 @@
             background-color: #222529;
         }
     }
+}
+
+
+app-editor {
+    width: 100%;
 }
