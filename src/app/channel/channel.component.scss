@@ -44,3 +44,40 @@
 app-editor {
     width: 100%;
 }
+
+.bottom-section {
+    height: 24px;
+    width: calc(100% - 16px);
+    padding: 0 8px 8px 8px;
+    display: flex;
+    justify-content: flex-end;
+
+    button {
+        padding: 0;
+        background-color: transparent;
+        border: none;
+        cursor: pointer;
+        border-radius: 4px;
+
+        mat-icon {
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #B9BABB;
+            border-radius: 8px;
+            padding: 2px;
+            height: 20px;
+            width: 20px;
+            background-color: transparent;
+        }
+    }
+}
+
+.green-bg {
+    background-color: #007A5A !important;
+}
+
+.transparent-bg {
+    background-color: transparent;
+}

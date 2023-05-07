@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import 'quill-emoji/dist/quill-emoji.js';
 
 @Component({
   selector: 'app-editor',
@@ -7,13 +8,31 @@ import { Component } from '@angular/core';
 })
 export class EditorComponent {
 
+  editorContent: string;
 
   config = {
     toolbar: [
-       ['bold', 'italic', 'underline', 'strike'],
-       ['code-block'],
-       [{ list: 'ordered' }, { list: 'bullet' }],
-       ['emoji'],
+      ['bold', 'italic', 'underline', 'strike'],
+      ['code-block'],
+      [{ list: 'ordered' }, { list: 'bullet' }],
+      ['emoji'],
     ],
- }
+    'emoji-toolbar': true,
+    'emoji-textarea': false,
+    'emoji-shortname': true
+
+  }
+
+  getContent() {
+    return this.editorContent;
+  }
+
+  clearContent() {
+    this.editorContent = '';
+  }
+
+  get isEditorEmpty() {
+    return !this.editorContent || /^\s*$/.test(this.editorContent);
+  }
+
 }

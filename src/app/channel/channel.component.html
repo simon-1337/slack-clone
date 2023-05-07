@@ -24,6 +24,11 @@
     Nothing here!
 </div>
 
-<form class="editor-form">
-    <app-editor></app-editor>
+<form class="editor-form" (ngSubmit)="onSubmit()">
+    <div class="relative">
+        <app-editor #editor></app-editor>
+        <div class="bottom-section">
+            <button [disabled]="editor.isEditorEmpty" [ngClass]="{ 'green-bg': !editor.isEditorEmpty }"><mat-icon>send</mat-icon></button>
+        </div>
+    </div>
 </form>

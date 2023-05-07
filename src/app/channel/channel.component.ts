@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { CollectionReference, DocumentData, Firestore, collection, collectionData, doc, docData } from '@angular/fire/firestore';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Channel } from 'src/models/channel.class';
 import { Message } from 'src/models/message.class';
+import { EditorComponent } from '../editor/editor.component';
 
 
 @Component({
@@ -51,6 +52,14 @@ export class ChannelComponent implements OnInit {
       });
    }
 
+
+   @ViewChild('editor') editor: EditorComponent;
+
+   onSubmit() {
+     const content = this.editor.getContent();
+     console.log(content);
+     this.editor.clearContent()
+   }
 
 
    //TEXT EDITOR
