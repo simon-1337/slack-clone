@@ -1,20 +1,19 @@
+<div>
 <div class="headline-ctn">
     <mat-icon>tag</mat-icon>
     {{ channel.channelName }}
 </div>
 
 <div class="mat-card-ctn" *ngFor="let message of messages; index as i">
-    <mat-card *ngIf="message['message']">
-        <div mat-card-avatar class="example-avatar"></div>
+    <mat-card *ngIf="message.message">
+        <img mat-card-avatar class="avatar" src="{{ message.imagePath }}">
         <div class="mat-card-right">
             <mat-card-header>
-                <h3>{{ message['user'] }}</h3>
-                <span>{{ message['timestamp'] | date : "EEE, dd. MMMM yy" }}</span>
-                <span>{{ message['timestamp'] | date : "HH:mm" }}</span>
+                <h3>{{ message.user }}</h3>
+                <span>{{ message.timestamp| date : "EEE, dd. MMMM yy" }}</span>
+                <span>{{ message.timestamp| date : "HH:mm" }}</span>
             </mat-card-header>
-            <mat-card-content>
-                {{ message['message'] }}
-            </mat-card-content>
+            <mat-card-content [innerHTML]="message.message"></mat-card-content>
         </div>
     </mat-card>
     
@@ -24,11 +23,13 @@
     Nothing here!
 </div>
 
-<form class="editor-form" (ngSubmit)="onSubmit()">
-    <div class="relative">
-        <app-editor #editor></app-editor>
-        <div class="bottom-section">
-            <button [disabled]="editor.isEditorEmpty" [ngClass]="{ 'green-bg': !editor.isEditorEmpty }"><mat-icon>send</mat-icon></button>
+<div class="editor-form-ctn">
+    <form class="editor-form" (ngSubmit)="onSubmit()">
+        <div class="relative">
+            <app-editor #editor></app-editor>
+            <div class="bottom-section">
+                <button [disabled]="editor.isEditorEmpty" [ngClass]="{ 'green-bg': !editor.isEditorEmpty }"><mat-icon>send</mat-icon></button>
+            </div>
         </div>
-    </div>
-</form>
+    </form>
+</div>
