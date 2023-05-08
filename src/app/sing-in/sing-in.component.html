@@ -12,7 +12,7 @@
         <form class="example-form form">
             <mat-form-field class="example-full-width input-email">
                 <mat-label>Name</mat-label>
-                <input type="email" matInput [formControl]="emailFormControl" [(ngModel)]="user.name" placeholder="Max Musstermann" required>
+                <input type="email" matInput [formControl]="nameFormControl" [(ngModel)]="user.name" placeholder="Max Musstermann" required>
                 <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
                     Please enter a valid Name
                 </mat-error>

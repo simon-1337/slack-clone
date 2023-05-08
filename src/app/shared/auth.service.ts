@@ -19,6 +19,7 @@ export class AuthService {
 
   constructor(private fireauth: AngularFireAuth, private router: Router, private snackBar: MatSnackBar, private firestore: AngularFirestore) { }
 
+  // get id from the user
   async getFirestoreUserId(): Promise<string | null> {
     const user = await this.fireauth.currentUser;
     if (!user) {
@@ -32,33 +33,33 @@ export class AuthService {
     }
     const doc = snapshot.docs[0];
     const userData = doc.data();
-    console.log('Der Benutzer bei shared ist', userData);
+
     return doc.id;
   }
   
   
 
-  //log in Method
+  //login Method
   login(mail: string, password: string) {
-    try {
-      this.fireauth.signInWithEmailAndPassword(mail, password).then(res => {
-        this.getFirestoreUserId().then(id => {
-          // id ist die Haupt-ID des Benutzer-Dokuments
-          this.userUID = id;
-          this.router.navigate(['/app']);
-          console.log('Der Benutzer beim login ist', this.userUID);
-        });
-      }, err => {
-        this.snackBar.open('Anmeldung fehlgeschlagen. Bitte überprüfen Sie Ihre E-Mail und Ihr Passwort.', 'OK', {
-          duration: 5000 // 5 seconds
-        });
-        this.router.navigate(['/']);
+    this.fireauth.signInWithEmailAndPassword(mail, password).then(res => {
+      this.getFirestoreUserId().then(id => {
+     
+        this.userUID = id;
+        this.router.navigate(['/app']);
+      
       });
-    } catch (err) {
-      // Handle the error here
-      console.error(err);
-    }
+    }).catch(err => {
+      // Show the snackbar error message
+      this.snackBar.open('Anmeldung fehlgeschlagen. Bitte überprüfen Sie Ihre E-Mail und Ihr Passwort.', 'OK', {
+        duration: 5000 // 5 seconds
+      });
+      this.router.navigate(['/']);
+    }).finally(() => {
+      // Suppress the console error message
+      console.error = () => {};
+    });
   }
+  
   
 
   //register Method

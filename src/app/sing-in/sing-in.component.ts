@@ -18,7 +18,7 @@ export class SingInComponent implements OnInit {
   mail = '';
   password = '';
   name = '';
-  id = '';
+
 
   emailFormControl = new FormControl('', [
     Validators.required,
@@ -29,6 +29,12 @@ export class SingInComponent implements OnInit {
     Validators.required,
     Validators.minLength(6)
   ]);
+
+  nameFormControl = new FormControl('', [
+    Validators.required,
+   
+  ]);
+
 
   togglePasswordVisibility() {
     this.hide = !this.hide;
@@ -45,16 +51,15 @@ export class SingInComponent implements OnInit {
     this.name = this.user.name;
     this.mail = this.user.mail;
     this.password = this.user.password;
-
-   this.firestore
-    .collection('users')
-    .add(this.user.toJSON())
-    .then((result: any) => {
-      console.log('Adding user finished', result);
-      this.user.id = result.id;
-      console.log('User ID:', this.user.id);
-    
-    })
+  
+    if (this.mail && this.name && this.password) {
+      this.firestore
+        .collection('users')
+        .add(this.user.toJSON())
+        .then((result: any) => {
+         
+        })
+    } 
 
     if (this.emailFormControl.invalid) {
       this.snackBar.open('Please enter a valid email address', 'OK', {
@@ -70,12 +75,13 @@ export class SingInComponent implements OnInit {
       return;
     }
    
-    if (this.emailFormControl.invalid) {
+    if (this.nameFormControl.invalid) {
       this.snackBar.open('Please enter your name.', 'OK', {
         duration: 5000 // 5 seconds
       });
       return;
     }
+
 
     this.auth.register(this.mail, this.password);
     this.mail = '';

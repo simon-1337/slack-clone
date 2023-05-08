@@ -31,8 +31,18 @@ export class LogInComponent implements OnInit {
 
   constructor(private auth : AuthService, private firestore: AngularFirestore, private snackBar: MatSnackBar) {}
 
-  ngOnInit(): void {
 
+
+  ngOnInit(): void {
+   
+  }
+
+  loginAsGuest() {
+    this.mail = 'guest.user@gmx.de';
+    this.password = 'guest123';
+    this.auth.login(this.mail, this.password)
+    this.mail = '';
+    this.password = '';
   }
 
   login() {
@@ -54,7 +64,6 @@ export class LogInComponent implements OnInit {
     this.mail = '';
     this.password = '';
 
-   
   }
 
  

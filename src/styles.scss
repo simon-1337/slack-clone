@@ -15,7 +15,6 @@ body {
     top: 24px !important;
 }
 
-
 .headline-ctn {
     border-bottom: 1px solid #2B2A2F;
     padding-left: 16px;
@@ -26,4 +25,38 @@ body {
     color: white;
     font-size: 24px;
     font-weight: bold;
+}
+
+.mat-mdc-menu-content {
+    margin: 0;
+    padding: 0px 0 !important;
+    list-style-type: none;
+}
+
+.mat-mdc-menu-item.mdc-list-item {
+    align-items: center;
+    justify-content: center;
+}
+
+.mat-mdc-menu-content,
+.mat-mdc-menu-content .mat-mdc-menu-item .mdc-list-item__primary-text {
+    font-size: var(--mdc-typography-body1-font-size, 13px) !important;
+}
+
+.mat-mdc-form-field-infix {
+    min-width: 0;
+    width: 130px !important;
+}
+
+.mat-mdc-text-field-wrapper {
+    /* height: auto; */
+    flex: auto;
+}
+
+.mdc-text-field--filled {
+    height: 50px !important;
+}
+
+.mdc-dialog .mdc-dialog__content {
+    padding: 0px 24px 0px 24px !important;
 }

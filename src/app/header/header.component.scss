@@ -73,3 +73,17 @@
         color: white;
     }
 }
+
+.mat-mdc-menu-item {
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+    width: 81px !important;
+    text-align: center !important;
+    min-height: 30px !important;
+    margin-right: 0px !important;
+}
+
+.mat-mdc-menu-panel.mat-mdc-menu-panel {
+    min-width: 0px !important;
+    max-width: 0px !important;
+}

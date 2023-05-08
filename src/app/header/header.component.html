@@ -9,12 +9,14 @@
 
     <div class="header-info-div">
         <img [matMenuTriggerFor]="menu" class="header-profile" src="../assets/img/profile.webp">
-        <!-- <p>Welcome, {{ userName }}!</p> -->
+
     </div>
 
     <mat-menu #menu="matMenu">
-        <button (click)="logOut()" mat-menu-item>Log out</button>
-
+        <button class="button-header-profile" (click)="logOut()" mat-menu-item>Log out</button>
+        <button mat-menu-item (click)="openDialog()">Profile</button>
     </mat-menu>
+
+
 
 </div>

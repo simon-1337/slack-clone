@@ -32,10 +32,7 @@ import { ChannelComponent } from './channel/channel.component';
 import { ThreadComponent } from './thread/thread.component';
 import {MatDialogModule} from '@angular/material/dialog';
 import { DialogCreateChannelComponent } from './dialog-create-channel/dialog-create-channel.component';
-
-
-
-
+import { DialogProfileComponent } from './dialog-profile/dialog-profile.component';
 
 
 @NgModule({
@@ -51,6 +48,7 @@ import { DialogCreateChannelComponent } from './dialog-create-channel/dialog-cre
     ChannelComponent,
     ThreadComponent,
     DialogCreateChannelComponent,
+    DialogProfileComponent,
   ],
   imports: [
     BrowserModule,

@@ -2,7 +2,7 @@ export class User {
     name: string = '';
     password: string = '';
     mail: string = '';
-    id: string = '';
+   
 
 
 
@@ -10,7 +10,7 @@ export class User {
     this.name = obj ? obj.name : '';
     this.password = obj ? obj.password : '';
     this.mail = obj ? obj.mail : '';
-    this.id = obj ? obj.id : '';
+ 
 
       
     }
@@ -20,7 +20,7 @@ export class User {
             name: this.name,
             password: this.password,
             mail: this.mail,
-            id: this.id
+           
         };
     }
 
