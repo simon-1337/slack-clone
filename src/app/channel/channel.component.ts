@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { CollectionReference, DocumentData, Firestore, addDoc, collection, collectionData, doc, docData } from '@angular/fire/firestore';
+import { CollectionReference, DocumentData, Firestore, addDoc, collection, collectionData, doc, docData, orderBy, query } from '@angular/fire/firestore';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Channel } from 'src/models/channel.class';
@@ -54,8 +54,9 @@ export class ChannelComponent implements OnInit {
    }
 
    getMessages() {
-      this.messagesRef = collection(doc(this.coll, this.channelId), 'messages');
-      this.messages$ = collectionData(this.messagesRef);
+      const messagesQuery = query(collection(this.docRef, 'messages'), orderBy('timestamp'));
+      //this.messagesRef = collection(this.docRef, 'messages').orderBy('timestamp');
+      this.messages$ = collectionData(messagesQuery);
       this.messages$.subscribe(messages => {
          this.messages = messages.map(message => new Message(message));
       });
@@ -82,6 +83,7 @@ export class ChannelComponent implements OnInit {
 
 
    addMessage(content) {
+      this.messagesRef = collection(doc(this.coll, this.channelId), 'messages');
       const message = new Message;
       message.message = content;
       message.user = this.user.name;
