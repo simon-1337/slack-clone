@@ -1,5 +1,6 @@
 mat-drawer-container {
-  min-height: calc(100vh - 49px);
+  height: calc(100vh - 49px);
+  overflow-y: hidden;
 
   .sidenav {
     background-color: #19171D;
@@ -11,7 +12,8 @@ mat-drawer-container {
 
 .router-ctn {
   background-color: #1A1D21;
-  min-height: calc(100vh - 49px);
+  height: calc(100vh - 49px);
   width: 100%;
   color: white;
+  overflow-y: auto;
 }

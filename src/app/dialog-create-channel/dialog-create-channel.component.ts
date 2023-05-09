@@ -22,7 +22,7 @@ export class DialogCreateChannelComponent {
     addDoc(this.coll, this.channel.toJSON()).then((docRef) => {
       // Create an empty subcollection for messages
       const messagesColl = collection(this.firestore, `channels/${docRef.id}/messages`);
-      addDoc(messagesColl, {}); // Add an empty document to create the subcollection
+      addDoc(messagesColl, {'default': 'Default document!' }); // Add an empty document to create the subcollection
       this.dialogRef.close();
     });
   }

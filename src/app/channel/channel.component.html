@@ -1,8 +1,35 @@
+<div>
 <div class="headline-ctn">
     <mat-icon>tag</mat-icon>
     {{ channel.channelName }}
 </div>
 
-<div *ngFor="let message of messages; index as i">
-    {{messages[i]['message']}}
+<div class="mat-card-ctn" *ngFor="let message of messages; index as i">
+    <mat-card *ngIf="message.message">
+        <img mat-card-avatar class="avatar" src="{{ message.imagePath }}">
+        <div class="mat-card-right">
+            <mat-card-header>
+                <h3>{{ message.user }}</h3>
+                <span>{{ message.timestamp| date : "EEE, dd. MMMM yy" }}</span>
+                <span>{{ message.timestamp| date : "HH:mm" }}</span>
+            </mat-card-header>
+            <mat-card-content [innerHTML]="message.message"></mat-card-content>
+        </div>
+    </mat-card>
+    
+</div>
+
+<div *ngIf="messages.length == 1">
+    Nothing here!
+</div>
+
+<div class="editor-form-ctn">
+    <form class="editor-form" (ngSubmit)="onSubmit()">
+        <div class="relative">
+            <app-editor #editor></app-editor>
+            <div class="bottom-section">
+                <button [disabled]="editor.isEditorEmpty" [ngClass]="{ 'green-bg': !editor.isEditorEmpty }"><mat-icon>send</mat-icon></button>
+            </div>
+        </div>
+    </form>
 </div>

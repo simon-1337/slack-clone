@@ -1,0 +1,82 @@
+.example-avatar {
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.mat-card-ctn {
+    
+    mat-card {
+        flex-direction: row;
+        padding-left: 24px;
+        padding-right: 24px;
+        padding-top: 16px;
+        border-radius: 0px;
+        background-color: #1A1D21;
+        border: none;
+        box-shadow: none;
+
+        .mat-mdc-card-header {
+            padding: 0;
+            padding-left: 16px;
+        
+            h3 {
+                font-size: 18px;
+                font-weight: bold;
+                margin-bottom: 0;
+                line-height: 20px;
+            }
+
+            span {
+                margin-left: 8px;
+                font-size: 14px;
+                color: grey;
+            }
+        }
+
+        &:hover {
+            background-color: #222529;
+        }
+    }
+}
+
+
+app-editor {
+    width: 100%;
+}
+
+.bottom-section {
+    height: 24px;
+    width: calc(100% - 16px);
+    padding: 0 8px 8px 8px;
+    display: flex;
+    justify-content: flex-end;
+
+    button {
+        padding: 0;
+        background-color: transparent;
+        border: none;
+        cursor: pointer;
+        border-radius: 4px;
+
+        mat-icon {
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #B9BABB;
+            border-radius: 8px;
+            padding: 2px;
+            height: 20px;
+            width: 20px;
+            background-color: transparent;
+        }
+    }
+}
+
+.green-bg {
+    background-color: #007A5A !important;
+}
+
+.transparent-bg {
+    background-color: transparent;
+}

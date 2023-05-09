@@ -1,6 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
 
+@import '~quill/dist/quill.snow.css';
 @import 'material-icons/iconfont/material-icons.css';
+@import "~quill-emoji/dist/quill-emoji.css";
 html,
 body {
     height: 100%;
@@ -59,4 +61,103 @@ body {
 
 .mdc-dialog .mdc-dialog__content {
     padding: 0px 24px 0px 24px !important;
+}
+
+.relative {
+    position: relative;
+}
+
+
+/* Style of Editor */
+
+#emoji-palette {
+    top: -253px !important;
+    left: -7px !important;
+    border: 1px solid #2B2A2F !important;
+    border-radius: 8px !important;
+}
+
+#tab-panel {
+    background-color: #1A1D21 !important;
+    border-bottom-left-radius: 8px !important;
+    border-bottom-right-radius: 8px !important;
+}
+
+#tab-toolbar {
+    background-color: #1A1D21 !important;
+    border-top-left-radius: 8px !important;
+    border-top-right-radius: 8px !important;
+}
+
+.editor-form-ctn {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: #1A1D21;
+}
+
+.editor-form {
+    margin-bottom: 24px;
+    margin-left: 24px;
+    margin-right: 24px;
+    background-color: #222529;
+    border: 1px solid #5A5C5E;
+    border-radius: 8px;
+}
+
+.ql-toolbar {
+    border: none !important;
+    box-sizing: border-box;
+    font-family: Roboto, sans-serif !important;
+    padding: 8px 8px 0 8px !important;
+    button {
+        border-radius: 8px;
+        &:hover {
+            background-color: #b9babb10;
+        }
+    }
+}
+
+.ql-toolbar .ql-active {
+    background-color: #b9babb48 !important;
+}
+
+.ql-container {
+    border: none !important;
+}
+
+.ql-editor {
+    color: #B9BABB !important;
+    font-size: 18px;
+}
+
+.ql-editor.ql-blank::before {
+    color: #b9babb36 !important;
+}
+
+.ql-toolbar .ql-stroke {
+    fill: none !important;
+    stroke: #B9BABB !important;
+}
+
+.ql-toolbar .ql-fill {
+    fill: #B9BABB !important;
+    stroke: none !important;
+}
+
+.ql-toolbar .ql-picker {
+    color: #B9BABB !important;
+}
+
+.ql-snow.ql-toolbar button svg {
+    float: none;
+}
+
+.ql-formats {
+    &:last-child {
+        position: absolute;
+        bottom: 8px;
+        left: 8px;
+    }
 }

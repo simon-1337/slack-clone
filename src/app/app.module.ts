@@ -30,9 +30,11 @@ import { VarifyEmailComponent } from './varify-email/varify-email.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { ChannelComponent } from './channel/channel.component';
 import { ThreadComponent } from './thread/thread.component';
-import {MatDialogModule} from '@angular/material/dialog';
+import { MatDialogModule } from '@angular/material/dialog';
 import { DialogCreateChannelComponent } from './dialog-create-channel/dialog-create-channel.component';
 import { DialogProfileComponent } from './dialog-profile/dialog-profile.component';
+import { QuillModule } from 'ngx-quill';
+import { EditorComponent } from './editor/editor.component'
 
 
 @NgModule({
@@ -49,6 +51,7 @@ import { DialogProfileComponent } from './dialog-profile/dialog-profile.componen
     ThreadComponent,
     DialogCreateChannelComponent,
     DialogProfileComponent,
+    EditorComponent,
   ],
   imports: [
     BrowserModule,
@@ -70,7 +73,9 @@ import { DialogProfileComponent } from './dialog-profile/dialog-profile.componen
     FormsModule,
     AngularFireModule,
     MatSnackBarModule,
-    MatDialogModule
+    MatDialogModule,
+    QuillModule.forRoot(),
+    
   ],
   providers: [
     { provide: FIREBASE_OPTIONS, useValue: environment.firebase }
