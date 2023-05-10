@@ -35,6 +35,9 @@ import { DialogCreateChannelComponent } from './dialog-create-channel/dialog-cre
 import { DialogProfileComponent } from './dialog-profile/dialog-profile.component';
 import { QuillModule } from 'ngx-quill';
 import { EditorComponent } from './editor/editor.component'
+import { AngularFireStorageModule } from '@angular/fire/compat/storage';
+
+
 
 
 @NgModule({
@@ -71,10 +74,19 @@ import { EditorComponent } from './editor/editor.component'
     MatListModule,
     MatSidenavModule,
     FormsModule,
-    AngularFireModule,
+    AngularFireModule.initializeApp({
+      apiKey: "AIzaSyCjXUMSRLNt44LCgNSD4bCnXh8uTQZ9eOA",
+      authDomain: "slack-clone-39542.firebaseapp.com",
+      databaseURL: "https://slack-clone-39542-default-rtdb.europe-west1.firebasedatabase.app",
+      projectId: "slack-clone-39542",
+      storageBucket: "slack-clone-39542.appspot.com",
+      messagingSenderId: "220704097275",
+      appId: "1:220704097275:web:a93c27b69fb02e5f66415e"
+    }),
     MatSnackBarModule,
     MatDialogModule,
     QuillModule.forRoot(),
+    AngularFireStorageModule
     
   ],
   providers: [
