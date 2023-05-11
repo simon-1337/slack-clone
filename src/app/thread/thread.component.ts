@@ -27,7 +27,7 @@ export class ThreadComponent implements OnInit{
     this.userDoc = this.firestore.doc<User>(`users/${userId}`);
     this.userData$ = this.userDoc.valueChanges();
     this.userData$.subscribe(data => {
-      console.log('Der Benutzer beim header ist', data);
+   
       this.user = data;
     });
   }

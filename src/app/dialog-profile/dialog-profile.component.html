@@ -20,7 +20,7 @@
             </div>
         </div>
         <div class="frofile-image-div">
-            <img id="profile-image" class="profile-image" src="../assets/img/profile.webp">
+            <img alt="picture" class="profile-image" [src]="this.user?.profileImageUrl || '../assets/img/avatar.png'">
             <div class="download-div">
 
                 <img class="download-profile" (click)="uploadImage()" src="../assets/img/download-32.png">

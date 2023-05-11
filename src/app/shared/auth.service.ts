@@ -3,21 +3,41 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { AngularFirestore } from '@angular/fire/compat/firestore/';
+import { Observable } from 'rxjs';
+import firebase from 'firebase/compat/app';
+import 'firebase/compat/auth';
 
-interface User {
-  name: string;
-  mail: string;
-  password: string;
-  id: string;
+
+export interface User {
+  uid: string;
+  email: string;
+  displayName?: string;
+  photoURL?: string;
 }
 
 @Injectable({
   providedIn: 'root'
 })
+
 export class AuthService {
   userUID: string;
+  uid: string = '';
 
-  constructor(private fireauth: AngularFireAuth, private router: Router, private snackBar: MatSnackBar, private firestore: AngularFirestore) { }
+  user$: Observable<User>;
+
+  constructor(private fireauth: AngularFireAuth, private router: Router, private snackBar: MatSnackBar, private firestore: AngularFirestore) {
+    this.user$ = this.fireauth.authState;
+  }
+
+  async signInWithGoogle(): Promise<void> {
+    const provider = new firebase.auth.GoogleAuthProvider();
+    await this.fireauth.signInWithPopup(provider);
+  }
+
+  async signOut(): Promise<void> {
+    await this.fireauth.signOut();
+  }
+  
 
   // get id from the user
   async getFirestoreUserId(): Promise<string | null> {
@@ -59,7 +79,6 @@ export class AuthService {
       console.error = () => {};
     });
   }
-  
   
 
   //register Method

@@ -7,14 +7,16 @@
 
     </div>
 
-    <div class="header-info-div">
-        <img [matMenuTriggerFor]="menu" class="header-profile" src="../assets/img/profile.webp">
+    <div class="header-info-div" (mouseover)="showUserName = true" (mouseout)="showUserName = false">
+
+        <img [matMenuTriggerFor]="menu" class="header-profile" [src]="this.user?.profileImageUrl || '../assets/img/avatar.png'">
+        <span *ngIf="showUserName" class="header-username">{{ user?.name }}</span>
 
     </div>
 
     <mat-menu #menu="matMenu">
         <button class="button-header-profile" (click)="logOut()" mat-menu-item>Log out</button>
-        <button mat-menu-item (click)="openDialog()">Profile</button>
+        <button *ngIf="auth.user$ | async" mat-menu-item (click)="openDialog()">Profile</button>
     </mat-menu>
 
 
