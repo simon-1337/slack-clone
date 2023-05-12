@@ -26,11 +26,18 @@ export class ChannelComponent implements OnInit {
    messages: Message[] = [];
    messagesRef: any;
    messages$: Observable<any>;
+
+   answers: Message[] = [];
+   answersRef: any;
+   answers$: Observable<any>;
    
    private userColl: CollectionReference<DocumentData>;
    userRef: any;
    userData$: Observable<User>;
    user: User;
+
+   threadOpened = false;
+
 
    constructor(private route: ActivatedRoute, private firestore: Firestore, private auth: AuthService) {
       this.coll = collection(this.firestore, 'channels');
@@ -42,6 +49,7 @@ export class ChannelComponent implements OnInit {
          this.getChannel();
          this.getMessages();
          this.getUser();
+         this.getAnswers();
       });
    }
 
@@ -54,11 +62,20 @@ export class ChannelComponent implements OnInit {
    }
 
    getMessages() {
-      const messagesQuery = query(collection(this.docRef, 'messages'), orderBy('timestamp'));
-      //this.messagesRef = collection(this.docRef, 'messages').orderBy('timestamp');
-      this.messages$ = collectionData(messagesQuery);
+      this.messagesRef = collection(this.docRef, 'messages')
+      const messagesQuery = query(this.messagesRef, orderBy('timestamp'));
+      this.messages$ = collectionData(messagesQuery, { idField: 'id' });
       this.messages$.subscribe(messages => {
          this.messages = messages.map(message => new Message(message));
+      });
+   }
+
+   getAnswers() {
+      this.answersRef = collection(this.messagesRef, 'answers')
+      const answersQuery = query(this.messagesRef, orderBy('timestamp'));
+      this.answers$ = collectionData(answersQuery);
+      this.answers$.subscribe(answers => {
+         this.answers = answers.map(answer => new Message(answer));
       });
    }
 
@@ -88,6 +105,11 @@ export class ChannelComponent implements OnInit {
       message.message = content;
       message.user = this.user.name;
       addDoc(this.messagesRef, message.toJSON())
+   }
+
+   openThread(messageID:number) {
+      this.threadOpened = true;
+      
    }
 
 }

@@ -12,8 +12,8 @@ mat-drawer-container {
 
 .router-ctn {
   background-color: #1A1D21;
-  height: calc(100vh - 193px);
+  height: calc(100vh - 49px);
   width: 100%;
   color: white;
-  overflow-y: auto;
+  overflow-y: none !important;
 }

@@ -1,3 +1,7 @@
+.channel-content {
+    display: flex;
+}
+
 .example-avatar {
     object-fit: cover;
     border-radius: 8px;
@@ -35,6 +39,22 @@
 
         &:hover {
             background-color: #222529;
+        }
+
+        mat-card-actions {
+
+            button {
+                background-color: transparent;
+                border: none;
+                color: #12578C;
+                cursor: pointer;
+                font-size: 14px;
+                font-weight: bold;
+
+                &:hover {
+                    text-decoration: underline;
+                }
+            }
         }
     }
 }
@@ -79,4 +99,27 @@ app-editor {
 
 .transparent-bg {
     background-color: transparent;
+}
+
+.channel-content {
+    overflow: hidden;
+    height: calc(100vh - 108px);
+    width: 100%;
+}
+
+.channel-content-messages {
+    height: calc(100vh - 106px);
+    width: 100%;
+}
+
+.channel-content-messages-child {
+    height: calc(100vh - 250px);
+    overflow-y: auto;
+    width: 100%;
+}
+
+
+app-opened-thread {
+    width: 550px;
+   // transform: translateX(100%);
 }

@@ -36,6 +36,7 @@ import { DialogProfileComponent } from './dialog-profile/dialog-profile.componen
 import { QuillModule } from 'ngx-quill';
 import { EditorComponent } from './editor/editor.component'
 import { AngularFireStorageModule } from '@angular/fire/compat/storage';
+import { OpenedThreadComponent } from './opened-thread/opened-thread.component';
 
 
 
@@ -55,6 +56,7 @@ import { AngularFireStorageModule } from '@angular/fire/compat/storage';
     DialogCreateChannelComponent,
     DialogProfileComponent,
     EditorComponent,
+    OpenedThreadComponent,
   ],
   imports: [
     BrowserModule,
