@@ -34,4 +34,30 @@
         </div>
     </div>
 
+
+
+    <div class="small-headline flex-ac">
+
+        <span>Direct Messages</span>
+        <mat-icon (click)="turnArrowTo()" [ngClass]="turnArrow ? 'rotate90' : ''" style="transition: all 125ms ease-in-out" fontIcon="arrow_drop_down"></mat-icon>
+
+    </div>
+
+
+    <div *ngIf="!turnArrow">
+        <ul class="menu-items">
+            <li *ngFor="let dm of allDms">
+                <div class="menu-items-icon-ctn">
+                    <mat-icon>tag</mat-icon>
+                </div>
+                <span>UsernameVariable</span>
+            </li>
+        </ul>
+
+        <div [routerLink]="['/app', { outlets: { chats: 'createDm' } }]" class="add-channel">
+            <mat-icon>add</mat-icon>
+            <span>Start new chat</span>
+        </div>
+    </div>
+
 </div>

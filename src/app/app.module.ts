@@ -39,6 +39,7 @@ import { AngularFireStorageModule } from '@angular/fire/compat/storage';
 import { WelcomePageComponent } from './welcome-page/welcome-page.component';
 import { LegalsComponent } from './legals/legals.component';
 import { MessageService } from './shared/message.service';
+import { CreateDmComponent } from './create-dm/create-dm.component';
 
 
 
@@ -60,6 +61,7 @@ import { MessageService } from './shared/message.service';
     EditorComponent,
     WelcomePageComponent,
     LegalsComponent,
+    CreateDmComponent,
   ],
   imports: [
     BrowserModule,
