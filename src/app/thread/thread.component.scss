@@ -30,3 +30,8 @@ mat-card {
         background-color: #222529;
     }
 }
+
+.thread-ctn {
+    max-height: calc(100vh - 105.6px);
+    overflow-y: auto;
+}

@@ -7,6 +7,7 @@ import { AuthService } from '../shared/auth.service';
 import { User } from 'src/models/user.class';
 import { OpenThreadService } from '../shared/open-thread.service';
 import { EditorComponent } from '../editor/editor.component';
+import { MessageService } from '../shared/message.service';
 
 @Component({
    selector: 'app-thread',
@@ -42,7 +43,7 @@ export class ThreadComponent implements OnInit, OnChanges {
    user: User;
 
 
-   constructor(private firestore: Firestore, private auth: AuthService, private openThreadService: OpenThreadService) {
+   constructor(private firestore: Firestore, private auth: AuthService, private openThreadService: OpenThreadService, private messageService: MessageService) {
       this.coll = collection(this.firestore, 'channels');
    }
 
@@ -121,6 +122,8 @@ export class ThreadComponent implements OnInit, OnChanges {
       answer.message = content;
       answer.user = this.user.name;
       answer.imagePath = this.user.profileImageUrl;
-      addDoc(this.answersRef, answer.toJSON())
+      addDoc(this.answersRef, answer.toJSON()).then(() => {
+         this.messageService.announceMessageAdded();
+       });
    }
 }

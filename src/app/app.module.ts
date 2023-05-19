@@ -38,6 +38,7 @@ import { EditorComponent } from './editor/editor.component'
 import { AngularFireStorageModule } from '@angular/fire/compat/storage';
 import { WelcomePageComponent } from './welcome-page/welcome-page.component';
 import { LegalsComponent } from './legals/legals.component';
+import { MessageService } from './shared/message.service';
 
 
 
@@ -94,7 +95,8 @@ import { LegalsComponent } from './legals/legals.component';
     
   ],
   providers: [
-    { provide: FIREBASE_OPTIONS, useValue: environment.firebase }
+    { provide: FIREBASE_OPTIONS, useValue: environment.firebase },
+    [MessageService],
   ],
   
   bootstrap: [AppComponent]

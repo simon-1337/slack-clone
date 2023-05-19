@@ -8,6 +8,7 @@ import { EditorComponent } from '../editor/editor.component';
 import { AuthService } from '../shared/auth.service';
 import { User } from 'src/models/user.class';
 import { OpenThreadService } from '../shared/open-thread.service';
+import { MessageService } from '../shared/message.service';
 
 
 @Component({
@@ -19,7 +20,7 @@ export class ChannelComponent implements OnInit {
 
    private coll: CollectionReference<DocumentData>;
    docRef: any;
-   
+
    channel: Channel = new Channel;
    channelId = '';
    channels$: Observable<any>;
@@ -32,14 +33,14 @@ export class ChannelComponent implements OnInit {
    answers: Message[] = [];
    answersRef: any;
    answers$: Observable<any>;
-   
+
    private userColl: CollectionReference<DocumentData>;
    userRef: any;
    userData$: Observable<User>;
    user: User;
 
 
-   constructor(private route: ActivatedRoute, private firestore: Firestore, private auth: AuthService, private openThreadService: OpenThreadService) {
+   constructor(private route: ActivatedRoute, private firestore: Firestore, private auth: AuthService, private openThreadService: OpenThreadService, private messageService: MessageService) {
       this.coll = collection(this.firestore, 'channels');
    }
 
@@ -47,12 +48,15 @@ export class ChannelComponent implements OnInit {
       this.route.paramMap.subscribe(paramMap => {
          const id = paramMap.get('id');
          if (id) {
-           this.channelId = id.trim();
-           this.getChannel();
-           this.getMessages();
-           this.getUser();
+            this.channelId = id.trim();
+            this.getChannel();
+            this.getMessages();
+            this.getUser();
+            this.messageService.messageAdded$.subscribe(() => {
+               this.updateAnswersCount();
+             });
          }
-       });
+      });
    }
 
    getChannel() {
@@ -68,25 +72,16 @@ export class ChannelComponent implements OnInit {
       const messagesQuery = query(this.messagesRef, orderBy('timestamp'));
       this.messages$ = collectionData(messagesQuery, { idField: 'id' });
       this.messages$.subscribe(async (changes) => {
-        this.allMessages = changes;
-    
-        for (const message of this.allMessages) {
-          const answersQuery = collection(doc(this.messagesRef, message.id), 'answers');
-          const answersSnapshot = await getDocs(answersQuery);
-          const answersCount = answersSnapshot.size;
-          message.answersCount = answersCount;
-        }
+         this.allMessages = changes;
+
+         for (const message of this.allMessages) {
+            const answersQuery = collection(doc(this.messagesRef, message.id), 'answers');
+            const answersSnapshot = await getDocs(answersQuery);
+            const answersCount = answersSnapshot.size;
+            message.answersCount = answersCount;
+         }
       });
    }
-
-   // getAnswers() {
-   //    this.answersRef = collection(this.messagesRef, 'answers')
-   //    const answersQuery = query(this.messagesRef, orderBy('timestamp'));
-   //    this.answers$ = collectionData(answersQuery);
-   //    this.answers$.subscribe(answers => {
-   //       this.answers = answers.map(answer => new Message(answer));
-   //    });
-   // }
 
    getUser() {
       const userId = this.auth.userUID;
@@ -95,7 +90,7 @@ export class ChannelComponent implements OnInit {
       this.userData$ = docData(this.userRef);
       this.userData$.subscribe(data => {
          this.user = data;
-      }); 
+      });
    }
 
 
@@ -114,15 +109,25 @@ export class ChannelComponent implements OnInit {
       message.message = content;
       message.user = this.user.name;
       message.imagePath = this.user.profileImageUrl;
-      addDoc(this.messagesRef, message.toJSON()).then( (docRef) => {
+      addDoc(this.messagesRef, message.toJSON()).then((docRef) => {
          // Create an empty subcollection for messages
          const answersColl = collection(this.firestore, `channels/${this.channelId}/messages/${docRef.id}/answers`);
-         addDoc(answersColl, {'default': 'Default document!' }); // Add an empty document to create the subcollection)
+         addDoc(answersColl, { 'default': 'Default document!' }); // Add an empty document to create the subcollection)
       });
    }
 
    openThread(channelId: any, messageId: any) {
       this.openThreadService.setThreadOpened(true, channelId, messageId);
+   }
+
+   updateAnswersCount() {
+      for (const message of this.allMessages) {
+        const answersQuery = collection(doc(this.messagesRef, message.id), 'answers');
+        getDocs(answersQuery).then((answersSnapshot) => {
+          const answersCount = answersSnapshot.size;
+          message.answersCount = answersCount;
+        });
+      }
     }
 
 }
