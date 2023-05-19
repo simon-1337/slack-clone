@@ -14,8 +14,9 @@
 
     </div>
 
-    <mat-menu #menu="matMenu">
+    <mat-menu #menu="matMenu" class="mat-menu">
         <button class="button-header-profile" (click)="logOut()" mat-menu-item>Log out</button>
+        <button routerLink="/legals" mat-menu-item>Legals</button>
         <button *ngIf="auth.user$ | async" mat-menu-item (click)="openDialog()">Profile</button>
     </mat-menu>
 

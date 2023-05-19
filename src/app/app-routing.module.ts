@@ -7,6 +7,7 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
 import { VarifyEmailComponent } from './varify-email/varify-email.component';
 import { ChannelComponent } from './channel/channel.component';
 import { ThreadComponent } from './thread/thread.component';
+import { LegalsComponent } from './legals/legals.component';
 
 const routes: Routes = [
   // {path: 'start-screen', component: StartScreenComponent},
@@ -31,6 +32,10 @@ const routes: Routes = [
   {
     path: 'varify-email', 
     component: VarifyEmailComponent
+  },
+  {
+    path: 'legals', 
+    component: LegalsComponent
   },
   {
     path: 'app',

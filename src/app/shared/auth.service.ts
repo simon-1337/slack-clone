@@ -12,7 +12,7 @@ export interface User {
   uid: string;
   email: string;
   displayName?: string;
-  photoURL?: string;
+  photoURL?: string; 
 }
 
 @Injectable({
@@ -27,6 +27,12 @@ export class AuthService {
 
   constructor(private fireauth: AngularFireAuth, private router: Router, private snackBar: MatSnackBar, private firestore: AngularFirestore) {
     this.user$ = this.fireauth.authState;
+    
+    // check if user is already logged in on app init
+    const loggedInUser = localStorage.getItem('user');
+    if (loggedInUser) {
+      this.userUID = loggedInUser;
+    }
   }
 
   async signInWithGoogle(): Promise<void> {
@@ -36,7 +42,11 @@ export class AuthService {
 
   async signOut(): Promise<void> {
     await this.fireauth.signOut();
+    
+    // remove user from local storage on logout
+    localStorage.removeItem('user');
   }
+  
   
 
   // get id from the user
@@ -58,6 +68,7 @@ export class AuthService {
   }
   
   
+  
 
   //login Method
   login(mail: string, password: string) {
@@ -65,6 +76,10 @@ export class AuthService {
       this.getFirestoreUserId().then(id => {
      
         this.userUID = id;
+        
+        // save user to local storage on successful login
+        localStorage.setItem('user', this.userUID);
+        
         this.router.navigate(['/app']);
       
       });
@@ -79,7 +94,6 @@ export class AuthService {
       console.error = () => {};
     });
   }
-  
 
   //register Method
   register(mail: string, password: string) {

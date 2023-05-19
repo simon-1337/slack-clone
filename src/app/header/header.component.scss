@@ -66,14 +66,15 @@
 .header-info-div {
     margin-right: 20px;
     position: relative;
+    display: flex;
     img {
         width: 15px;
         height: 15px;
         border-color: white;
     }
     .header-profile {
-        width: 25px;
-        height: 25px;
+        width: 30px;
+        height: 30px;
         border-radius: 3px;
     }
     p {
@@ -84,7 +85,7 @@
 .mat-mdc-menu-item {
     padding-left: 16px !important;
     padding-right: 16px !important;
-    width: 81px !important;
+    // width: 81px !important;
     text-align: center !important;
     min-height: 30px !important;
     margin-right: 0px !important;
@@ -104,3 +105,16 @@
     font-size: 10px;
     width: 60px;
 }
+
+.mat-mdc-menu-panel {
+    min-width: 0px !important;
+    max-width: 0px !important;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+    position: relative;
+}
+
+// .mat-menu {
+//     min-width: 0px !important;
+//     max-width: 0px !important;
+// }
