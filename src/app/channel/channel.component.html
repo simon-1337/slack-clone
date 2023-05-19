@@ -1,35 +1,48 @@
 <div>
-<div class="headline-ctn">
-    <mat-icon>tag</mat-icon>
-    {{ channel.channelName }}
-</div>
+    <div class="headline-ctn">
+        <mat-icon>tag</mat-icon>
+        {{ channel.channelName }}
+    </div>
 
-<div class="mat-card-ctn" *ngFor="let message of messages; index as i">
-    <mat-card *ngIf="message.message">
-        <img mat-card-avatar class="avatar" src="{{ message.imagePath }}">
-        <div class="mat-card-right">
-            <mat-card-header>
-                <h3>{{ message.user }}</h3>
-                <span>{{ message.timestamp| date : "EEE, dd. MMMM yy" }}</span>
-                <span>{{ message.timestamp| date : "HH:mm" }}</span>
-            </mat-card-header>
-            <mat-card-content [innerHTML]="message.message"></mat-card-content>
-        </div>
-    </mat-card>
-    
-</div>
+    <div class="channel-content">
+        <div class="channel-content-messages relative">
+            <div class="channel-content-messages-child">
+                <div class="mat-card-ctn" *ngFor="let message of messages; index as i">
+                    <mat-card *ngIf="message.message">
+                        <img mat-card-avatar class="avatar" src="{{ message.imagePath }}">
+                        <div class="mat-card-right">
+                            <mat-card-header>
+                                <h3>{{ message.user }}</h3>
+                                <span>{{ message.timestamp| date : "EEE, dd. MMMM yy" }}</span>
+                                <span>{{ message.timestamp| date : "HH:mm" }}</span>
+                            </mat-card-header>
+                            <mat-card-content [innerHTML]="message.message"></mat-card-content>
+                            <mat-card-actions>
+                                <button (click)="openThread(message['id'])">{{ answers.length }} Answers</button>
+                            </mat-card-actions>
+                        </div>
+                    </mat-card>
 
-<div *ngIf="messages.length == 0">
-    Nothing here!
-</div>
+                </div>
 
-<div class="editor-form-ctn">
-    <form class="editor-form" (ngSubmit)="onSubmit()">
-        <div class="relative">
-            <app-editor #editor></app-editor>
-            <div class="bottom-section">
-                <button [disabled]="editor.isEditorEmpty" [ngClass]="{ 'green-bg': !editor.isEditorEmpty }"><mat-icon>send</mat-icon></button>
+                <div *ngIf="messages.length == 0">
+                    Nothing here!
+                </div>
+            </div>
+
+            <div class="editor-form-ctn">
+                <form class="editor-form" (ngSubmit)="onSubmit()">
+                    <div class="relative">
+                        <app-editor #editor></app-editor>
+                        <div class="bottom-section">
+                            <button [disabled]="editor.isEditorEmpty"
+                                [ngClass]="{ 'green-bg': !editor.isEditorEmpty }"><mat-icon>send</mat-icon></button>
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
-    </form>
+
+        <app-opened-thread *ngIf="threadOpened"></app-opened-thread>
+    </div>
 </div>

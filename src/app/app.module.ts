@@ -37,6 +37,7 @@ import { QuillModule } from 'ngx-quill';
 import { EditorComponent } from './editor/editor.component'
 import { AngularFireStorageModule } from '@angular/fire/compat/storage';
 import { LegalsComponent } from './legals/legals.component';
+import { OpenedThreadComponent } from './opened-thread/opened-thread.component';
 
 
 
@@ -57,6 +58,7 @@ import { LegalsComponent } from './legals/legals.component';
     DialogProfileComponent,
     EditorComponent,
     LegalsComponent,
+    OpenedThreadComponent,
   ],
   imports: [
     BrowserModule,
