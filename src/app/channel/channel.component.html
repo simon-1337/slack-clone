@@ -7,25 +7,25 @@
     <div class="channel-content">
         <div class="channel-content-messages relative">
             <div class="channel-content-messages-child">
-                <div class="mat-card-ctn" *ngFor="let message of messages; index as i">
-                    <mat-card *ngIf="message.message">
+                <div class="mat-card-ctn" *ngFor="let message of allMessages; index as i">
+                    <mat-card *ngIf="message.message.length > 0">
                         <img mat-card-avatar class="avatar" src="{{ message.imagePath }}">
                         <div class="mat-card-right">
                             <mat-card-header>
                                 <h3>{{ message.user }}</h3>
                                 <span>{{ message.timestamp| date : "EEE, dd. MMMM yy" }}</span>
-                                <span>{{ message.timestamp| date : "HH:mm" }}</span>
+                                <span class="time">{{ message.timestamp| date : "HH:mm" }}</span>
                             </mat-card-header>
                             <mat-card-content [innerHTML]="message.message"></mat-card-content>
                             <mat-card-actions>
-                                <button (click)="openThread(message['id'])">{{ answers.length }} Answers</button>
+                                <button (click)="openThread(channelId, message.id)">{{ answers.length }} Answers</button>
                             </mat-card-actions>
                         </div>
                     </mat-card>
 
                 </div>
 
-                <div *ngIf="messages.length == 0">
+                <div *ngIf="allMessages.length == 0">
                     Nothing here!
                 </div>
             </div>
@@ -42,7 +42,5 @@
                 </form>
             </div>
         </div>
-
-        <app-opened-thread *ngIf="threadOpened"></app-opened-thread>
     </div>
 </div>

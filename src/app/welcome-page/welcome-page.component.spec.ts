@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { OpenedThreadComponent } from './opened-thread.component';
+import { WelcomePageComponent } from './welcome-page.component';
 
-describe('OpenedThreadComponent', () => {
-  let component: OpenedThreadComponent;
-  let fixture: ComponentFixture<OpenedThreadComponent>;
+describe('WelcomePageComponent', () => {
+  let component: WelcomePageComponent;
+  let fixture: ComponentFixture<WelcomePageComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ OpenedThreadComponent ]
+      declarations: [ WelcomePageComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(OpenedThreadComponent);
+    fixture = TestBed.createComponent(WelcomePageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

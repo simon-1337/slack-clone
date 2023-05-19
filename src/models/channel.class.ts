@@ -1,5 +1,3 @@
-import { Message } from './message.class';
-
 export class Channel {
     channelName: string;
   

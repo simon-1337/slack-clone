@@ -7,6 +7,7 @@ import { Message } from 'src/models/message.class';
 import { EditorComponent } from '../editor/editor.component';
 import { AuthService } from '../shared/auth.service';
 import { User } from 'src/models/user.class';
+import { OpenThreadService } from '../shared/open-thread.service';
 
 
 @Component({
@@ -26,6 +27,7 @@ export class ChannelComponent implements OnInit {
    messages: Message[] = [];
    messagesRef: any;
    messages$: Observable<any>;
+   allMessages: { id: string, message: string, user: string, timestamp: number, imagePath: string }[] = [];
 
    answers: Message[] = [];
    answersRef: any;
@@ -36,21 +38,22 @@ export class ChannelComponent implements OnInit {
    userData$: Observable<User>;
    user: User;
 
-   threadOpened = false;
 
-
-   constructor(private route: ActivatedRoute, private firestore: Firestore, private auth: AuthService) {
+   constructor(private route: ActivatedRoute, private firestore: Firestore, private auth: AuthService, private openThreadService: OpenThreadService) {
       this.coll = collection(this.firestore, 'channels');
    }
 
    ngOnInit(): void {
       this.route.paramMap.subscribe(paramMap => {
-         this.channelId = paramMap.get('id').trim();
-         this.getChannel();
-         this.getMessages();
-         this.getUser();
-         this.getAnswers();
-      });
+         const id = paramMap.get('id');
+         if (id) {
+           this.channelId = id.trim();
+           this.getChannel();
+           this.getMessages();
+           this.getUser();
+           this.getAnswers();
+         }
+       });
    }
 
    getChannel() {
@@ -65,8 +68,8 @@ export class ChannelComponent implements OnInit {
       this.messagesRef = collection(this.docRef, 'messages')
       const messagesQuery = query(this.messagesRef, orderBy('timestamp'));
       this.messages$ = collectionData(messagesQuery, { idField: 'id' });
-      this.messages$.subscribe(messages => {
-         this.messages = messages.map(message => new Message(message));
+      this.messages$.subscribe(changes => {
+         this.allMessages = changes;
       });
    }
 
@@ -104,12 +107,15 @@ export class ChannelComponent implements OnInit {
       const message = new Message;
       message.message = content;
       message.user = this.user.name;
-      addDoc(this.messagesRef, message.toJSON())
+      addDoc(this.messagesRef, message.toJSON()).then( (docRef) => {
+         // Create an empty subcollection for messages
+         const answersColl = collection(this.firestore, `channels/${this.channelId}/messages/${docRef.id}/answers`);
+         addDoc(answersColl, {'default': 'Default document!' }); // Add an empty document to create the subcollection)
+      });
    }
 
-   openThread(messageID:number) {
-      this.threadOpened = true;
-      
-   }
+   openThread(channelId: any, messageId: any) {
+      this.openThreadService.setThreadOpened(true, channelId, messageId);
+    }
 
 }

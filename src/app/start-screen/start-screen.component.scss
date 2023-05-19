@@ -16,4 +16,10 @@ mat-drawer-container {
   width: 100%;
   color: white;
   overflow-y: none !important;
+  display: flex;
+}
+
+app-thread {
+  width: 630px;
+  border-left: 1px solid #2B2A2F;
 }
