@@ -50,6 +50,8 @@ export class ThreadComponent implements OnInit {
    ngOnInit(): void {
       this.getChannel();
       this.getMessage();
+      this.getUser();
+      this.getAnswers()
    }
 
    getChannel() {
@@ -61,12 +63,11 @@ export class ThreadComponent implements OnInit {
    }
 
    getMessage() {
-      console.log(this.messageId);
       this.messagesColl = collection(doc(this.coll, this.channelId), 'messages');
       this.messageRef = doc(this.messagesColl, this.messageId);
       this.messages$ = docData(this.messageRef);
       this.messages$.subscribe(change => {
-         this.message = new Message(change); 
+         this.message = new Message(change);
       });
    }
 
@@ -84,23 +85,23 @@ export class ThreadComponent implements OnInit {
       });
    }
 
-   // getUser() {
-   //    const userId = this.auth.userUID;
-   //    this.userColl = collection(this.firestore, 'users');
-   //    this.userRef = doc(this.userColl, userId);
-   //    this.userData$ = docData(this.userRef);
-   //    this.userData$.subscribe(data => {
-   //       this.user = data;
-   //    });
-   // }
+   getUser() {
+      const userId = this.auth.userUID;
+      this.userColl = collection(this.firestore, 'users');
+      this.userRef = doc(this.userColl, userId);
+      this.userData$ = docData(this.userRef);
+      this.userData$.subscribe(data => {
+         this.user = data;
+      });
+   }
 
 
-   @ViewChild('answerEditor') editor: EditorComponent;
+   @ViewChild('editorThread') editorThread: EditorComponent;
 
    onSubmit() {
-      const content = this.editor.getContent();
+      const content = this.editorThread.getContent();
       this.addAnswer(content);
-      this.editor.clearContent()
+      this.editorThread.clearContent()
    }
 
    addAnswer(content) {
@@ -108,7 +109,7 @@ export class ThreadComponent implements OnInit {
       const answer = new Message;
       answer.message = content;
       answer.user = this.user.name;
-      console.log(answer);
+      answer.imagePath = this.user.profileImageUrl;
       addDoc(this.answersRef, answer.toJSON())
    }
 }

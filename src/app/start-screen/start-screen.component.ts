@@ -20,8 +20,7 @@ export class StartScreenComponent {
       if (isOpen) {
         this.threadOpened = isOpen;
         this.messageId = messageId;
-        this.channelId = channelId;
-        console.log('test: ', messageId);        
+        this.channelId = channelId;    
       } else {
         this.threadOpened = false;
       }

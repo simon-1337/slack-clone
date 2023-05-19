@@ -107,6 +107,7 @@ export class ChannelComponent implements OnInit {
       const message = new Message;
       message.message = content;
       message.user = this.user.name;
+      message.imagePath = this.user.profileImageUrl;
       addDoc(this.messagesRef, message.toJSON()).then( (docRef) => {
          // Create an empty subcollection for messages
          const answersColl = collection(this.firestore, `channels/${this.channelId}/messages/${docRef.id}/answers`);
