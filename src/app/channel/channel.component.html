@@ -18,7 +18,7 @@
                             </mat-card-header>
                             <mat-card-content [innerHTML]="message.message"></mat-card-content>
                             <mat-card-actions>
-                                <button (click)="openThread(channelId, message.id)">{{ answers.length }} Answers</button>
+                                <button (click)="openThread(channelId, message.id)">{{ message.answersCount - 1 }} Answers</button>
                             </mat-card-actions>
                         </div>
                     </mat-card>

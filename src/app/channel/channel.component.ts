@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { CollectionReference, DocumentData, Firestore, addDoc, collection, collectionData, doc, docData, orderBy, query } from '@angular/fire/firestore';
+import { CollectionReference, DocumentData, Firestore, addDoc, collection, collectionData, doc, docData, getDocs, orderBy, query } from '@angular/fire/firestore';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Channel } from 'src/models/channel.class';
@@ -27,7 +27,7 @@ export class ChannelComponent implements OnInit {
    messages: Message[] = [];
    messagesRef: any;
    messages$: Observable<any>;
-   allMessages: { id: string, message: string, user: string, timestamp: number, imagePath: string }[] = [];
+   allMessages: { id: string, message: string, user: string, timestamp: number, imagePath: string, answersCount: number }[] = [];
 
    answers: Message[] = [];
    answersRef: any;
@@ -51,7 +51,6 @@ export class ChannelComponent implements OnInit {
            this.getChannel();
            this.getMessages();
            this.getUser();
-           this.getAnswers();
          }
        });
    }
@@ -64,23 +63,30 @@ export class ChannelComponent implements OnInit {
       });
    }
 
-   getMessages() {
-      this.messagesRef = collection(this.docRef, 'messages')
+   async getMessages() {
+      this.messagesRef = collection(this.docRef, 'messages');
       const messagesQuery = query(this.messagesRef, orderBy('timestamp'));
       this.messages$ = collectionData(messagesQuery, { idField: 'id' });
-      this.messages$.subscribe(changes => {
-         this.allMessages = changes;
+      this.messages$.subscribe(async (changes) => {
+        this.allMessages = changes;
+    
+        for (const message of this.allMessages) {
+          const answersQuery = collection(doc(this.messagesRef, message.id), 'answers');
+          const answersSnapshot = await getDocs(answersQuery);
+          const answersCount = answersSnapshot.size;
+          message.answersCount = answersCount;
+        }
       });
    }
 
-   getAnswers() {
-      this.answersRef = collection(this.messagesRef, 'answers')
-      const answersQuery = query(this.messagesRef, orderBy('timestamp'));
-      this.answers$ = collectionData(answersQuery);
-      this.answers$.subscribe(answers => {
-         this.answers = answers.map(answer => new Message(answer));
-      });
-   }
+   // getAnswers() {
+   //    this.answersRef = collection(this.messagesRef, 'answers')
+   //    const answersQuery = query(this.messagesRef, orderBy('timestamp'));
+   //    this.answers$ = collectionData(answersQuery);
+   //    this.answers$.subscribe(answers => {
+   //       this.answers = answers.map(answer => new Message(answer));
+   //    });
+   // }
 
    getUser() {
       const userId = this.auth.userUID;
