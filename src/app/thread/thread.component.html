@@ -18,7 +18,7 @@
     </mat-card>
 
     <div class="answer-ctn">
-        <!-- <div>  {{ allAnswers.lenght }} </div> -->
+         <!-- <div>  {{ allAnswers.lenght }} </div>  -->
         <div class="mat-card-ctn" *ngFor="let answer of allAnswers; index as i">
             <mat-card *ngIf="answer.message.length > 0">
                 <img mat-card-avatar class="avatar" src="{{ answer.imagePath }}">
@@ -37,10 +37,10 @@
     <div class="editor-form-ctn">
         <form class="editor-form" (ngSubmit)="onSubmit()">
             <div class="relative">
-                <app-editor #answerEditor></app-editor>
+                <app-editor #editorThread></app-editor>
                 <div class="bottom-section">
-                    <button [disabled]="editor.isEditorEmpty"
-                        [ngClass]="{ 'green-bg': !editor.isEditorEmpty }"><mat-icon>send</mat-icon></button>
+                    <button [disabled]="editorThread.isEditorEmpty"
+                        [ngClass]="{ 'green-bg': !editorThread.isEditorEmpty }"><mat-icon>send</mat-icon></button>
                 </div>
             </div>
         </form>
