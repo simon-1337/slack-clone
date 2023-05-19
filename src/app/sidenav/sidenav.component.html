@@ -10,26 +10,28 @@
 
 <div class="lower-sidenav">
 
-    <div class="small-headline">
-        <mat-icon class="first-icon">arrow_drop_down</mat-icon>
-        <div class="small-headline-right-ctn">
-            <span>Channels</span>
-            <mat-icon>expand_more</mat-icon>
-        </div>
+    <div class="small-headline flex-ac">
+
+        <span>Channels</span>
+        <mat-icon (click)="turnArrowTo()" [ngClass]="turnArrow ? 'rotate90' : ''" style="transition: all 125ms ease-in-out" fontIcon="arrow_drop_down"></mat-icon>
+
     </div>
 
-    <ul class="menu-items">
-        <li *ngFor="let channel of allChannels" [routerLink]="['/app', { outlets: { chats: ['channel', channel.id]} }]" routerLinkActive="active">
-            <div class="menu-items-icon-ctn">
-                <mat-icon>tag</mat-icon>
-            </div>
-            <span>{{ channel.channelName }}</span>
-        </li>
-    </ul>
 
-    <div (click)="openDialog()" class="add-channel">
-        <mat-icon>add</mat-icon>
-        <span>Create new channel</span>
+    <div *ngIf="!turnArrow">
+        <ul class="menu-items">
+            <li *ngFor="let channel of allChannels" [routerLink]="['/app', { outlets: { chats: ['channel', channel.id]} }]" routerLinkActive="active">
+                <div class="menu-items-icon-ctn">
+                    <mat-icon>tag</mat-icon>
+                </div>
+                <span>{{ channel.channelName }}</span>
+            </li>
+        </ul>
+
+        <div (click)="openDialog()" class="add-channel">
+            <mat-icon>add</mat-icon>
+            <span>Create new channel</span>
+        </div>
     </div>
 
 </div>

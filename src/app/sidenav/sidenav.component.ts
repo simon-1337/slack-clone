@@ -14,6 +14,7 @@ export class SidenavComponent implements OnInit {
   private coll: CollectionReference<DocumentData>;
   channels$!: Observable<any>;
   allChannels: { id: string, channelName: string }[] = [];
+  turnArrow: boolean = false;
 
   constructor(public dialog: MatDialog, private firestore: Firestore) {
     this.coll = collection(this.firestore, 'channels');
@@ -38,5 +39,9 @@ export class SidenavComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
     });
+  }
+
+  turnArrowTo() {
+    this.turnArrow = !this.turnArrow;
   }
 }

@@ -3,7 +3,6 @@
     padding: 0;
     margin: 0;
     color: white;
-
     li {
         padding-left: 16px;
         padding-right: 16px;
@@ -13,12 +12,9 @@
         cursor: pointer;
         border-bottom-left-radius: 8px;
         border-top-left-radius: 8px;
-
         &:focus {
             outline: none;
         }
-
-
         mat-icon {
             height: 32px;
             width: 32px;
@@ -28,56 +24,23 @@
             margin-right: 6px;
             font-size: 18px;
         }
-
         &:hover {
             background-color: #27242C;
         }
     }
 }
 
-
 .small-headline {
-    color: white;
     display: flex;
     align-items: center;
-    padding-left: 16px;
-    padding-right: 16px;
-    padding-top: 16px;
-
-    .first-icon {
-        height: 32px;
-        width: 32px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border-radius: 8px;
-        cursor: pointer;
-
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+    gap: 8px;
+    padding: 12px 5px 5px 20px;
+    font-size: 16px;
+    mat-icon {
         &:hover {
             background-color: #27242C;
-        }
-    }
-
-
-    .small-headline-right-ctn {
-        display: flex;
-        align-items: center;
-        cursor: pointer;
-        border-radius: 8px;
-        padding-left: 6px;
-        height: 32px;
-
-        &:hover {
-            background-color: #27242C;
-            mat-icon {
-                display: flex;
-            }
-        }
-
-        mat-icon {
-            display: none;
-            font-size: 16px;
-            align-items: center;
         }
     }
 }
@@ -99,7 +62,6 @@
     padding-right: 16px;
     height: 32px;
     cursor: pointer;
-
     mat-icon {
         height: 28px;
         width: 28px;
@@ -111,4 +73,8 @@
         border-radius: 8px;
         background-color: #27242C;
     }
+}
+
+.rotate90 {
+    transform: rotate(-90deg);
 }
