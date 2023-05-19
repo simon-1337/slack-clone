@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 import { CollectionReference, DocumentData, Firestore, addDoc, collection, collectionData, doc, docData, orderBy, query } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { Channel } from 'src/models/channel.class';
@@ -14,7 +14,7 @@ import { EditorComponent } from '../editor/editor.component';
    styleUrls: ['./thread.component.scss']
 })
 
-export class ThreadComponent implements OnInit {
+export class ThreadComponent implements OnInit, OnChanges {
 
    @Input() threadOpened: boolean;
    @Input() channelId: any;
@@ -53,6 +53,17 @@ export class ThreadComponent implements OnInit {
       this.getUser();
       this.getAnswers()
    }
+
+
+   ngOnChanges(changes: SimpleChanges): void {
+      if (changes['channelId'] || changes['messageId']) {
+        this.getChannel();
+        this.getMessage();
+        this.getUser();
+        this.getAnswers();
+      }
+    }
+    
 
    getChannel() {
       this.docRef = doc(this.coll, this.channelId);
