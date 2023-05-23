@@ -39,6 +39,8 @@ export class ChannelComponent implements OnInit {
    userData$: Observable<User>;
    user: User;
 
+   idCurrentUser: string;
+
 
    constructor(private route: ActivatedRoute, private firestore: Firestore, private auth: AuthService, private openThreadService: OpenThreadService, private messageService: MessageService) {
       this.coll = collection(this.firestore, 'channels');
