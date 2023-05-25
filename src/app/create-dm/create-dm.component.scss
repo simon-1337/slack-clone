@@ -1,0 +1,24 @@
+.create-dm-headline-ctn {
+    height: 56px;
+    display: flex;
+    border-bottom: 1px solid #2B2A2F;
+    width: 100%;
+}
+
+mat-card {
+    flex-direction: row;
+    padding-left: 24px;
+    padding-right: 24px;
+    padding-top: 16px;
+    border-radius: 0px;
+    background-color: #1A1D21;
+    border: none;
+    box-shadow: none;
+    display: flex;
+    align-items: center;
+
+    &:hover {
+        background-color: #222529;
+        cursor: pointer;
+    }
+}

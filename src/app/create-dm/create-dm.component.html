@@ -1,0 +1,12 @@
+<div class="create-dm-headline-ctn">
+    
+</div>
+
+<div class="mat-card-ctn" *ngFor="let user of allUsers; index as i">
+    <mat-card *ngIf="user.mail != mailCurrentUser">
+        <img mat-card-avatar class="avatar" src="{{ user?.profileImageUrl || '../assets/img/avatar.png' }}">
+        <mat-card-content>
+            {{ user.name }}
+        </mat-card-content>
+    </mat-card>
+</div>

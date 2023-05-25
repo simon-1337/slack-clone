@@ -18,9 +18,9 @@ export class StartScreenComponent {
     this.openThreadService.threadOpened$.subscribe(({ isOpen, channelId, messageId}) => {
       // Perform actions based on the received values
       if (isOpen) {
-        this.threadOpened = isOpen;
         this.messageId = messageId;
-        this.channelId = channelId;    
+        this.channelId = channelId;  
+        this.threadOpened = isOpen;
       } else {
         this.threadOpened = false;
       }

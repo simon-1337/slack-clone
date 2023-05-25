@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 import { CollectionReference, DocumentData, Firestore, addDoc, collection, collectionData, doc, docData, orderBy, query } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { Channel } from 'src/models/channel.class';
@@ -7,6 +7,7 @@ import { AuthService } from '../shared/auth.service';
 import { User } from 'src/models/user.class';
 import { OpenThreadService } from '../shared/open-thread.service';
 import { EditorComponent } from '../editor/editor.component';
+import { MessageService } from '../shared/message.service';
 
 @Component({
    selector: 'app-thread',
@@ -14,7 +15,7 @@ import { EditorComponent } from '../editor/editor.component';
    styleUrls: ['./thread.component.scss']
 })
 
-export class ThreadComponent implements OnInit {
+export class ThreadComponent implements OnInit, OnChanges {
 
    @Input() threadOpened: boolean;
    @Input() channelId: any;
@@ -42,7 +43,7 @@ export class ThreadComponent implements OnInit {
    user: User;
 
 
-   constructor(private firestore: Firestore, private auth: AuthService, private openThreadService: OpenThreadService) {
+   constructor(private firestore: Firestore, private auth: AuthService, private openThreadService: OpenThreadService, private messageService: MessageService) {
       this.coll = collection(this.firestore, 'channels');
    }
 
@@ -53,6 +54,17 @@ export class ThreadComponent implements OnInit {
       this.getUser();
       this.getAnswers()
    }
+
+
+   ngOnChanges(changes: SimpleChanges): void {
+      if (changes['channelId'] || changes['messageId']) {
+        this.getChannel();
+        this.getMessage();
+        this.getUser();
+        this.getAnswers();
+      }
+    }
+    
 
    getChannel() {
       this.docRef = doc(this.coll, this.channelId);
@@ -110,6 +122,8 @@ export class ThreadComponent implements OnInit {
       answer.message = content;
       answer.user = this.user.name;
       answer.imagePath = this.user.profileImageUrl;
-      addDoc(this.answersRef, answer.toJSON())
+      addDoc(this.answersRef, answer.toJSON()).then(() => {
+         this.messageService.announceMessageAdded();
+       });
    }
 }

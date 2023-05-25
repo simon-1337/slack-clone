@@ -37,6 +37,8 @@ import { QuillModule } from 'ngx-quill';
 import { EditorComponent } from './editor/editor.component'
 import { AngularFireStorageModule } from '@angular/fire/compat/storage';
 import { LegalsComponent } from './legals/legals.component';
+import { MessageService } from './shared/message.service';
+import { CreateDmComponent } from './create-dm/create-dm.component';
 
 
 
@@ -57,6 +59,7 @@ import { LegalsComponent } from './legals/legals.component';
     DialogProfileComponent,
     EditorComponent,
     LegalsComponent,
+    CreateDmComponent,
   ],
   imports: [
     BrowserModule,
@@ -92,7 +95,8 @@ import { LegalsComponent } from './legals/legals.component';
     
   ],
   providers: [
-    { provide: FIREBASE_OPTIONS, useValue: environment.firebase }
+    { provide: FIREBASE_OPTIONS, useValue: environment.firebase },
+    [MessageService],
   ],
   
   bootstrap: [AppComponent]

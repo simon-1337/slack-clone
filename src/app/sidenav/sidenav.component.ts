@@ -17,6 +17,9 @@ export class SidenavComponent implements OnInit {
   allChannels: { id: string, channelName: string }[] = [];
   turnArrow: boolean = false;
 
+
+  allDms: [];
+
   constructor(public dialog: MatDialog, private firestore: Firestore) {
     this.coll = collection(this.firestore, 'channels');
   }

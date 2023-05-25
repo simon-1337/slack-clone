@@ -10,7 +10,7 @@
             <div class="channel-content-messages-child">
                 <div class="mat-card-ctn" *ngFor="let message of allMessages; index as i">
                     <mat-card *ngIf="message.message.length > 0">
-                        <img mat-card-avatar class="avatar" src="{{ message.imagePath }}">
+                        <img mat-card-avatar class="avatar" src="{{ message?.imagePath || '../assets/img/avatar.png'}}">
                         <div class="mat-card-right">
                             <mat-card-header>
                                 <h3>{{ message.user }}</h3>
@@ -19,7 +19,7 @@
                             </mat-card-header>
                             <mat-card-content [innerHTML]="message.message"></mat-card-content>
                             <mat-card-actions>
-                                <button (click)="openThread(channelId, message.id)">{{ answers.length }} Answers</button>
+                                <button (click)="openThread(channelId, message.id)">{{ message.answersCount - 1 }} Answers</button>
                             </mat-card-actions>
                         </div>
                     </mat-card>
@@ -44,3 +44,4 @@
         </div>
     </div>
 </div>
+

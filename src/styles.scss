@@ -3,6 +3,7 @@
 @import '~quill/dist/quill.snow.css';
 @import 'material-icons/iconfont/material-icons.css';
 @import "~quill-emoji/dist/quill-emoji.css";
+
 html,
 body {
     height: 100%;
@@ -153,8 +154,10 @@ body {
     box-sizing: border-box;
     font-family: Roboto, sans-serif !important;
     padding: 8px 8px 0 8px !important;
+
     button {
         border-radius: 8px;
+
         &:hover {
             background-color: #b9babb10;
         }
@@ -245,4 +248,8 @@ body {
 
 app-channel {
     width: 100% !important;
-  }
+}
+
+app-create-dm {
+    width: 100% !important;
+}

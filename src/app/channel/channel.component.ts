@@ -66,12 +66,12 @@ export class ChannelComponent implements OnInit {
 
       console.log('Suchbegriff erhalten:', this.searchTerm);
       
-      if (this.headerComponent) {
-      this.searchTermSubscription = this.headerComponent.searchTermChange.subscribe((searchTerm: string) => {
-      
-         // Weitere Aktionen basierend auf dem Suchbegriff ausführen
-      });
-   }
+    if (this.headerComponent) {
+    this.searchTermSubscription = this.headerComponent.searchTermChange.subscribe((searchTerm: string) => {
+     
+      // Weitere Aktionen basierend auf dem Suchbegriff ausführen
+    });
+  }
       
    }
 
@@ -79,7 +79,7 @@ export class ChannelComponent implements OnInit {
       if (this.searchTermSubscription) {
         this.searchTermSubscription.unsubscribe();
       }
-   }
+    }
 
    getChannel() {
       this.docRef = doc(this.coll, this.channelId);
