@@ -4,6 +4,7 @@
         {{ channel.channelName }}
     </div>
 
+
     <div class="channel-content">
         <div class="channel-content-messages relative">
             <div class="channel-content-messages-child">
@@ -35,8 +36,7 @@
                     <div class="relative">
                         <app-editor #editor></app-editor>
                         <div class="bottom-section">
-                            <button [disabled]="editor.isEditorEmpty"
-                                [ngClass]="{ 'green-bg': !editor.isEditorEmpty }"><mat-icon>send</mat-icon></button>
+                            <button [disabled]="editor.isEditorEmpty" [ngClass]="{ 'green-bg': !editor.isEditorEmpty }"><mat-icon>send</mat-icon></button>
                         </div>
                     </div>
                 </form>

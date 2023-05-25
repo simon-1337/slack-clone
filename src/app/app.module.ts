@@ -36,7 +36,6 @@ import { DialogProfileComponent } from './dialog-profile/dialog-profile.componen
 import { QuillModule } from 'ngx-quill';
 import { EditorComponent } from './editor/editor.component'
 import { AngularFireStorageModule } from '@angular/fire/compat/storage';
-import { WelcomePageComponent } from './welcome-page/welcome-page.component';
 import { LegalsComponent } from './legals/legals.component';
 
 
@@ -57,7 +56,6 @@ import { LegalsComponent } from './legals/legals.component';
     DialogCreateChannelComponent,
     DialogProfileComponent,
     EditorComponent,
-    WelcomePageComponent,
     LegalsComponent,
   ],
   imports: [

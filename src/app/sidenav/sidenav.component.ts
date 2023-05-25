@@ -4,6 +4,7 @@ import { DialogCreateChannelComponent } from '../dialog-create-channel/dialog-cr
 import { CollectionReference, DocumentData, Firestore, collection, collectionData } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 
+
 @Component({
   selector: 'app-sidenav',
   templateUrl: './sidenav.component.html',

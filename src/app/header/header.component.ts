@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import {MatDialog} from '@angular/material/dialog';
 import { DialogProfileComponent } from '../dialog-profile/dialog-profile.component';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
+import { EventEmitter, Output } from '@angular/core';
 
 interface User {
   name: string;
@@ -25,6 +26,9 @@ export class HeaderComponent implements OnInit{
   user: User;
   userId: string = '';
   showUserName: boolean = false;
+
+  @Output() searchTermChange: EventEmitter<string> = new EventEmitter<string>();
+
 
   constructor(public auth: AuthService, private firestore: AngularFirestore, public dialog: MatDialog, private storage: AngularFireStorage) {}
 
@@ -48,4 +52,12 @@ export class HeaderComponent implements OnInit{
   openDialog() {
     this.dialog.open(DialogProfileComponent);
   }
+
+  searchToComment(event: KeyboardEvent) {
+    const target = event.target as HTMLInputElement;
+    const searchTerm = target.value.trim();
+    this.searchTermChange.emit(searchTerm);
+    console.log('Der suchbegriff lautet', this.searchTermChange)
+  }
+  
 }

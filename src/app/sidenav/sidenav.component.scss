@@ -12,6 +12,9 @@
         cursor: pointer;
         border-bottom-left-radius: 8px;
         border-top-left-radius: 8px;
+        border-bottom-right-radius: 8px;
+        border-top-right-radius: 8px;
+        margin-right: 11px;
         &:focus {
             outline: none;
         }
@@ -30,15 +33,28 @@
     }
 }
 
+.menu-items li.active {
+    background-color: #1b1ebe;
+    font-weight: bold;
+}
+
 .small-headline {
     display: flex;
     align-items: center;
     flex-direction: row-reverse;
     justify-content: flex-end;
     gap: 8px;
-    padding: 12px 5px 5px 20px;
+    padding: 12px 5px 5px 17px;
     font-size: 16px;
     mat-icon {
+        height: 28px;
+        width: 28px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 6px;
+        font-size: 22px;
+        border-radius: 8px;
         &:hover {
             background-color: #27242C;
         }
@@ -58,10 +74,24 @@
     color: white;
     display: flex;
     align-items: center;
-    padding-left: 16px;
+    padding-left: 18px;
     padding-right: 16px;
     height: 32px;
     cursor: pointer;
+    mat-icon {
+        height: 28px;
+        width: 28px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 8px;
+        font-size: 18px;
+        border-radius: 8px;
+        background-color: #27242C;
+    }
+}
+
+.turnArrow {
     mat-icon {
         height: 28px;
         width: 28px;
