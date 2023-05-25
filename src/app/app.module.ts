@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
+import {MatTooltipModule} from '@angular/material/tooltip';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
@@ -93,7 +93,8 @@ import { CreateDmComponent } from './create-dm/create-dm.component';
     MatSnackBarModule,
     MatDialogModule,
     QuillModule.forRoot(),
-    AngularFireStorageModule
+    AngularFireStorageModule,
+    MatTooltipModule,
     
   ],
   providers: [

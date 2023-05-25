@@ -1,9 +1,9 @@
-<div class="create-dm-headline-ctn">
-    
+<div class="headline-ctn">
+    Users List
 </div>
 
 <div class="mat-card-ctn" *ngFor="let user of allUsers; index as i">
-    <mat-card *ngIf="user.mail != mailCurrentUser">
+    <mat-card *ngIf="user.mail != mailCurrentUser" matTooltip="Select to start chat" matTooltipPosition="below">
         <img mat-card-avatar class="avatar" src="{{ user?.profileImageUrl || '../assets/img/avatar.png' }}">
         <mat-card-content>
             {{ user.name }}
