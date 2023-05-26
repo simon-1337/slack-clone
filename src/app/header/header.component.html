@@ -3,16 +3,12 @@
 
     <div class="search-div">
         <input class="input-field" type="text" id="search" (keyup)="searchToComment($event)" placeholder="Search...">
-
         <img src="../assets/img/search-13-32.png">
-
     </div>
 
     <div class="header-info-div" (mouseover)="showUserName = true" (mouseout)="showUserName = false">
-
         <img [matMenuTriggerFor]="menu" class="header-profile" [src]="this.user?.profileImageUrl || '../assets/img/avatar.png'">
         <span *ngIf="showUserName" class="header-username">{{ user?.name }}</span>
-
     </div>
 
     <mat-menu #menu="matMenu" class="mat-menu">
@@ -20,7 +16,5 @@
         <button routerLink="/legals" mat-menu-item>Legals</button>
         <button *ngIf="auth.user$ | async" mat-menu-item (click)="openDialog()">Profile</button>
     </mat-menu>
-
-
 
 </div>

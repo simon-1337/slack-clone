@@ -95,6 +95,8 @@ export class AuthService {
     });
   }
 
+
+
   //register Method
   register(mail: string, password: string) {
     try {
@@ -108,6 +110,8 @@ export class AuthService {
       console.error(err);
     }
   }
+
+  
 
   // sign out
   logout() {

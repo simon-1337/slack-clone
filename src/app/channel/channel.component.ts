@@ -9,7 +9,7 @@ import { AuthService } from '../shared/auth.service';
 import { User } from 'src/models/user.class';
 import { OpenThreadService } from '../shared/open-thread.service';
 import { MessageService } from '../shared/message.service';
-
+import { HeaderComponent } from '../header/header.component';
 
 @Component({
    selector: 'app-channel',
@@ -17,6 +17,8 @@ import { MessageService } from '../shared/message.service';
    styleUrls: ['./channel.component.scss']
 })
 export class ChannelComponent implements OnInit {
+   @ViewChild(HeaderComponent) headerComponent: HeaderComponent; 
+
 
    private coll: CollectionReference<DocumentData>;
    docRef: any;
@@ -40,6 +42,7 @@ export class ChannelComponent implements OnInit {
    user: User;
 
    idCurrentUser: string;
+   searchTerm: string = '';
 
 
    constructor(private route: ActivatedRoute, private firestore: Firestore, private auth: AuthService, private openThreadService: OpenThreadService, private messageService: MessageService) {
@@ -59,6 +62,12 @@ export class ChannelComponent implements OnInit {
              });
          }
       });
+
+      // this.headerComponent.searchTermChange.subscribe((searchTerm: string) => {
+        
+      //    this.onSearchTermChange(searchTerm);
+      // });
+   
    }
 
    getChannel() {
@@ -130,6 +139,10 @@ export class ChannelComponent implements OnInit {
           message.answersCount = answersCount;
         });
       }
-    }
+   }
+
+   onSearchTermChange(searchTerm: string) {
+      console.log('Suchbegriff:', searchTerm);
+   }
 
 }

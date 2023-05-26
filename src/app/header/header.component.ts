@@ -7,6 +7,7 @@ import { DialogProfileComponent } from '../dialog-profile/dialog-profile.compone
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { EventEmitter, Output } from '@angular/core';
 
+
 interface User {
   name: string;
   mail: string;
@@ -28,7 +29,6 @@ export class HeaderComponent implements OnInit{
   showUserName: boolean = false;
 
   @Output() searchTermChange: EventEmitter<string> = new EventEmitter<string>();
-
 
   constructor(public auth: AuthService, private firestore: AngularFirestore, public dialog: MatDialog, private storage: AngularFireStorage) {}
 
@@ -57,7 +57,7 @@ export class HeaderComponent implements OnInit{
     const target = event.target as HTMLInputElement;
     const searchTerm = target.value.trim();
     this.searchTermChange.emit(searchTerm);
-    console.log('Der suchbegriff lautet', this.searchTermChange)
+    console.log('Der Suchbegriff lautet', searchTerm);
   }
   
 }
