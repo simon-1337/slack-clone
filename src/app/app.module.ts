@@ -39,6 +39,7 @@ import { AngularFireStorageModule } from '@angular/fire/compat/storage';
 import { LegalsComponent } from './legals/legals.component';
 import { MessageService } from './shared/message.service';
 import { CreateDmComponent } from './create-dm/create-dm.component';
+import { DirectMessagesComponent } from './direct-messages/direct-messages.component';
 
 
 
@@ -60,6 +61,7 @@ import { CreateDmComponent } from './create-dm/create-dm.component';
     EditorComponent,
     LegalsComponent,
     CreateDmComponent,
+    DirectMessagesComponent,
   ],
   imports: [
     BrowserModule,

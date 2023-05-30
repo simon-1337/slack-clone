@@ -34,7 +34,7 @@
 }
 
 .menu-items li.active {
-    background-color: #1b1ebe;
+    background-color: #12578C;;
     font-weight: bold;
 }
 
@@ -57,6 +57,7 @@
         border-radius: 8px;
         &:hover {
             background-color: #27242C;
+            cursor: pointer;
         }
     }
 }

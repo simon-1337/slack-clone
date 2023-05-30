@@ -9,6 +9,7 @@ import { ChannelComponent } from './channel/channel.component';
 import { WelcomePageComponent } from './welcome-page/welcome-page.component';
 import { LegalsComponent } from './legals/legals.component';
 import { CreateDmComponent } from './create-dm/create-dm.component';
+import { DirectMessagesComponent } from './direct-messages/direct-messages.component';
 
 const routes: Routes = [
   // {path: 'start-screen', component: StartScreenComponent},
@@ -50,6 +51,11 @@ const routes: Routes = [
       {
         path: 'channel/:id',
         component: ChannelComponent,
+        outlet: 'chats'
+      },
+      {
+        path: 'dms/:id',
+        component: DirectMessagesComponent,
         outlet: 'chats'
       },
       {

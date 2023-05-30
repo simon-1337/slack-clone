@@ -39,12 +39,12 @@
     <div class="small-headline flex-ac">
 
         <span>Direct Messages</span>
-        <mat-icon (click)="turnArrowTo()" [ngClass]="turnArrow ? 'rotate90' : ''" style="transition: all 125ms ease-in-out" fontIcon="arrow_drop_down"></mat-icon>
+        <mat-icon (click)="turnArrowTo2()" [ngClass]="turnArrow2 ? 'rotate90' : ''" style="transition: all 125ms ease-in-out" fontIcon="arrow_drop_down"></mat-icon>
 
     </div>
 
 
-    <div *ngIf="!turnArrow">
+    <div *ngIf="!turnArrow2">
         <ul class="menu-items">
             <li *ngFor="let dm of allDms">
                 <div class="menu-items-icon-ctn">

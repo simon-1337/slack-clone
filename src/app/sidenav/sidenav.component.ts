@@ -16,6 +16,7 @@ export class SidenavComponent implements OnInit {
   channels$!: Observable<any>;
   allChannels: { id: string, channelName: string }[] = [];
   turnArrow: boolean = false;
+  turnArrow2: boolean = false;
 
 
   allDms: [];
@@ -45,5 +46,9 @@ export class SidenavComponent implements OnInit {
 
   turnArrowTo() {
     this.turnArrow = !this.turnArrow;
+  }
+
+  turnArrowTo2() {
+    this.turnArrow2 = !this.turnArrow2;
   }
 }
