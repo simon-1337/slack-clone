@@ -9,7 +9,7 @@ import { AuthService } from '../shared/auth.service';
 import { User } from 'src/models/user.class';
 import { OpenThreadService } from '../shared/open-thread.service';
 import { MessageService } from '../shared/message.service';
-import { HeaderComponent } from '../header/header.component';
+import { SearchTermService } from '../shared/search-term.service';
 
 @Component({
    selector: 'app-channel',
@@ -17,8 +17,6 @@ import { HeaderComponent } from '../header/header.component';
    styleUrls: ['./channel.component.scss']
 })
 export class ChannelComponent implements OnInit {
-   @ViewChild(HeaderComponent) headerComponent: HeaderComponent; 
-
 
    private coll: CollectionReference<DocumentData>;
    docRef: any;
@@ -31,6 +29,8 @@ export class ChannelComponent implements OnInit {
    messagesRef: any;
    messages$: Observable<any>;
    allMessages: { id: string, message: string, user: string, timestamp: number, imagePath: string, answersCount: number }[] = [];
+   filteredMessages: { id: string, message: string, user: string, timestamp: number, imagePath: string, answersCount: number }[] = [];
+
 
    answers: Message[] = [];
    answersRef: any;
@@ -42,10 +42,8 @@ export class ChannelComponent implements OnInit {
    user: User;
 
    idCurrentUser: string;
-   searchTerm: string = '';
-
-
-   constructor(private route: ActivatedRoute, private firestore: Firestore, private auth: AuthService, private openThreadService: OpenThreadService, private messageService: MessageService) {
+  
+   constructor(private searchTerm: SearchTermService, private route: ActivatedRoute, private firestore: Firestore, private auth: AuthService, private openThreadService: OpenThreadService, private messageService: MessageService) {
       this.coll = collection(this.firestore, 'channels');
    }
 
@@ -63,10 +61,9 @@ export class ChannelComponent implements OnInit {
          }
       });
 
-      // this.headerComponent.searchTermChange.subscribe((searchTerm: string) => {
-        
-      //    this.onSearchTermChange(searchTerm);
-      // });
+      this.searchTerm.searchTermChange.subscribe((searchTerm: string) => {
+         this.onSearchTermChange(searchTerm);
+      });
    
    }
 
@@ -84,7 +81,7 @@ export class ChannelComponent implements OnInit {
       this.messages$ = collectionData(messagesQuery, { idField: 'id' });
       this.messages$.subscribe(async (changes) => {
          this.allMessages = changes;
-
+         this.updateFilteredMessages();
          for (const message of this.allMessages) {
             const answersQuery = collection(doc(this.messagesRef, message.id), 'answers');
             const answersSnapshot = await getDocs(answersQuery);
@@ -124,6 +121,7 @@ export class ChannelComponent implements OnInit {
          // Create an empty subcollection for messages
          const answersColl = collection(this.firestore, `channels/${this.channelId}/messages/${docRef.id}/answers`);
          addDoc(answersColl, { 'default': 'Default document!' }); // Add an empty document to create the subcollection)
+         this.updateFilteredMessages();
       });
    }
 
@@ -142,7 +140,22 @@ export class ChannelComponent implements OnInit {
    }
 
    onSearchTermChange(searchTerm: string) {
-      console.log('Suchbegriff:', searchTerm);
+      if (searchTerm.trim() === '') {
+        this.filteredMessages = this.allMessages; // Wenn die Suchleiste leer ist, zeige alle Nachrichten an
+      } else {
+        searchTerm = searchTerm.toLowerCase();
+        this.filteredMessages = this.allMessages.filter(message => {
+          const messageText = message.message.toLowerCase();
+          const userName = message.user.toLowerCase(); // Konvertiere den eingeloggten Namen zu Kleinbuchstaben
+          return messageText.includes(searchTerm) || userName.includes(searchTerm); // Filtere die Nachrichten basierend auf dem Suchbegriff oder dem eingeloggten Namen
+        });
+      }
+}
+    
+
+   async updateFilteredMessages() {
+      this.filteredMessages = [...this.allMessages];
    }
+    
 
 }

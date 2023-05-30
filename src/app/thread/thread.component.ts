@@ -8,6 +8,7 @@ import { User } from 'src/models/user.class';
 import { OpenThreadService } from '../shared/open-thread.service';
 import { EditorComponent } from '../editor/editor.component';
 import { MessageService } from '../shared/message.service';
+import { SearchTermService } from '../shared/search-term.service';
 
 @Component({
    selector: 'app-thread',
@@ -36,14 +37,17 @@ export class ThreadComponent implements OnInit, OnChanges {
    answersRef: any;
    answers$: Observable<any>;
    allAnswers: { id: string, message: string, user: string, timestamp: number, imagePath: string }[] = [];
+   filteAallAnswers: { id: string, message: string, user: string, timestamp: number, imagePath: string }[] = [];
+
 
    private userColl: CollectionReference<DocumentData>;
    userRef: any;
    userData$: Observable<User>;
    user: User;
+   firstMessage: string; 
 
 
-   constructor(private firestore: Firestore, private auth: AuthService, private openThreadService: OpenThreadService, private messageService: MessageService) {
+   constructor(private searchTerm: SearchTermService,private firestore: Firestore, private auth: AuthService, private openThreadService: OpenThreadService, private messageService: MessageService) {
       this.coll = collection(this.firestore, 'channels');
    }
 
@@ -53,6 +57,11 @@ export class ThreadComponent implements OnInit, OnChanges {
       this.getMessage();
       this.getUser();
       this.getAnswers()
+
+      this.searchTerm.searchTermChange.subscribe((searchTerm: string) => {
+         this.onSearchTermChange(searchTerm);
+         
+      });
    }
 
 
@@ -89,14 +98,24 @@ export class ThreadComponent implements OnInit, OnChanges {
 
 
    getAnswers() {
-      this.answersRef = collection(this.messageRef, 'answers')
+      this.answersRef = collection(this.messageRef, 'answers');
       const answersQuery = query(this.answersRef, orderBy('timestamp'));
       this.answers$ = collectionData(answersQuery);
       this.answers$.subscribe(answers => {
-         this.allAnswers = answers;
+        this.allAnswers = [...answers]; 
+        this.allAnswers.unshift({ 
+          id: this.messageId,
+          message: this.message.message,
+          user: this.message.user,
+          timestamp: this.message.timestamp,
+          imagePath: this.message.imagePath
+        });
+        this.updateFilteredAnswers();
       });
    }
+    
 
+   
    getUser() {
       const userId = this.auth.userUID;
       this.userColl = collection(this.firestore, 'users');
@@ -124,6 +143,25 @@ export class ThreadComponent implements OnInit, OnChanges {
       answer.imagePath = this.user.profileImageUrl;
       addDoc(this.answersRef, answer.toJSON()).then(() => {
          this.messageService.announceMessageAdded();
+         this.updateFilteredAnswers();
        });
+   }
+
+   onSearchTermChange(searchTerm: string) {
+      if (searchTerm.trim() === '') {
+        this.filteAallAnswers = this.allAnswers; // Wenn die Suchleiste leer ist, zeige alle Nachrichten an
+      } else {
+        searchTerm = searchTerm.toLowerCase();
+        this.filteAallAnswers = this.allAnswers.filter(currentMessage => {
+          const messageText = currentMessage.message.toLowerCase();
+          const userName = currentMessage.user.toLowerCase(); // Konvertiere den eingeloggten Namen zu Kleinbuchstaben
+          return messageText.includes(searchTerm) || userName.includes(searchTerm); // Filtere die Nachrichten basierend auf dem Suchbegriff oder dem eingeloggten Namen
+        });
+      }
+      
+   }
+
+   async updateFilteredAnswers() {
+      this.filteAallAnswers = [...this.allAnswers];
    }
 }
