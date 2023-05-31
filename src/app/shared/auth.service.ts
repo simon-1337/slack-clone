@@ -96,20 +96,47 @@ export class AuthService {
   }
 
 
-
   //register Method
   register(mail: string, password: string) {
-    try {
-      this.fireauth.createUserWithEmailAndPassword(mail, password).then(res => {
-        this.router.navigate(['/']);
-      }, err => {
-        this.router.navigate(['/']);
-      });
-    } catch (err) {
-      // Handle the error here
-      console.error(err);
-    }
+    this.fireauth.fetchSignInMethodsForEmail(mail).then((signInMethods) => {
+      if (signInMethods && signInMethods.length > 0) {
+        // Die E-Mail ist bereits registriert
+        this.snackBar.open('Diese E-Mail ist bereits vorhanden. Bitte wählen Sie eine andere E-Mail-Adresse für eine erfolgreiche Registrierung.', 'OK', {
+          duration: 5000 // 5 Sekunden
+        });
+        } else {
+          // Die E-Mail ist noch nicht registriert
+          this.fireauth.createUserWithEmailAndPassword(mail, password).then(res => {
+            // User erfolgreich erstellt
+            this.router.navigate(['/']);
+    
+            // User in Firestore-Datenbank erstellen
+            const user: User = {
+              uid: res.user.uid,
+              email: res.user.email
+            };
+    
+            // Erstellung des Benutzers in der Firestore-Datenbank
+            this.firestore.collection('users').doc(res.user.uid).set(user).then(() => {
+              console.log('Benutzer erfolgreich in der Firestore-Datenbank erstellt.');
+            }).catch(error => {
+              console.error('Fehler beim Erstellen des Benutzers in der Firestore-Datenbank:', error);
+            });
+            }).catch(err => {
+              // Fehler bei der Erstellung des Benutzers
+              this.snackBar.open('Fehler bei der Registrierung. Bitte versuchen Sie es erneut.', 'OK', {
+                duration: 5000 // 5 Sekunden
+              });
+              console.error(err);
+          });
+        }
+    }).catch((error) => {
+      // Handle den Fehler hier
+      console.error(error);
+    });
   }
+  
+  
 
   
 
