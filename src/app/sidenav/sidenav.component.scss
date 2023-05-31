@@ -34,7 +34,7 @@
 }
 
 .menu-items li.active {
-    background-color: #1b1ebe;
+    background-color: #12578C;;
     font-weight: bold;
 }
 
@@ -57,6 +57,7 @@
         border-radius: 8px;
         &:hover {
             background-color: #27242C;
+            cursor: pointer;
         }
     }
 }
@@ -103,4 +104,13 @@
 
 .rotate90 {
     transform: rotate(-90deg);
+}
+
+.sidenav-profile-img {
+    border-radius: 8px;
+    height: 24px;
+    width: 24px;
+    object-fit: cover;
+    margin-right: 8px;
+    margin-left: 2px
 }

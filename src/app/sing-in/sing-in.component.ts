@@ -4,6 +4,7 @@ import { AuthService } from '../shared/auth.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { User } from 'src/models/user.class';
 import { AngularFirestore } from '@angular/fire/compat/firestore/';
+import { Firestore, addDoc, collection } from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-sing-in',
@@ -45,7 +46,7 @@ export class SingInComponent implements OnInit {
 
   }
 
-  constructor(private auth : AuthService, private snackBar: MatSnackBar, private firestore: AngularFirestore) {}
+  constructor(private auth : AuthService, private snackBar: MatSnackBar, private firestore: Firestore) {}
 
   register() {
     this.name = this.user.name;
@@ -53,12 +54,11 @@ export class SingInComponent implements OnInit {
     this.password = this.user.password;
   
     if (this.mail && this.name && this.password) {
-      this.firestore
-        .collection('users')
-        .add(this.user.toJSON())
-        .then((result: any) => {
-         
-        })
+      const coll = collection(this.firestore, 'users')
+      addDoc(coll, this.user.toJSON()).then((docRef) => {
+          const dmsColl = collection(this.firestore, `users/${docRef.id}/dms`);
+          addDoc(dmsColl, {'default': 'Default document!'});
+        });
     } 
 
     if (this.emailFormControl.invalid) {
