@@ -105,3 +105,11 @@
 .rotate90 {
     transform: rotate(-90deg);
 }
+
+.sidenav-profile-img {
+    border-radius: 8px;
+    height: 24px;
+    width: 24px;
+    object-fit: cover;
+    margin-right: 8px;
+}
