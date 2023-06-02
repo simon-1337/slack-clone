@@ -15,6 +15,10 @@ mat-drawer-container {
     }
 }
 
+.open-sidenav {
+    display: unset;
+}
+
 .router-ctn {
     background-color: #1A1D21;
     height: calc(100vh - 49px);
@@ -35,8 +39,4 @@ mat-drawer-container {
 app-thread {
     width: 630px;
     border-left: 1px solid #2B2A2F;
-}
-
-.hide-sidenav {
-    display: unset;
 }

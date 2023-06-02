@@ -38,7 +38,7 @@ export class WelcomePageComponent implements OnInit{
   closeContainer() {
     const closesElement: HTMLElement = this.elementRef.nativeElement.querySelector('.welcome-main-div');
     closesElement.style.display = 'none';
-    this.classService.setHideSidenavClass(true);
+    this.classService.hideSidenavClass = true;
   }
 
 }

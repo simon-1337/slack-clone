@@ -1,7 +1,7 @@
 <app-header #headerComponent></app-header>
 
-<mat-drawer-container autosize [style.display]="containerVisible ? 'display' : 'unset'">
-    <mat-drawer #drawer class="sidenav" [opened]="true" mode="side">
+<mat-drawer-container autosize>
+    <mat-drawer #drawer [class.sidenav]="true" [class.hide-sidenav]="classService.hideSidenavClass" [opened]="true" mode="side">
         <app-sidenav></app-sidenav>
     </mat-drawer>
 
