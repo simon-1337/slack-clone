@@ -5,3 +5,25 @@
     border-radius: 8px;
     margin-right: 8px;
 }
+
+app-editor {
+    width: 100%;
+}
+
+.dms {
+    display: flex;
+    overflow: hidden;
+    height: calc(100vh - 108px);
+    width: 100%;
+}
+
+.dms-content {
+    height: calc(100vh - 106px);
+    width: 100%;
+}
+
+.dms-content-messages {
+    height: calc(100vh - 250px);
+    overflow-y: auto;
+    width: 100%;
+}
