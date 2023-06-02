@@ -4,8 +4,7 @@ import { AuthService } from '../shared/auth.service';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/compat/firestore';
 import { Observable } from 'rxjs';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
-
-
+import { ClassService } from '../shared/class.service';
 
 interface Users {
   name: string;
@@ -23,7 +22,7 @@ export class WelcomePageComponent implements OnInit{
   name: string = '';
   
 
-  constructor(public dialog: MatDialog, private auth: AuthService, private firestore: AngularFirestore, private storage: AngularFireStorage, private elementRef: ElementRef) {}
+  constructor(public dialog: MatDialog, private auth: AuthService, private firestore: AngularFirestore, private storage: AngularFireStorage, private elementRef: ElementRef, private classService: ClassService) {}
 
 
   ngOnInit(): void {
@@ -39,6 +38,7 @@ export class WelcomePageComponent implements OnInit{
   closeContainer() {
     const closesElement: HTMLElement = this.elementRef.nativeElement.querySelector('.welcome-main-div');
     closesElement.style.display = 'none';
+    this.classService.setHideSidenavClass(true);
   }
 
 }

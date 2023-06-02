@@ -1,6 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { ChannelComponent } from '../channel/channel.component';
 import { OpenThreadService } from '../shared/open-thread.service';
+import { ClassService } from '../shared/class.service';
 
 @Component({
   selector: 'app-start-screen',
@@ -11,8 +12,10 @@ export class StartScreenComponent {
   threadOpened: boolean = false;
   messageId: number;
   channelId: number;
+  containerVisible: boolean = true;
+ 
 
-  constructor(private openThreadService: OpenThreadService) {}
+  constructor(private openThreadService: OpenThreadService, public classService: ClassService) {}
 
   ngOnInit(): void {
     this.openThreadService.threadOpened$.subscribe(({ isOpen, channelId, messageId}) => {
