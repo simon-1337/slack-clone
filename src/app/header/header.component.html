@@ -6,7 +6,7 @@
         <img src="../assets/img/search-13-32.png">
     </div>
 
-    <div class="header-info-div" (mouseover)="showUserName = true" (mouseout)="showUserName = false">
+    <div class="header-info-div" (mouseover)="showUserName = true" (mouseout)="showUserName =false">
         <img [matMenuTriggerFor]="menu" class="header-profile" [src]="this.user?.profileImageUrl || '../assets/img/avatar.png'">
         <span *ngIf="showUserName" class="header-username">{{ user?.name }}</span>
     </div>

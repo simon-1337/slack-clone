@@ -1,26 +1,38 @@
 mat-drawer-container {
-  height: calc(100vh - 49px);
-  overflow-y: hidden;
-
-  .sidenav {
-    background-color: #19171D;
-    border-right: 1px solid #2B2A2F;
-    padding-left: 8px;
-    width: 250px;
-  }
+    height: calc(100vh - 49px);
+    .sidenav {
+        background-color: #19171D;
+        border-right: 1px solid #2B2A2F;
+        padding-left: 8px;
+        width: 250px;
+        @media(max-width: 600px) {
+            padding-left: 0px;
+            width: 200px;
+        }
+        @media(max-width: 500px) {
+            display: none;
+        }
+    }
 }
 
 .router-ctn {
-  background-color: #1A1D21;
-  height: calc(100vh - 49px);
-  width: 100%;
-  color: white;
-  overflow-y: none !important;
-  display: flex;
+    background-color: #1A1D21;
+    height: calc(100vh - 49px);
+    width: 100%;
+    color: white;
+    overflow-y: none !important;
+    display: flex;
+    min-height: 660px;
+    overflow: scroll;
+}
+
+.router-ctn::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+    background: transparent;
 }
 
 app-thread {
-  width: 630px;
-  border-left: 1px solid #2B2A2F;
+    width: 630px;
+    border-left: 1px solid #2B2A2F;
 }
-

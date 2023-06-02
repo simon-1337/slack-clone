@@ -9,9 +9,8 @@ import 'firebase/compat/auth';
 
 
 export interface User {
-  uid: string;
-  email: string;
-  displayName?: string;
+  mail?: string;
+  name?: string;
   photoURL?: string; 
 }
 
@@ -86,7 +85,7 @@ export class AuthService {
     }).catch(err => {
       // Show the snackbar error message
       this.snackBar.open('Anmeldung fehlgeschlagen. Bitte überprüfen Sie Ihre E-Mail und Ihr Passwort.', 'OK', {
-        duration: 5000 // 5 seconds
+        duration: 5000 
       });
       this.router.navigate(['/']);
     }).finally(() => {
@@ -97,12 +96,12 @@ export class AuthService {
 
 
   //register Method
-  register(mail: string, password: string) {
+  register(mail: string, password: string, name: string) {
     this.fireauth.fetchSignInMethodsForEmail(mail).then((signInMethods) => {
       if (signInMethods && signInMethods.length > 0) {
         // Die E-Mail ist bereits registriert
         this.snackBar.open('Diese E-Mail ist bereits vorhanden. Bitte wählen Sie eine andere E-Mail-Adresse für eine erfolgreiche Registrierung.', 'OK', {
-          duration: 5000 // 5 Sekunden
+          duration: 5000
         });
         } else {
           // Die E-Mail ist noch nicht registriert
@@ -112,8 +111,9 @@ export class AuthService {
     
             // User in Firestore-Datenbank erstellen
             const user: User = {
-              uid: res.user.uid,
-              email: res.user.email
+             
+              mail: mail,
+              name: name
             };
     
             // Erstellung des Benutzers in der Firestore-Datenbank
@@ -125,7 +125,7 @@ export class AuthService {
             }).catch(err => {
               // Fehler bei der Erstellung des Benutzers
               this.snackBar.open('Fehler bei der Registrierung. Bitte versuchen Sie es erneut.', 'OK', {
-                duration: 5000 // 5 Sekunden
+                duration: 5000
               });
               console.error(err);
           });

@@ -1,23 +1,29 @@
-<div class="welcome-div">
-    <p class="welcome-text">Hallo <br> <b class="welcome-user">{{name}}</b> <br> Willkommen bei Slack-clone!</p>
+<div class="welcome-main-div">
+    <div (click)="closeContainer()" class="closes" #closesElement>&times;</div>
 
-    <p>Wir freuen uns, Sie als neues Mitglied in unserer Community begrüßen zu dürfen. Slack-Clone ist eine Plattform, die Ihnen ermöglicht, nahtlos mit anderen Benutzern zu kommunizieren, Informationen auszutauschen und zusammenzuarbeiten, ähnlich wie beim
-        Slack-Chat-Programm.
-    </p>
+    <div class="welcome-div">
+        <p class="welcome-text">Hallo </p>
+        <p class="welcome-user">{{name}}</p>
+        <p class="welcome-text-under">Willkommen bei Slack-clone!</p>
 
-    <h2>Mit Slack-Clone können Sie:</h2>
+        <p>Wir freuen uns, Sie als neues Mitglied in unserer Community begrüßen zu dürfen. Slack-Clone ist eine Plattform, die Ihnen ermöglicht, nahtlos mit anderen Benutzern zu kommunizieren, Informationen auszutauschen und zusammenzuarbeiten, ähnlich wie
+            beim Slack-Chat-Programm.
+        </p>
 
-    <ul>
-        <li>Chats erstellen und an Gruppenkonversationen teilnehmen: Treten Sie verschiedenen Channels bei, um sich mit anderen Benutzern zu bestimmten Themen auszutauschen und gemeinsam an Projekten zu arbeiten.</li>
-        <li>Direkte Nachrichten senden: Starten Sie private Unterhaltungen mit einzelnen Benutzern, um 1:1-Kommunikationen zu führen oder Dateien auszutauschen.</li>
-        <li>Dateien teilen und verwalten: Laden Sie Dokumente, Bilder, Videos und andere Dateien hoch, um sie mit anderen zu teilen und gemeinsam daran zu arbeiten.</li>
-        <li>Einschränkung der Datenverarbeitung, sofern wir Ihre Daten aufgrund gesetzlicher Pflichten noch nicht löschen dürfen (Art. 18 DSGVO),</li>
-        <li>Benachrichtigungen und Ankündigungen erhalten: Bleiben Sie immer auf dem Laufenden über neue Nachrichten, Erwähnungen und wichtige Ankündigungen, damit Sie nichts verpassen.</li>
-        <li>Anpassungen und Integrationen nutzen: Passen Sie Ihr Benutzererlebnis an und integrieren Sie andere Tools und Dienste, um Ihre Arbeit effizienter zu gestalten.</li>
-    </ul>
+        <h2>Mit Slack-Clone können Sie:</h2>
 
-    <p>Wir hoffen, dass Sie Slack-Clone genießen und die Vorteile der Plattform voll ausschöpfen. Wenn Sie Fragen haben oder Unterstützung benötigen, zögern Sie nicht, unseren Kundendienst zu kontaktieren. Viel Spaß beim Verwenden von Slack-clone!</p>
+        <ul>
+            <li>Chats erstellen und an Gruppenkonversationen teilnehmen: Treten Sie verschiedenen Channels bei, um sich mit anderen Benutzern zu bestimmten Themen auszutauschen und gemeinsam an Projekten zu arbeiten.</li>
+            <li>Direkte Nachrichten senden: Starten Sie private Unterhaltungen mit einzelnen Benutzern, um 1:1-Kommunikationen zu führen oder Dateien auszutauschen.</li>
+            <li>Dateien teilen und verwalten: Laden Sie Dokumente, Bilder, Videos und andere Dateien hoch, um sie mit anderen zu teilen und gemeinsam daran zu arbeiten.</li>
+            <li>Einschränkung der Datenverarbeitung, sofern wir Ihre Daten aufgrund gesetzlicher Pflichten noch nicht löschen dürfen (Art. 18 DSGVO),</li>
+            <li>Benachrichtigungen und Ankündigungen erhalten: Bleiben Sie immer auf dem Laufenden über neue Nachrichten, Erwähnungen und wichtige Ankündigungen, damit Sie nichts verpassen.</li>
+            <li>Anpassungen und Integrationen nutzen: Passen Sie Ihr Benutzererlebnis an und integrieren Sie andere Tools und Dienste, um Ihre Arbeit effizienter zu gestalten.</li>
+        </ul>
 
-    <p>Mit freundlichen Grüßen,</p> <br>
-    <p>Ihr Slack-Clone-Team"</p>
+        <p>Wir hoffen, dass Sie Slack-Clone genießen und die Vorteile der Plattform voll ausschöpfen. Wenn Sie Fragen haben oder Unterstützung benötigen, zögern Sie nicht, unseren Kundendienst zu kontaktieren. Viel Spaß beim Verwenden von Slack-clone!</p>
+
+        <p>Mit freundlichen Grüßen,</p> <br>
+        <p>Ihr Slack-Clone-Team</p>
+    </div>
 </div>

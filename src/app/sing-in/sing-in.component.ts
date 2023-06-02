@@ -3,7 +3,6 @@ import { FormControl, Validators } from '@angular/forms';
 import { AuthService } from '../shared/auth.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { User } from 'src/models/user.class';
-import { AngularFirestore } from '@angular/fire/compat/firestore/';
 import { Firestore, addDoc, collection } from '@angular/fire/firestore';
 
 @Component({
@@ -53,13 +52,13 @@ export class SingInComponent implements OnInit {
     this.mail = this.user.mail;
     this.password = this.user.password;
   
-    if (this.mail && this.name && this.password) {
-      const coll = collection(this.firestore, 'users')
-      addDoc(coll, this.user.toJSON()).then((docRef) => {
-          const dmsColl = collection(this.firestore, `users/${docRef.id}/dms`);
-          addDoc(dmsColl, {'default': 'Default document!'});
-        });
-    } 
+    // if (this.mail && this.name && this.password) {
+    //   const coll = collection(this.firestore, 'users')
+    //   addDoc(coll, this.user.toJSON()).then((docRef) => {
+    //       const dmsColl = collection(this.firestore, `users/${docRef.id}/dms`);
+    //       addDoc(dmsColl, {'default': 'Default document!'});
+    //     });
+    // } 
 
     if (this.emailFormControl.invalid) {
       this.snackBar.open('Please enter a valid email address', 'OK', {
@@ -83,16 +82,10 @@ export class SingInComponent implements OnInit {
     }
 
 
-    this.auth.register(this.mail, this.password);
+    this.auth.register(this.mail, this.password, this.name);
     this.mail = '';
     this.password = '';
     this.name = '';
   }
 
-
-  // onSubmit(event) {
-  //   event.preventDefault();
-  //   this. register();
-
-  // }
 }

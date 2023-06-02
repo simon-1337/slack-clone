@@ -33,6 +33,7 @@
     input {
         border-radius: 5px;
         width: 30vw;
+        height: 25px;
         background-color: #72727239;
         writing-mode: horizontal-tb !important;
         text-rendering: auto;
@@ -99,11 +100,11 @@
 .header-username {
     position: absolute;
     right: 30px;
-    top: 10px;
+    top: 6px;
     text-align: center;
     color: white;
     font-size: 10px;
-    width: 60px;
+    width: 107px;
 }
 
 .mat-mdc-menu-panel {
