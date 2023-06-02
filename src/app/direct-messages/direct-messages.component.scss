@@ -5,3 +5,61 @@
     border-radius: 8px;
     margin-right: 8px;
 }
+
+.mat-card-ctn {
+    
+    mat-card {
+        flex-direction: row;
+        padding-left: 24px;
+        padding-right: 24px;
+        padding-top: 16px;
+        border-radius: 0px;
+        background-color: #1A1D21;
+        border: none;
+        box-shadow: none;
+
+        .mat-mdc-card-header {
+            padding: 0;
+            padding-left: 16px;
+        
+            h3 {
+                font-size: 18px;
+                font-weight: bold;
+                margin-bottom: 0;
+                line-height: 20px;
+            }
+
+            span {
+                margin-left: 8px;
+                font-size: 12px;
+                color: grey;
+            }
+        }
+
+        &:hover {
+            background-color: #222529;
+        }
+    }
+}
+
+app-editor {
+    width: 100%;
+}
+
+.dms {
+    display: flex;
+    overflow: hidden;
+    height: calc(100vh - 108px);
+    width: 100%;
+}
+
+.dms-content {
+    height: calc(100vh - 106px);
+    width: 100%;
+}
+
+.dms-content-messages {
+    height: calc(100vh - 250px);
+    overflow-y: auto;
+    width: 100%;
+}

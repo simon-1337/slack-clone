@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CollectionReference, DocumentData, DocumentReference, Firestore, addDoc, collection, collectionData, doc, docData, getDocs, query, where } from '@angular/fire/firestore';
+import { CollectionReference, DocumentData, DocumentReference, Firestore, addDoc, collection, collectionData, doc, docData, getDocs, query, setDoc, where } from '@angular/fire/firestore';
 import { AuthService } from '../shared/auth.service';
 import { Observable } from 'rxjs';
 import { User } from 'src/models/user.class';
@@ -62,7 +62,7 @@ export class CreateDmComponent implements OnInit {
       this.addDmDocumentToCurrentUser()
         .then((docRef) => {
           const documentId = docRef.id;
-          this.addDmDocumentToReceivingUser(recipientUserId);
+          this.addDmDocumentToReceivingUser(recipientUserId, documentId);
           this.redirectToChat(documentId);
         });
     }
@@ -93,10 +93,11 @@ export class CreateDmComponent implements OnInit {
     });
   }
 
-  addDmDocumentToReceivingUser(recipientUserId: string) {
+  addDmDocumentToReceivingUser(recipientUserId: string, documentId: string) {
     this.receivingRef = doc(this.userColl, recipientUserId);
     const dmColl = collection(this.receivingRef, 'dms')
-    addDoc(dmColl, this.chat.toJSON());
+    const docRef = doc(dmColl, documentId);
+    setDoc(docRef, this.chat.toJSON());
   }
 
   redirectToChat(documentId: string) {
