@@ -60,9 +60,7 @@ export class DirectMessagesComponent implements OnInit {
     const messagesQuery = query(collection(dmRef, 'messages'), orderBy('timestamp'));
     this.messages$ = collectionData(messagesQuery);
     this.messages$.subscribe(messages => {
-       this.messages = messages.map(message => new Message(message));
-       console.log(this.messages);
-       
+       this.messages = messages.map(message => new Message(message));     
     });
   }
 
