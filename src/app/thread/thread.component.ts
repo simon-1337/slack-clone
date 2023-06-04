@@ -37,7 +37,7 @@ export class ThreadComponent implements OnInit, OnChanges {
    answersRef: any;
    answers$: Observable<any>;
    allAnswers: { id: string, message: string, user: string, timestamp: number, imagePath: string }[] = [];
-   filteAallAnswers: { id: string, message: string, user: string, timestamp: number, imagePath: string }[] = [];
+   filterallAnswers: { id: string, message: string, user: string, timestamp: number, imagePath: string }[] = [];
 
 
    private userColl: CollectionReference<DocumentData>;
@@ -149,19 +149,18 @@ export class ThreadComponent implements OnInit, OnChanges {
 
    onSearchTermChange(searchTerm: string) {
       if (searchTerm.trim() === '') {
-        this.filteAallAnswers = this.allAnswers; // Wenn die Suchleiste leer ist, zeige alle Nachrichten an
+        this.filterallAnswers = this.allAnswers;
       } else {
         searchTerm = searchTerm.toLowerCase();
-        this.filteAallAnswers = this.allAnswers.filter(currentMessage => {
+        this.filterallAnswers = this.allAnswers.filter(currentMessage => {
           const messageText = currentMessage.message.toLowerCase();
-          const userName = currentMessage.user.toLowerCase(); // Konvertiere den eingeloggten Namen zu Kleinbuchstaben
-          return messageText.includes(searchTerm) || userName.includes(searchTerm); // Filtere die Nachrichten basierend auf dem Suchbegriff oder dem eingeloggten Namen
+          const userName = currentMessage.user.toLowerCase();
+          return messageText.includes(searchTerm) || userName.includes(searchTerm);
         });
       }
-      
    }
 
    async updateFilteredAnswers() {
-      this.filteAallAnswers = [...this.allAnswers];
+      this.filterallAnswers = [...this.allAnswers];
    }
 }

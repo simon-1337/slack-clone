@@ -6,6 +6,7 @@ import { Message } from 'src/models/message.class';
 import { AuthService } from '../shared/auth.service';
 import { EditorComponent } from '../editor/editor.component';
 import { User } from 'src/models/user.class';
+import { SearchTermService } from '../shared/search-term.service';
 
 @Component({
   selector: 'app-direct-messages',
@@ -33,7 +34,7 @@ export class DirectMessagesComponent implements OnInit {
   participantsName: string;
   participantsImage: string;
 
-  constructor(private route: ActivatedRoute, private firestore: Firestore, private auth: AuthService) {
+  constructor(private route: ActivatedRoute, private firestore: Firestore, private auth: AuthService, private searchTerm: SearchTermService) {
     this.usersColl = collection(this.firestore, 'users');
   }
 
@@ -50,6 +51,10 @@ export class DirectMessagesComponent implements OnInit {
         this.getMessages();
       }
     });
+
+    this.searchTerm.searchTermChange.subscribe((searchTerm: string) => {
+      this.onSearchTermChange(searchTerm);
+    });
   }
 
   getMessages() {
@@ -60,11 +65,12 @@ export class DirectMessagesComponent implements OnInit {
     const messagesQuery = query(collection(dmRef, 'messages'), orderBy('timestamp'));
     this.messages$ = collectionData(messagesQuery);
     this.messages$.subscribe(messages => {
-       this.messages = messages.map(message => new Message(message));
-       console.log(this.messages);
-       
+      this.allMessages = messages.map(message => new Message(message));
+      this.messages = this.allMessages.map(message => new Message(message)); // Anfangs alle Nachrichten anzeigen
     });
   }
+  
+  
 
   async getDms() {
     this.usersRef = doc(this.usersColl, this.idCurrentUser);
@@ -129,5 +135,18 @@ export class DirectMessagesComponent implements OnInit {
     receiverMessage.imagePath = this.currentUser.profileImageUrl;
     addDoc(receiverMessagesRef, receiverMessage.toJSON());
   }
+
+  onSearchTermChange(searchTerm: string) {
+    if (searchTerm.trim() !== '') {
+      const filteredMessages = this.allMessages.filter(message =>
+        message.message.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        message.user.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+      this.messages = filteredMessages.map(message => new Message(message));
+    } else {
+      this.messages = this.allMessages.map(message => new Message(message));
+    }
+  }
+  
 }
 

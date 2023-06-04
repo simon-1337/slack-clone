@@ -12,8 +12,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class LogInComponent implements OnInit {
 
   hidden = true;
-  mail : string = '';
-  password : string = '';
+  mail: string = '';
+  password: string = '';
 
   emailFormControl = new FormControl('', [
     Validators.required,
@@ -21,6 +21,7 @@ export class LogInComponent implements OnInit {
   ]);
 
   passwordFormControl = new FormControl('', [
+    Validators.required,
     Validators.minLength(6)
   ]);
  
@@ -34,37 +35,43 @@ export class LogInComponent implements OnInit {
 
 
   ngOnInit(): void {
-   
+    this.mail = '';
+    this.password = '';
   }
 
   loginAsGuest() {
     this.mail = 'guest.user@gmx.de';
     this.password = 'guest123';
-    this.auth.login(this.mail, this.password)
+    this.auth.login(this.mail, this.password);
     this.mail = '';
     this.password = '';
+    this.emailFormControl.disable();
+    this.passwordFormControl.disable();
   }
-
+  
+  
   login() {
     if (this.emailFormControl.invalid) {
       this.snackBar.open('Please enter a valid email address', 'OK', {
-        duration: 5000 // 5 seconds
+        duration: 3000
       });
       return;
     }
-
+  
     if (this.passwordFormControl.invalid) {
       this.snackBar.open('Please enter a password that is at least 6 characters long.', 'OK', {
-        duration: 5000 // 5 seconds
+        duration: 3000 
       });
       return;
     }
-
-    this.auth.login(this.mail, this.password)
-    this.mail = '';
-    this.password = '';
-
+  
+    this.auth.login(this.mail, this.password);
+  
+    setTimeout(() => {
+      this.mail = '';
+      this.password = '';
+    }, 5000);
   }
+  
 
- 
 }

@@ -46,7 +46,7 @@
 
     <div *ngIf="!turnArrow2">
         <ul class="menu-items">
-            <li *ngFor="let dm of allDms" [routerLink]="['/app', { outlets: { chats: ['dms', dm.id]} }]">
+            <li *ngFor="let dm of allDms" [routerLink]="['/app', { outlets: { chats: ['dms', dm.id]} }]" routerLinkActive="active">
                 <img class="sidenav-profile-img" src="{{ dm.participantImage || '../assets/img/avatar.png'}}">
                 <span>   {{ dm.participantName }} </span>
             </li>

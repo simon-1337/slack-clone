@@ -19,7 +19,7 @@
 
     <div class="answer-ctn">
         <!-- <div>  {{ allAnswers.lenght }} </div>  -->
-        <div class="mat-card-ctn" *ngFor="let answer of filteAallAnswers; index as i">
+        <div class="mat-card-ctn" *ngFor="let answer of filterallAnswers; index as i">
             <mat-card *ngIf="answer.message.length > 0">
                 <img mat-card-avatar class="avatar" src="{{ answer?.imagePath || '../assets/img/avatar.png' }}">
                 <div class="mat-card-right">

@@ -12,11 +12,17 @@ mat-drawer-container {
         @media(max-width: 500px) {
             display: none;
         }
+        @media(max-width: 414px) {
+            width: 415px;
+        }
+        @media(max-width: 375px) {
+            width: 374px;
+        }
     }
 }
 
 .open-sidenav {
-    display: unset;
+    display: unset !important;
 }
 
 .router-ctn {

@@ -53,6 +53,12 @@
         border-style: inset;
         border-color: rgba(0, 0, 0, 0);
         border-image: initial;
+        @media(max-width: 414px) {
+            width: 40vw;
+        }
+        @media(max-width: 375px) {
+            width: 40vw;
+        }
     }
     img {
         position: absolute;

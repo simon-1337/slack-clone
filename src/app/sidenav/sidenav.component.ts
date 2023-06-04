@@ -47,9 +47,7 @@ export class SidenavComponent implements OnInit {
     this.channels$ = collectionData(this.coll, { idField: 'id' });
     //To subscribe the updates -> every time something in users changes this function is called
     this.channels$.subscribe((changes) => {
-      this.allChannels = changes;
-      console.log(this.allChannels);
-      
+      this.allChannels = changes;      
     });
   }
 
@@ -75,11 +73,9 @@ export class SidenavComponent implements OnInit {
             const otherUser = this.allUsers.find(user => user.id === otherUserId);
             return { id: dm.id, participantName: otherUser.name, participantImage: otherUser.profileImageUrl };
           }
-  
           return null;
         }).filter(dm => dm !== null);
   
-        console.log(this.allDms);
       });
     });
   }
