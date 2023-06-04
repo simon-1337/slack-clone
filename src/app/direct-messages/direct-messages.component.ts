@@ -67,6 +67,7 @@ export class DirectMessagesComponent implements OnInit {
     this.messages$.subscribe(messages => {
       this.allMessages = messages.map(message => new Message(message));
       this.messages = this.allMessages.map(message => new Message(message)); // Anfangs alle Nachrichten anzeigen
+   
     });
   }
   

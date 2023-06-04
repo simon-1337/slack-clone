@@ -19,16 +19,18 @@ export class DialogCreateChannelComponent {
   }
 
   saveChannel() {
-    addDoc(this.coll, this.channel.toJSON()).then((docRef) => {
-      // Create an empty subcollection for messages
-      const messagesColl = collection(this.firestore, `channels/${docRef.id}/messages`);
-      addDoc(messagesColl, {'default': 'Default document!'}).then((messageDocRef) => {
-        // Create an empty subcollection for answers
-        const answersColl = collection(messagesColl, messageDocRef.id, 'answers');
-        addDoc(answersColl, {'default': 'Default answer!'});
+    if (this.channel.channelName) {
+      addDoc(this.coll, this.channel.toJSON()).then((docRef) => {
+        // Create an empty subcollection for messages
+        const messagesColl = collection(this.firestore, `channels/${docRef.id}/messages`);
+        addDoc(messagesColl, {'default': 'Default document!'}).then((messageDocRef) => {
+          // Create an empty subcollection for answers
+          const answersColl = collection(messagesColl, messageDocRef.id, 'answers');
+          addDoc(answersColl, {'default': 'Default answer!'});
+        });
+        this.dialogRef.close();
       });
-      this.dialogRef.close();
-    });
+    }
   }
   
 
