@@ -110,7 +110,7 @@ export class AuthService {
           const user: User = {
             mail: mail,
             name: name,
-            profileImageUrl: '' 
+            profileImageUrl: '../assets/img/avatar.png' 
           };
           this.firestore.collection('users').doc(res.user.uid).set(user).then(() => {
             console.log('Benutzer erfolgreich in der Firestore-Datenbank erstellt.');
