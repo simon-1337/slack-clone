@@ -12,7 +12,6 @@ export class ClassService {
   }
 
   set hideSidenavClass(value: boolean) {
-    
     this.hideSidenav = value;
   }
 }
