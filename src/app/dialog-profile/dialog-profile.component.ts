@@ -71,23 +71,16 @@ export class DialogProfileComponent implements OnInit{
 
 
   uploadImage(): void {
-   
-    
     const input = document.createElement('input');
     input.type = 'file';
     input.accept = 'image/*';
     input.onchange = (event) => {
     
       const file = (event.target as HTMLInputElement).files[0];
-
       const filePath = `user-profile-images/${this.userId}.jpg`;
-    
       const fileRef = this.storage.ref(filePath);
       const uploadTask = this.storage.upload(filePath, file);
     
-      console.log('Pfile with userID', filePath);
-  
-   
       uploadTask.percentageChanges().subscribe(percent => {
         console.log('upload progress:', percent);
       });
@@ -95,7 +88,7 @@ export class DialogProfileComponent implements OnInit{
       uploadTask.snapshotChanges().pipe(
         finalize(() => {
           fileRef.getDownloadURL().subscribe(url => {
-            console.log('File available at:', url);
+         
             this.fbUrl = url;
             this.firestore.collection('users').doc(this.userId).update({profileImageUrl: url})
          

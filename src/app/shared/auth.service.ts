@@ -5,14 +5,18 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { AngularFirestore } from '@angular/fire/compat/firestore/';
 import { Observable } from 'rxjs';
 import firebase from 'firebase/compat/app';
+import { User as FirebaseUser } from 'firebase/auth';
 import 'firebase/compat/auth';
+import 'firebase/storage';
+
 
 
 export interface User {
   mail?: string;
   name?: string;
-  photoURL?: string; 
+  profileImageUrl?: string;
 }
+
 
 @Injectable({
   providedIn: 'root'
@@ -25,7 +29,7 @@ export class AuthService {
   user$: Observable<User>;
 
   constructor(private fireauth: AngularFireAuth, private router: Router, private snackBar: MatSnackBar, private firestore: AngularFirestore) {
-    this.user$ = this.fireauth.authState;
+    this.user$ = this.fireauth.authState as Observable<User>;
     
     // check if user is already logged in on app init
     const loggedInUser = localStorage.getItem('user');
@@ -61,8 +65,6 @@ export class AuthService {
       return null;
     }
     const doc = snapshot.docs[0];
-    const userData = doc.data();
-
     return doc.id;
   }
   
@@ -101,45 +103,54 @@ export class AuthService {
       if (signInMethods && signInMethods.length > 0) {
         // Die E-Mail ist bereits registriert
         this.snackBar.open('Diese E-Mail ist bereits vorhanden. Bitte wählen Sie eine andere E-Mail-Adresse für eine erfolgreiche Registrierung.', 'OK', {
-          duration: 5000
+          duration: 3000
         });
-        } else {
-          // Die E-Mail ist noch nicht registriert
-          this.fireauth.createUserWithEmailAndPassword(mail, password).then(res => {
-            // User erfolgreich erstellt
-            this.router.navigate(['/']);
-    
-            // User in Firestore-Datenbank erstellen
-            const user: User = {
-             
-              mail: mail,
-              name: name
-            };
-    
-            // Erstellung des Benutzers in der Firestore-Datenbank
-            this.firestore.collection('users').doc(res.user.uid).set(user).then(() => {
-              console.log('Benutzer erfolgreich in der Firestore-Datenbank erstellt.');
-            }).catch(error => {
-              console.error('Fehler beim Erstellen des Benutzers in der Firestore-Datenbank:', error);
-            });
-            }).catch(err => {
-              // Fehler bei der Erstellung des Benutzers
-              this.snackBar.open('Fehler bei der Registrierung. Bitte versuchen Sie es erneut.', 'OK', {
-                duration: 5000
+      } else {
+        // Die E-Mail ist noch nicht registriert
+        this.fireauth.createUserWithEmailAndPassword(mail, password).then(res => {
+          // User erfolgreich erstellt
+          this.router.navigate(['/']);
+  
+          // Standardbild hochladen
+          const imageFile = new File([''], 'assets/img/avatar.png', { type: 'image/png' });
+          const storageRef = firebase.storage().ref();
+          const imageRef = storageRef.child(`avatars/avatar_${res.user.uid}.png`); // Eindeutiger Dateiname für jedes Benutzerbild
+          const uploadTask = imageRef.put(imageFile);
+  
+          uploadTask.then(() => {
+            imageRef.getDownloadURL().then((url) => {
+              const profileImageUrl = url;
+              console.log('Bild wird zugewiesen als', url)
+              const user: User = {
+                mail: mail,
+                name: name,
+                profileImageUrl: profileImageUrl
+              };
+  
+              this.firestore.collection('users').doc(res.user.uid).set(user).then(() => {
+                console.log('Benutzer erfolgreich in der Firestore-Datenbank erstellt.');
+              }).catch(error => {
+                console.error('Fehler beim Erstellen des Benutzers in der Firestore-Datenbank:', error);
               });
-              console.error(err);
+            });
+          }).catch((error) => {
+            console.error('Fehler beim Hochladen des Benutzerbildes:', error);
           });
-        }
+        }).catch(err => {
+          // Fehler bei der Erstellung des Benutzers
+          this.snackBar.open('Fehler bei der Registrierung. Bitte versuchen Sie es erneut.', 'OK', {
+            duration: 3000
+          });
+          console.error(err);
+        });
+      }
     }).catch((error) => {
-      // Handle den Fehler hier
       console.error(error);
     });
   }
   
   
-
   
-
   // sign out
   logout() {
     this.fireauth.signOut().then(() => {
