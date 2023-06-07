@@ -36,10 +36,10 @@ export class HeaderComponent implements OnInit{
     this.userData$ = this.userDoc.valueChanges();
     this.userData$.subscribe(data => {
       this.user = data;
-      const storageRef = this.storage.ref(`user-profile-images/${this.userId}.jpg`);
-      storageRef.getDownloadURL().subscribe(url => {
-        this.user.profileImageUrl = url;
-      });
+      // const storageRef = this.storage.ref(`user-profile-images/${this.userId}.jpg`);
+      // storageRef.getDownloadURL().subscribe(url => {
+      //   this.user.profileImageUrl = url;
+      // });
     });
 
   }
