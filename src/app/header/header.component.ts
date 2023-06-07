@@ -4,9 +4,8 @@ import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/compat
 import { Observable } from 'rxjs';
 import {MatDialog} from '@angular/material/dialog';
 import { DialogProfileComponent } from '../dialog-profile/dialog-profile.component';
-import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { SearchTermService } from '../shared/search-term.service';
-
+import { ClassService } from '../shared/class.service';
 
 interface User {
   name: string;
@@ -27,8 +26,11 @@ export class HeaderComponent implements OnInit{
   user: User;
   userId: string = '';
   showUserName: boolean = false;
+  menuCollapsed: boolean = false;
+  threadIsOpen: boolean = false;
+  channelIsOpen: boolean = true;
 
-  constructor(public auth: AuthService, private firestore: AngularFirestore, public dialog: MatDialog, private storage: AngularFireStorage, private searchTerm: SearchTermService) {}
+  constructor(public auth: AuthService, private firestore: AngularFirestore, public dialog: MatDialog, private searchTerm: SearchTermService, private classService: ClassService) {}
 
   ngOnInit(): void {
     this.userId = this.auth.userUID;
@@ -36,10 +38,7 @@ export class HeaderComponent implements OnInit{
     this.userData$ = this.userDoc.valueChanges();
     this.userData$.subscribe(data => {
       this.user = data;
-      const storageRef = this.storage.ref(`user-profile-images/${this.userId}.jpg`);
-      storageRef.getDownloadURL().subscribe(url => {
-        this.user.profileImageUrl = url;
-      });
+     
     });
 
   }
@@ -56,6 +55,15 @@ export class HeaderComponent implements OnInit{
     const target = event.target as HTMLInputElement;
     const searchTerm = target.value.trim();
     this.searchTerm.searchTermChange.emit(searchTerm);
+  }
+  
+
+  toggle() {
+    this.classService.hideSidenavClass = !this.classService.hideSidenavClass;
+    this.menuCollapsed = !this.menuCollapsed;
+    if (innerWidth <= 1200 && this.threadIsOpen && this.channelIsOpen) {
+      this.threadIsOpen = false;
+    }
   }
   
 }

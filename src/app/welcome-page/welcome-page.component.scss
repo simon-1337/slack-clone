@@ -1,21 +1,6 @@
 .welcome-div {
     padding: 25px;
     p {
-        @media(max-width: 912px) {
-            font-size: 24px;
-            line-height: 27px;
-        }
-        @media(max-width: 820px) {
-            font-size: 24px;
-            line-height: 27px;
-        }
-        @media(max-width: 768px) {
-            line-height: 27px;
-        }
-        @media(max-width: 540px) {
-            font-size: 16px;
-            line-height: 20px;
-        }
         @media(max-width: 414px) {
             line-height: 20px;
         }
@@ -28,21 +13,6 @@
         }
     }
     li {
-        @media(max-width: 912px) {
-            font-size: 24px;
-            line-height: 27px;
-        }
-        @media(max-width: 820px) {
-            font-size: 24px;
-            line-height: 27px;
-        }
-        @media(max-width: 768px) {
-            line-height: 27px;
-        }
-        @media(max-width: 540px) {
-            font-size: 16px;
-            line-height: 20px;
-        }
         @media(max-width: 414px) {
             line-height: 20px;
         }
@@ -59,12 +29,6 @@
 .welcome-text {
     font-size: 20px;
     margin-bottom: 5px;
-    @media(max-width: 912px) {
-        font-size: 28px;
-    }
-    @media(max-width: 820px) {
-        font-size: 28px;
-    }
     @media(max-width: 540px) {
         font-size: 20px;
         margin-bottom: 0px;
@@ -79,12 +43,6 @@
     color: aqua;
     margin-top: 5px;
     margin-bottom: 5px;
-    @media(max-width: 912px) {
-        font-size: 28px;
-    }
-    @media(max-width: 820px) {
-        font-size: 28px;
-    }
     @media(max-width: 540px) {
         font-size: 20px;
         margin-top: 0px;
@@ -97,38 +55,10 @@
 
 .welcome-text-under {
     font-size: 20px;
-    @media(max-width: 912px) {
-        font-size: 28px;
-    }
-    @media(max-width: 820px) {
-        font-size: 28px;
-    }
     @media(max-width: 540px) {
         font-size: 20px;
     }
     @media(max-width: 280px) {
         font-size: 14px;
     }
-}
-
-.closes {
-    position: absolute;
-    top: 15px;
-    right: 25px;
-    color: #5f5e5e;
-    font-size: 40px;
-    font-weight: bold;
-    transition: 0.3s;
-    font-family: none;
-    display: none;
-    @media(max-width: 500px) {
-        display: unset;
-    }
-}
-
-.closes:hover,
-.closes:focus {
-    color: #bbb;
-    text-decoration: none;
-    cursor: pointer;
 }

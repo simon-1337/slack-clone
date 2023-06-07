@@ -1,7 +1,7 @@
 <app-header #headerComponent></app-header>
 
 <mat-drawer-container autosize>
-    <mat-drawer #drawer [class.sidenav]="true" [ngStyle]="{'display': classService.hideSidenavClass ? 'unset' : ''}" [opened]="true" mode="side">
+    <mat-drawer autosize #drawer class="sidenav" [opened]="classService.hideSidenavClass ? false : true" mode="side">
         <app-sidenav></app-sidenav>
     </mat-drawer>
 

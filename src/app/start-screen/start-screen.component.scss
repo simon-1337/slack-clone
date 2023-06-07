@@ -4,19 +4,9 @@ mat-drawer-container {
         background-color: #19171D;
         border-right: 1px solid #2B2A2F;
         padding-left: 8px;
-        width: 250px;
-        @media(max-width: 600px) {
-            padding-left: 0px;
-            width: 200px;
-        }
+        // width: 250px;
         @media(max-width: 500px) {
-            display: none;
-        }
-        @media(max-width: 414px) {
-            width: 415px;
-        }
-        @media(max-width: 375px) {
-            width: 374px;
+            width: 100%;
         }
     }
 }
@@ -34,6 +24,9 @@ mat-drawer-container {
     display: flex;
     min-height: 660px;
     overflow: scroll;
+    // @media(max-width: 520px) {
+    //     display: none;
+    // }
 }
 
 .router-ctn::-webkit-scrollbar {

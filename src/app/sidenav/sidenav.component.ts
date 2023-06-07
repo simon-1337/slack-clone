@@ -4,7 +4,7 @@ import { DialogCreateChannelComponent } from '../dialog-create-channel/dialog-cr
 import { CollectionReference, DocumentData, Firestore, collection, collectionData, doc, docData } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { AuthService } from '../shared/auth.service';
-
+import { ClassService } from '../shared/class.service';
 
 @Component({
   selector: 'app-sidenav',
@@ -31,7 +31,7 @@ export class SidenavComponent implements OnInit {
   allDms: any
 
 
-  constructor(public dialog: MatDialog, private firestore: Firestore, private auth: AuthService) {
+  constructor(public dialog: MatDialog, private firestore: Firestore, private auth: AuthService, private classService: ClassService) {
     this.coll = collection(this.firestore, 'channels');
     this.userColl = collection(this.firestore, 'users');
   }
@@ -99,5 +99,9 @@ export class SidenavComponent implements OnInit {
 
   turnArrowTo2() {
     this.turnArrow2 = !this.turnArrow2;
+  }
+
+  toggle() {
+    this.classService.hideSidenavClass = !this.classService.hideSidenavClass;
   }
 }
