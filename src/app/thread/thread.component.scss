@@ -11,6 +11,7 @@ mat-card {
     .mat-mdc-card-header {
         padding: 0;
         padding-left: 16px;
+        display: flex;
     
         h3 {
             font-size: 18px;
@@ -23,6 +24,44 @@ mat-card {
             margin-left: 8px;
             font-size: 12px;
             color: grey;
+
+            @media (max-width: 1050px) {
+                margin-left: 0;
+            }
+
+            @media (max-width: 880px) {
+                margin-left: 8px;
+            }
+
+            @media (max-width: 630px) {
+                margin-left: 0;
+            }
+        }
+
+        .time {
+            @media (max-width: 1050px) {
+                margin-left: 8px;  
+            }
+
+            @media (max-width: 880px) {
+                margin-left: 0;  
+            }
+
+            @media (max-width: 630px) {
+                margin-left: 8px;  
+            }
+        }
+
+        @media (max-width: 1050px) {
+            flex-direction: column;
+        }
+
+        @media (max-width: 880px) {
+            flex-direction: row;
+        }
+
+        @media (max-width: 630px) {
+            flex-direction: column;
         }
     }
 
@@ -34,4 +73,5 @@ mat-card {
 .thread-ctn {
     max-height: calc(100vh - 105.6px);
     overflow-y: auto;
+    min-height: calc(100vh - 105.6px);
 }
