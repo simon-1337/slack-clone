@@ -30,7 +30,11 @@ export class HeaderComponent implements OnInit{
   threadIsOpen: boolean = false;
   channelIsOpen: boolean = true;
 
-  constructor(public auth: AuthService, private firestore: AngularFirestore, public dialog: MatDialog, private searchTerm: SearchTermService, private classService: ClassService) {}
+  constructor(public auth: AuthService, 
+    private firestore: AngularFirestore, 
+    public dialog: MatDialog, 
+    private searchTerm: SearchTermService, 
+    public classService: ClassService) {}
 
   ngOnInit(): void {
     this.userId = this.auth.userUID;
@@ -58,12 +62,12 @@ export class HeaderComponent implements OnInit{
   }
   
 
-  toggle() {
-    this.classService.hideSidenavClass = !this.classService.hideSidenavClass;
-    this.menuCollapsed = !this.menuCollapsed;
-    if (innerWidth <= 1200 && this.threadIsOpen && this.channelIsOpen) {
-      this.threadIsOpen = false;
-    }
-  }
+  // toggle() {
+  //   this.classService.hideSidenavClass = !this.classService.hideSidenavClass;
+  //   this.menuCollapsed = !this.menuCollapsed;
+  //   if (innerWidth <= 1200 && this.threadIsOpen && this.channelIsOpen) {
+  //     this.threadIsOpen = false;
+  //   }
+  // }
   
 }

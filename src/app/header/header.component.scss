@@ -15,16 +15,10 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-left: -5px;
+    margin-left: 12px;
     @media(max-width: 360px) {
-        margin-left: -14px;
+        margin-left: 2px;
     }
-}
-
-.header-logo {
-    width: 45px !important;
-    height: 25px !important;
-    margin-left: 20px;
 }
 
 .arrow-div {
@@ -179,7 +173,7 @@ svg {
     stroke-linecap: round;
     stroke-linejoin: round;
     transform-origin: 50%;
-    transition: stroke-dasharray 500ms 200ms, stroke-dashoffset 500ms 200ms, transform 500ms 200ms;
+    transition: transform 500ms;
 }
 
 .x .line {
@@ -200,7 +194,16 @@ svg {
 }
 
 .active .line {
-    transition: stroke-dasharray 500ms, stroke-dashoffset 500ms, transform 500ms;
+    animation: rotateLines 2s linear infinite;
+}
+
+@keyframes rotateLines {
+    0% {
+        transform: rotate(0);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
 }
 
 .active.plate1 .line1 {

@@ -4,8 +4,7 @@ mat-drawer-container {
         background-color: #19171D;
         border-right: 1px solid #2B2A2F;
         padding-left: 8px;
-        // width: 250px;
-        @media(max-width: 500px) {
+        @media(max-width: 600px) {
             width: 100%;
         }
     }
@@ -24,9 +23,6 @@ mat-drawer-container {
     display: flex;
     min-height: 660px;
     overflow: scroll;
-    // @media(max-width: 520px) {
-    //     display: none;
-    // }
 }
 
 .router-ctn::-webkit-scrollbar {
@@ -38,4 +34,7 @@ mat-drawer-container {
 app-thread {
     width: 630px;
     border-left: 1px solid #2B2A2F;
+    @media(max-width: 600px) {
+        width: 100% !important;
+    }
 }

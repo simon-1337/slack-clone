@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, Renderer2 } from '@angular/core';
 import { CollectionReference, DocumentData, Firestore, addDoc, collection, collectionData, doc, docData, getDocs, orderBy, query } from '@angular/fire/firestore';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
@@ -10,6 +10,7 @@ import { User } from 'src/models/user.class';
 import { OpenThreadService } from '../shared/open-thread.service';
 import { MessageService } from '../shared/message.service';
 import { SearchTermService } from '../shared/search-term.service';
+import { ClassService } from '../shared/class.service';
 
 @Component({
    selector: 'app-channel',
@@ -42,8 +43,16 @@ export class ChannelComponent implements OnInit {
    user: User;
 
    idCurrentUser: string;
+
   
-   constructor(private searchTerm: SearchTermService, private route: ActivatedRoute, private firestore: Firestore, private auth: AuthService, private openThreadService: OpenThreadService, private messageService: MessageService) {
+   constructor(private searchTerm: SearchTermService, 
+      private route: ActivatedRoute, 
+      private firestore: Firestore, 
+      private auth: AuthService, 
+      private openThreadService: OpenThreadService, 
+      private messageService: MessageService,
+      public classService: ClassService,
+      private renderer: Renderer2) {
       this.coll = collection(this.firestore, 'channels');
    }
 
@@ -63,6 +72,7 @@ export class ChannelComponent implements OnInit {
 
       this.searchTerm.searchTermChange.subscribe((searchTerm: string) => {
          this.onSearchTermChange(searchTerm);
+        
       });
    
    }
@@ -127,6 +137,12 @@ export class ChannelComponent implements OnInit {
 
    openThread(channelId: any, messageId: any) {
       this.openThreadService.setThreadOpened(true, channelId, messageId);
+      if (innerWidth < 600) {
+         this.classService.channelIsOpen = true;
+         const styleElement = document.getElementById('close');
+        
+         styleElement.innerHTML = '.close-channel { width: 0%; }';
+       }
    }
 
    updateAnswersCount() {
