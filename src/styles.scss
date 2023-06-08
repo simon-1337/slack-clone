@@ -250,6 +250,24 @@ app-direct-messages {
     width: 100% !important;
 }
 
+app-thread {
+    width: 800px;
+    border-left: 1px solid #2B2A2F;
+
+    @media (max-width: 880px) {
+        position: absolute;
+        width: 100%;
+        z-index: 1;
+        background-color: #1A1D21;
+        overflow: hidden !important;
+    }
+}
+
+
+.mat-drawer-content {
+    overflow: hidden !important;
+}
+
 
 /* Style of login */
 

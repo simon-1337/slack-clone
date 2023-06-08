@@ -12,8 +12,10 @@
                 <div class="mat-card-right">
                     <mat-card-header>
                         <h3>{{ answer.user }}</h3>
-                        <span>{{ answer.timestamp| date : "EEE, dd. MMMM yy" }}</span>
-                        <span class="time">{{ answer.timestamp| date : "HH:mm" }}</span>
+                        <div>
+                            <span>{{ answer.timestamp| date : "EEE, dd. MMMM yy" }}</span>
+                            <span class="time">{{ answer.timestamp| date : "HH:mm" }}</span>
+                        </div>
                     </mat-card-header>
                     <mat-card-content [innerHTML]="answer.message"></mat-card-content>
                 </div>
