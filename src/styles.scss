@@ -277,3 +277,40 @@ app-thread {
     padding: 9px;
     margin-bottom: 8px !important;
 }
+
+
+
+/* SCROLLBAR */
+
+/* Track */
+::-webkit-scrollbar-track {
+    background-color: transparent; /* Set the track background color as transparent */
+  }
+  
+  /* Thumb */
+  ::-webkit-scrollbar-thumb {
+    background-color: #5555559c;
+    border-radius: 5px;
+  }
+  
+  /* Size of the scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  
+  /* Hide the scrollbar until interaction */
+  ::-webkit-scrollbar {
+    display: initial;
+  }
+  
+  /* Reveal the scrollbar on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: #555555e3; /* Change the thumb color on hover */
+  }
+  
+  /* Show the thumb when scrolling starts */
+  ::-webkit-scrollbar-thumb:vertical {
+    height: 30px; /* Adjust the height of the thumb as per your preference */
+  }
+  
