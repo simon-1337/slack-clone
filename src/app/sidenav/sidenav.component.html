@@ -54,7 +54,7 @@
             </li>
         </ul>
 
-        <div [routerLink]="['/app', { outlets: { chats: 'createDm' } }]" class="add-channel">
+        <div (click)="toggle()" [routerLink]="['/app', { outlets: { chats: 'createDm' } }]" class="add-channel">
             <mat-icon>add</mat-icon>
             <span>Start new chat</span>
         </div>
