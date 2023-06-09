@@ -3,7 +3,7 @@
     <div class="logo-icon-div">
         <!-- <mat-icon class="menuIcon" (click)="toggle()">menu</mat-icon> -->
 
-        <div id="menuBtn" class="plate plate1" [ngClass]="classService.menuCollapsed ? '' : 'active'" (click)="classService.toggle()">
+        <div id="menuBtn" class="plate plate1" [ngClass]="classService.menuCollapsed ? '' : 'active'" (click)="classService.closeMenu()">
             <svg class="burger" version="1.1" height="100" width="100" viewBox="0 0 100 100">
                 <path class="line line1" d="M 30,65 H 70" />
                 <path

@@ -26,7 +26,6 @@ export class HeaderComponent implements OnInit{
   user: User;
   userId: string = '';
   showUserName: boolean = false;
-  menuCollapsed: boolean = false;
   threadIsOpen: boolean = false;
   channelIsOpen: boolean = true;
 
