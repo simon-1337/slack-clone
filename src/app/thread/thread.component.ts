@@ -9,7 +9,6 @@ import { OpenThreadService } from '../shared/open-thread.service';
 import { EditorComponent } from '../editor/editor.component';
 import { MessageService } from '../shared/message.service';
 import { SearchTermService } from '../shared/search-term.service';
-import { ClassService } from "../shared/class.service";
 
 @Component({
    selector: 'app-thread',
@@ -48,12 +47,7 @@ export class ThreadComponent implements OnInit, OnChanges {
    firstMessage: string; 
 
 
-   constructor(private searchTerm: SearchTermService,
-      private firestore: Firestore, 
-      private auth: AuthService, 
-      private openThreadService: OpenThreadService, 
-      private messageService: MessageService,
-      private classService: ClassService) {
+   constructor(private searchTerm: SearchTermService,private firestore: Firestore, private auth: AuthService, private openThreadService: OpenThreadService, private messageService: MessageService) {
       this.coll = collection(this.firestore, 'channels');
    }
 
@@ -100,8 +94,6 @@ export class ThreadComponent implements OnInit, OnChanges {
 
    closeThread(channelId, messageId) {
       this.openThreadService.setThreadOpened(false, channelId, messageId);
-      this.classService.channelIsOpen = false;
-
    }
 
 

@@ -1,4 +1,4 @@
-import { Component, OnInit, Renderer2} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogCreateChannelComponent } from '../dialog-create-channel/dialog-create-channel.component';
 import { CollectionReference, DocumentData, Firestore, collection, collectionData, doc, docData } from '@angular/fire/firestore';
@@ -31,7 +31,7 @@ export class SidenavComponent implements OnInit {
   allDms: any
 
 
-  constructor(public dialog: MatDialog, private firestore: Firestore, private auth: AuthService, public classService: ClassService, private renderer: Renderer2,) {
+  constructor(public dialog: MatDialog, private firestore: Firestore, private auth: AuthService, public classService: ClassService) {
     this.coll = collection(this.firestore, 'channels');
     this.userColl = collection(this.firestore, 'users');
   }
@@ -101,9 +101,9 @@ export class SidenavComponent implements OnInit {
     this.turnArrow2 = !this.turnArrow2;
   }
 
-  // toggle() {
-  //   this.classService.hideSidenavClass = !this.classService.hideSidenavClass;
-  // }
-
-  
+  toggle() {
+    if (window.innerWidth <= 500) {
+      this.classService.closeMenu();
+    }
+  }
 }

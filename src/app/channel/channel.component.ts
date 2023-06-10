@@ -10,7 +10,6 @@ import { User } from 'src/models/user.class';
 import { OpenThreadService } from '../shared/open-thread.service';
 import { MessageService } from '../shared/message.service';
 import { SearchTermService } from '../shared/search-term.service';
-import { ClassService } from '../shared/class.service';
 
 @Component({
    selector: 'app-channel',
@@ -43,15 +42,8 @@ export class ChannelComponent implements OnInit {
    user: User;
 
    idCurrentUser: string;
-
   
-   constructor(private searchTerm: SearchTermService, 
-      private route: ActivatedRoute, 
-      private firestore: Firestore, 
-      private auth: AuthService, 
-      private openThreadService: OpenThreadService, 
-      private messageService: MessageService,
-      public classService: ClassService) {
+   constructor(private searchTerm: SearchTermService, private route: ActivatedRoute, private firestore: Firestore, private auth: AuthService, private openThreadService: OpenThreadService, private messageService: MessageService) {
       this.coll = collection(this.firestore, 'channels');
    }
 
@@ -71,7 +63,6 @@ export class ChannelComponent implements OnInit {
 
       this.searchTerm.searchTermChange.subscribe((searchTerm: string) => {
          this.onSearchTermChange(searchTerm);
-        
       });
    
    }
@@ -136,9 +127,6 @@ export class ChannelComponent implements OnInit {
 
    openThread(channelId: any, messageId: any) {
       this.openThreadService.setThreadOpened(true, channelId, messageId);
-      if (innerWidth < 600) {
-         this.classService.channelIsOpen = true;
-       }
    }
 
    updateAnswersCount() {

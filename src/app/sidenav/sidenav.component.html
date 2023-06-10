@@ -1,6 +1,6 @@
-<div class="headline-ctn">
-    Slack Clone
+<div class="headline-ctn sidenav-header">
     <img class="header-logo" src="../assets/img/sidenav-logo.png">
+    Slack Clone
 </div>
 
 <!-- <div class="upper-sidenav">
@@ -22,7 +22,7 @@
 
     <div *ngIf="!turnArrow">
         <ul class="menu-items">
-            <li *ngFor="let channel of allChannels" (click)="classService.closeMenu()" [routerLink]="['/app', { outlets: { chats: ['channel', channel.id]} }]" routerLinkActive="active">
+            <li *ngFor="let channel of allChannels" (click)="toggle()" [routerLink]="['/app', { outlets: { chats: ['channel', channel.id]} }]" routerLinkActive="active">
                 <div class="menu-items-icon-ctn">
                     <mat-icon>tag</mat-icon>
                 </div>
@@ -48,13 +48,13 @@
 
     <div *ngIf="!turnArrow2">
         <ul class="menu-items">
-            <li *ngFor="let dm of allDms" (click)="classService.closeMenu()" [routerLink]="['/app', { outlets: { chats: ['dms', dm.id]} }]" routerLinkActive="active">
+            <li *ngFor="let dm of allDms" (click)="toggle()" [routerLink]="['/app', { outlets: { chats: ['dms', dm.id]} }]" routerLinkActive="active">
                 <img class="sidenav-profile-img" src="{{ dm.participantImage || '../assets/img/avatar.png'}}">
                 <span>   {{ dm.participantName }} </span>
             </li>
         </ul>
 
-        <div [routerLink]="['/app', { outlets: { chats: 'createDm' } }]" class="add-channel">
+        <div (click)="toggle()" [routerLink]="['/app', { outlets: { chats: 'createDm' } }]" class="add-channel">
             <mat-icon>add</mat-icon>
             <span>Start new chat</span>
         </div>

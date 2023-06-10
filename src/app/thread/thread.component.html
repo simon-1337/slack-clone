@@ -5,7 +5,20 @@
     <mat-icon (click)="closeThread(channelId, messageId)" class="close-thread-icon">close</mat-icon>
 </div>
 <div class="thread-ctn">
+    <!-- <mat-card>
+        <img mat-card-avatar class="avatar" src="{{ message?.imagePath || '../assets/img/avatar.png'}}">
+        <div class="mat-card-right">
+            <mat-card-header>
+                <h3>{{ message.user }}</h3>
+                <span>{{ message.timestamp| date : "EEE, dd. MMMM yy" }}</span>
+                <span>{{ message.timestamp| date : "HH:mm" }}</span>
+            </mat-card-header>
+            <mat-card-content [innerHTML]="message.message"></mat-card-content>
+        </div>
+    </mat-card> -->
+
     <div class="answer-ctn">
+        <!-- <div>  {{ allAnswers.lenght }} </div>  -->
         <div class="mat-card-ctn" *ngFor="let answer of filterallAnswers; index as i">
             <mat-card *ngIf="answer.message.length > 0">
                 <img mat-card-avatar class="avatar" src="{{ answer?.imagePath || '../assets/img/avatar.png' }}">
