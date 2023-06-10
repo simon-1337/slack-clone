@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, Renderer2 } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { CollectionReference, DocumentData, Firestore, addDoc, collection, collectionData, doc, docData, getDocs, orderBy, query } from '@angular/fire/firestore';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
@@ -51,8 +51,7 @@ export class ChannelComponent implements OnInit {
       private auth: AuthService, 
       private openThreadService: OpenThreadService, 
       private messageService: MessageService,
-      public classService: ClassService,
-      private renderer: Renderer2) {
+      public classService: ClassService) {
       this.coll = collection(this.firestore, 'channels');
    }
 
@@ -139,9 +138,6 @@ export class ChannelComponent implements OnInit {
       this.openThreadService.setThreadOpened(true, channelId, messageId);
       if (innerWidth < 600) {
          this.classService.channelIsOpen = true;
-         const styleElement = document.getElementById('close');
-        
-         styleElement.innerHTML = '.close-channel { width: 0%; }';
        }
    }
 

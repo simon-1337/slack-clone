@@ -1,4 +1,4 @@
-<div id="close" *ngIf="!classService.channelIsOpen">
+<div *ngIf="!classService.channelIsOpen">
     <div class="headline-ctn">
         <mat-icon>tag</mat-icon>
         {{ channel.channelName }}
@@ -16,7 +16,7 @@
                                 <div>
                                     <span>{{ message.timestamp | date : "EEE, dd. MMMM yy" }}</span>
                                     <span class="time">{{ message.timestamp | date : "HH:mm" }}</span>
-                                </div>    
+                                </div>
                             </mat-card-header>
                             <mat-card-content [innerHTML]="message.message"></mat-card-content>
                             <mat-card-actions>
