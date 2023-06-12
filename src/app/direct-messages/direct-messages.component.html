@@ -7,7 +7,7 @@
     <div class="dms">
         <div class="dms-content relative">
             <div class="dms-content-messages">
-                <div class="mat-card-ctn" *ngFor="let message of messages; index as i">
+                <div class="mat-card-ctn" *ngFor="let message of allMessages; index as i">
                     <mat-card *ngIf="message.message.length > 0">
                         <img mat-card-avatar class="avatar" src="{{ message?.imagePath || '../assets/img/avatar.png'}}">
                         <div class="mat-card-right">
@@ -20,7 +20,7 @@
                         </div>
                     </mat-card>
                 </div>
-                <div *ngIf="messages.length === 0">
+                <div *ngIf="allMessages.length === 0">
                     Nothing here!
                 </div>
             </div>

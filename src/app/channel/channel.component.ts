@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { CollectionReference, DocumentData, Firestore, addDoc, collection, collectionData, doc, docData, getDocs, orderBy, query } from '@angular/fire/firestore';
+import { CollectionReference, DocumentData, Firestore, addDoc, collection, collectionData, doc, docData, getDoc, getDocs, orderBy, query } from '@angular/fire/firestore';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Channel } from 'src/models/channel.class';
@@ -87,6 +87,13 @@ export class ChannelComponent implements OnInit {
             const answersSnapshot = await getDocs(answersQuery);
             const answersCount = answersSnapshot.size;
             message.answersCount = answersCount;
+            const userDoc = doc(this.userColl, message.user);
+            const userSnapshot = await getDoc(userDoc);
+            if (userSnapshot.exists()) {
+               const userData = userSnapshot.data() as User;
+               message.imagePath = userData.profileImageUrl;
+               message.user = userData.name;
+            }
          }
       });
    }
@@ -117,6 +124,7 @@ export class ChannelComponent implements OnInit {
       message.message = content;
       message.user = this.user.name;
       message.imagePath = this.user.profileImageUrl;
+      message.userId = this.auth.userUID;
       addDoc(this.messagesRef, message.toJSON()).then((docRef) => {
          // Create an empty subcollection for messages
          const answersColl = collection(this.firestore, `channels/${this.channelId}/messages/${docRef.id}/answers`);

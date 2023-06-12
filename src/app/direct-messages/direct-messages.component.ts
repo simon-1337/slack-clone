@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { CollectionReference, DocumentData, Firestore, addDoc, collection, collectionData, doc, docData, orderBy, query } from '@angular/fire/firestore';
+import { CollectionReference, DocumentData, Firestore, addDoc, collection, collectionData, doc, docData, getDoc, orderBy, query } from '@angular/fire/firestore';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Message } from 'src/models/message.class';
@@ -26,7 +26,7 @@ export class DirectMessagesComponent implements OnInit {
   messages: Message[] = [];
   messagesRef: any;
   messages$: Observable<any>;
-  allMessages: { id: string, message: string, user: string, timestamp: number, imagePath: string, answersCount: number }[] = [];
+  allMessages: { id: string, message: string, user: string, timestamp: number, imagePath: string, userId: string, answersCount: number }[] = [];
 
   participantsId: string;
   participantsRef: any;
@@ -61,17 +61,25 @@ export class DirectMessagesComponent implements OnInit {
     const dmColl = collection(this.usersRef, 'dms');
     const dmRef = doc(dmColl, this.dmId);
     this.messagesRef = collection(dmRef, 'messages');
-    this.messages$ = collectionData(this.messagesRef);
-    const messagesQuery = query(collection(dmRef, 'messages'), orderBy('timestamp'));
-    this.messages$ = collectionData(messagesQuery);
-    this.messages$.subscribe(messages => {
-      this.allMessages = messages.map(message => new Message(message));
-      this.messages = this.allMessages.map(message => new Message(message)); // Anfangs alle Nachrichten anzeigen
-   
+    const messagesQuery = query(this.messagesRef, orderBy('timestamp'));
+    this.messages$ = collectionData(messagesQuery, { idField: 'id' });
+  
+    this.messages$.subscribe(async (changes) => {
+      this.allMessages = changes;
+      console.log(this.allMessages);
+      for (const message of this.allMessages) {
+        const userDoc = doc(this.usersColl, message.userId);
+        const userSnapshot = await getDoc(userDoc);
+        if (userSnapshot.exists()) {
+          const userData = userSnapshot.data() as User;
+          message.imagePath = userData.profileImageUrl;
+          message.user = userData.name;
+        }
+      }
     });
   }
-  
-  
+
+
 
   async getDms() {
     this.usersRef = doc(this.usersColl, this.idCurrentUser);
@@ -126,6 +134,7 @@ export class DirectMessagesComponent implements OnInit {
     message.message = content;
     message.user = this.currentUser.name;
     message.imagePath = this.currentUser.profileImageUrl;
+    message.userId = this.auth.userUID;
     addDoc(this.messagesRef, message.toJSON())
 
     // Add the message to the receiver's document
@@ -134,6 +143,7 @@ export class DirectMessagesComponent implements OnInit {
     receiverMessage.message = content;
     receiverMessage.user = this.currentUser.name;
     receiverMessage.imagePath = this.currentUser.profileImageUrl;
+    receiverMessage.userId = this.auth.userUID;
     addDoc(receiverMessagesRef, receiverMessage.toJSON());
   }
 
@@ -148,6 +158,6 @@ export class DirectMessagesComponent implements OnInit {
       this.messages = this.allMessages.map(message => new Message(message));
     }
   }
-  
+
 }
 
