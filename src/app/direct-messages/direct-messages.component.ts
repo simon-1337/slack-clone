@@ -57,7 +57,7 @@ export class DirectMessagesComponent implements OnInit {
     });
   }
 
-  getMessages() {
+  async getMessages() {
     const dmColl = collection(this.usersRef, 'dms');
     const dmRef = doc(dmColl, this.dmId);
     this.messagesRef = collection(dmRef, 'messages');
@@ -68,18 +68,19 @@ export class DirectMessagesComponent implements OnInit {
       this.allMessages = changes;
       console.log(this.allMessages);
       for (const message of this.allMessages) {
-        const userDoc = doc(this.usersColl, message.userId);
-        const userSnapshot = await getDoc(userDoc);
-        if (userSnapshot.exists()) {
-          const userData = userSnapshot.data() as User;
-          message.imagePath = userData.profileImageUrl;
-          message.user = userData.name;
-        }
+        await this.getMessageUserData(message)
       }
     });
   }
 
-
+  async getMessageUserData(message: any) {
+    const messageUserRef = doc(this.usersColl, message.userId);
+    const messageUserData = docData(messageUserRef);
+    messageUserData.subscribe((data: User) => {
+      message.user = data.name;
+      message.profileImageUrl = data.profileImageUrl;
+    })
+  }
 
   async getDms() {
     this.usersRef = doc(this.usersColl, this.idCurrentUser);
