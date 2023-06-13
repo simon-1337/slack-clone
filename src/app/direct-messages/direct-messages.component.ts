@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { CollectionReference, DocumentData, Firestore, addDoc, collection, collectionData, doc, docData, getDoc, orderBy, query } from '@angular/fire/firestore';
+import { CollectionReference, DocumentData, Firestore, addDoc, collection, collectionData, doc, docData, getDoc, getDocs, onSnapshot, orderBy, query } from '@angular/fire/firestore';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Message } from 'src/models/message.class';
@@ -62,25 +62,31 @@ export class DirectMessagesComponent implements OnInit {
     const dmRef = doc(dmColl, this.dmId);
     this.messagesRef = collection(dmRef, 'messages');
     const messagesQuery = query(this.messagesRef, orderBy('timestamp'));
-    this.messages$ = collectionData(messagesQuery, { idField: 'id' });
-  
+    this.messages$ = collectionData(messagesQuery, { idField: 'id' }); 
     this.messages$.subscribe(async (changes) => {
       this.allMessages = changes;
-      console.log(this.allMessages);
-      for (const message of this.allMessages) {
-        await this.getMessageUserData(message)
-      }
+    });
+  
+    // Listen for changes on the usersColl collection
+    onSnapshot(this.usersColl, (snapshot) => {
+      snapshot.docChanges().forEach((change) => {
+        const user = change.doc.data() as User;
+        const userId = change.doc.id;
+        this.updateUserMessages(userId, user);
+      });
     });
   }
-
-  async getMessageUserData(message: any) {
-    const messageUserRef = doc(this.usersColl, message.userId);
-    const messageUserData = docData(messageUserRef);
-    messageUserData.subscribe((data: User) => {
-      message.user = data.name;
-      message.profileImageUrl = data.profileImageUrl;
-    })
+  
+  updateUserMessages(userId: string, user: User) {
+    for (const message of this.allMessages) {
+      if (message.userId === userId) {
+        message.user = user.name;
+        message.imagePath = user.profileImageUrl;
+      }
+    }
   }
+  
+  
 
   async getDms() {
     this.usersRef = doc(this.usersColl, this.idCurrentUser);
