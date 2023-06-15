@@ -50,8 +50,6 @@ export class DialogProfileComponent implements OnInit{
       this.mail = data.mail;
       
     });
-   
-   console.log('Die userId ist', this.userId)
   
   }
   

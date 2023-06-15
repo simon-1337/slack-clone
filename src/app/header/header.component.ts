@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../shared/auth.service';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/compat/firestore';
 import { Observable } from 'rxjs';
-import {MatDialog} from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { DialogProfileComponent } from '../dialog-profile/dialog-profile.component';
 import { SearchTermService } from '../shared/search-term.service';
 import { ClassService } from '../shared/class.service';
@@ -20,7 +20,7 @@ interface User {
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent implements OnInit{
+export class HeaderComponent implements OnInit {
   userDoc: AngularFirestoreDocument<User>;
   userData$: Observable<User>;
   user: User;
@@ -29,11 +29,11 @@ export class HeaderComponent implements OnInit{
   threadIsOpen: boolean = false;
   channelIsOpen: boolean = true;
 
-  constructor(public auth: AuthService, 
-    private firestore: AngularFirestore, 
-    public dialog: MatDialog, 
-    private searchTerm: SearchTermService, 
-    public classService: ClassService) {}
+  constructor(public auth: AuthService,
+    private firestore: AngularFirestore,
+    public dialog: MatDialog,
+    private searchTerm: SearchTermService,
+    public classService: ClassService) { }
 
   ngOnInit(): void {
     this.userId = this.auth.userUID;
@@ -41,7 +41,7 @@ export class HeaderComponent implements OnInit{
     this.userData$ = this.userDoc.valueChanges();
     this.userData$.subscribe(data => {
       this.user = data;
-     
+
     });
 
   }
@@ -59,14 +59,5 @@ export class HeaderComponent implements OnInit{
     const searchTerm = target.value.trim();
     this.searchTerm.searchTermChange.emit(searchTerm);
   }
-  
 
-  // toggle() {
-  //   this.classService.hideSidenavClass = !this.classService.hideSidenavClass;
-  //   this.menuCollapsed = !this.menuCollapsed;
-  //   if (innerWidth <= 1200 && this.threadIsOpen && this.channelIsOpen) {
-  //     this.threadIsOpen = false;
-  //   }
-  // }
-  
 }

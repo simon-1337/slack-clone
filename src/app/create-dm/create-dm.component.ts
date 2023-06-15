@@ -73,7 +73,6 @@ export class CreateDmComponent implements OnInit {
     const dmQuery = query(currentUserDms, where('participants', 'array-contains', recipientUserId));
     const querySnapshot = await getDocs(dmQuery); 
     if (!querySnapshot.empty) {
-      console.log(querySnapshot.size);
       this.existingChatId = querySnapshot.docs[0].id;
       return true;
     } else {
