@@ -5,7 +5,6 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { AngularFirestore } from '@angular/fire/compat/firestore/';
 import { Observable } from 'rxjs';
 import firebase from 'firebase/compat/app';
-import { User as FirebaseUser } from 'firebase/auth';
 import 'firebase/compat/auth';
 import 'firebase/storage';
 
