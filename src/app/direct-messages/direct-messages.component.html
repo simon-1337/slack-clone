@@ -1,15 +1,15 @@
 <div>
 
     <div class="headline-ctn">
-        <img class="profile-img" src="{{ participantsImage || '../assets/img/avatar.png'}}"> {{ participantsName }}
+        <img class="profile-img" src="{{ participantsImage || './assets/img/avatar.png'}}"> {{ participantsName }}
     </div>
 
     <div class="dms">
         <div class="dms-content relative">
             <div class="dms-content-messages">
-                <div class="mat-card-ctn" *ngFor="let message of allMessages; index as i">
+                <div class="mat-card-ctn" *ngFor="let message of filterAllMessages; index as i">
                     <mat-card *ngIf="message.message.length > 0">
-                        <img mat-card-avatar class="avatar" [src]="message.imagePath ? message.imagePath : '../assets/img/avatar.png'">
+                        <img mat-card-avatar class="avatar" [src]="message.imagePath ? message.imagePath : './assets/img/avatar.png'">
                         <div class="mat-card-right">
                             <mat-card-header>
                                 <h3>{{ message.user }}</h3>

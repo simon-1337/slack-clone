@@ -8,6 +8,7 @@ import { EditorComponent } from '../editor/editor.component';
 import { User } from 'src/models/user.class';
 import { SearchTermService } from '../shared/search-term.service';
 
+
 @Component({
   selector: 'app-direct-messages',
   templateUrl: './direct-messages.component.html',
@@ -27,6 +28,8 @@ export class DirectMessagesComponent implements OnInit {
   messagesRef: any;
   messages$: Observable<any>;
   allMessages: { id: string, message: string, user: string, timestamp: number, imagePath: string, userId: string, answersCount: number }[] = [];
+  filterAllMessages: { id: string, message: string, user: string, timestamp: number, imagePath: string, userId: string, answersCount: number }[] = [];
+
 
   participantsId: string;
   participantsRef: any;
@@ -49,12 +52,16 @@ export class DirectMessagesComponent implements OnInit {
         this.getDms();
         this.getCurrentUser();
         this.getMessages();
+     
       }
     });
 
     this.searchTerm.searchTermChange.subscribe((searchTerm: string) => {
       this.onSearchTermChange(searchTerm);
+    
     });
+    
+
   }
 
   async getMessages() {
@@ -65,6 +72,7 @@ export class DirectMessagesComponent implements OnInit {
     this.messages$ = collectionData(messagesQuery, { idField: 'id' }); 
     this.messages$.subscribe(async (changes) => {
       this.allMessages = changes;
+      this.updateFilteredMessages()
     });
   
     // Listen for changes on the usersColl collection
@@ -142,7 +150,9 @@ export class DirectMessagesComponent implements OnInit {
     message.user = this.currentUser.name;
     message.imagePath = this.currentUser.profileImageUrl;
     message.userId = this.auth.userUID;
-    addDoc(this.messagesRef, message.toJSON())
+    addDoc(this.messagesRef, message.toJSON()).then((docRef) => {
+      this.updateFilteredMessages();
+   });
 
     // Add the message to the receiver's document
     const receiverMessagesRef = collection(this.participantsRef, 'dms', this.dmId, 'messages');
@@ -152,19 +162,25 @@ export class DirectMessagesComponent implements OnInit {
     receiverMessage.imagePath = this.currentUser.profileImageUrl;
     receiverMessage.userId = this.auth.userUID;
     addDoc(receiverMessagesRef, receiverMessage.toJSON());
+
+ 
   }
 
   onSearchTermChange(searchTerm: string) {
-    if (searchTerm.trim() !== '') {
-      const filteredMessages = this.allMessages.filter(message =>
-        message.message.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        message.user.toLowerCase().includes(searchTerm.toLowerCase())
-      );
-      this.messages = filteredMessages.map(message => new Message(message));
+    if (searchTerm.trim() === '') {
+       this.filterAllMessages = this.allMessages; // Wenn die Suchleiste leer ist, zeige alle Nachrichten an
     } else {
-      this.messages = this.allMessages.map(message => new Message(message));
+       searchTerm = searchTerm.toLowerCase();
+       this.filterAllMessages = this.allMessages.filter(message => {
+          const messageText = message.message.toLowerCase();
+          const userName = message.user.toLowerCase(); // Konvertiere den eingeloggten Namen zu Kleinbuchstaben
+          return messageText.includes(searchTerm) || userName.includes(searchTerm); // Filtere die Nachrichten basierend auf dem Suchbegriff oder dem eingeloggten Namen
+       });
     }
-  }
+ }
 
+  async updateFilteredMessages() {
+    this.filterAllMessages = [...this.allMessages];
+ }
+  
 }
-
